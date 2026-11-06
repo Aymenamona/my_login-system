@@ -1,0 +1,1124 @@
+[root@Vector-P3W3 ~]# systemctl list-units --type=service --all
+  UNIT                                           LOAD      ACTIVE   SUB     DESCRIPTION
+● adbd.service                                   loaded    failed   failed  adbd Service
+  anki-audio-init.service                        loaded    active   exited  Anki ALSA init
+  anki-crash-log.service                         loaded    inactive dead    Anki Crash Log Service
+  ankibluetoothd.service                         loaded    active   running Anki Bluetooth Daemon
+  ankiinit.service                               loaded    active   exited  Anki Post Boot Service
+● auditd.service                                 not-found inactive dead    auditd.service
+  avahi-daemon.service                           loaded    active   running Avahi mDNS/DNS-SD Stack
+  boot-successful.service                        loaded    inactive dead    Marks boot as successful
+  btproperty.service                             loaded    active   exited  BT Property Service
+● chgrp-diag.service                             loaded    failed   failed  chgrp-diag Service
+  chronyd.service                                loaded    active   running NTP client/server
+● connman-wait-online.service                    loaded    failed   failed  Wait for network to be configured by ConnMan
+  connman.service                                loaded    active   running Connection service
+  dbus.service                                   loaded    active   running D-Bus System Message Bus
+  emergency.service                              loaded    inactive dead    Emergency Shell
+  enable-wifi.service                            loaded    inactive dead    Enable wifi in connman
+  fake-hwclock-cmd.service                       loaded    inactive dead    Save hwclock by socket
+  fake-hwclock-earlyboot.service                 loaded    active   exited  Fake Hardware Clock Early Boot
+  fake-hwclock-tick.service                      loaded    inactive dead    Save hwclock by timer
+  fake-hwclock.service                           loaded    active   exited  Fake Hardware Clock
+  fault-code.service                             loaded    inactive dead    Process fault codes written to /run/fault_code
+  find_partitions.service                        loaded    active   exited  Find-Partitions Service
+● firmware-links.service                         not-found inactive dead    firmware-links.service
+  getty@tty1.service                             loaded    active   running Getty on tty1
+  init_post_boot.service                         loaded    active   exited  QTI Post Boot Service
+  initrd-cleanup.service                         loaded    inactive dead    Cleaning Up and Shutting Down Daemons
+  initrd-parse-etc.service                       loaded    inactive dead    Mountpoints Configured in the Real Root
+  initrd-switch-root.service                     loaded    inactive dead    Switch Root
+  initrd-udevadm-cleanup-db.service              loaded    inactive dead    Cleanup udev Database
+  ip6tables.service                              loaded    active   exited  Packet Filtering Framework
+● iptables.service                               loaded    failed   failed  Packet Filtering Framework
+  irsc_util.service                              loaded    active   exited  irsc-util Service
+  kmod-static-nodes.service                      loaded    inactive dead    Create List of Static Device Nodes
+● ldconfig.service                               loaded    failed   failed  Rebuild Dynamic Linker Cache
+  leprop.service                                 loaded    active   running leprop Service
+  logd.service                                   loaded    active   running logd Service
+  logrotate.service                              loaded    inactive dead    Rotate log files
+  mm-anki-camera.service                         loaded    active   running Anki Camera Service
+  mm-qcamera-daemon.service                      loaded    active   running MM Camera Daemon Service
+  modprobe@configfs.service                      loaded    inactive dead    Load Kernel Module configfs
+  modprobe@drm.service                           loaded    inactive dead    Load Kernel Module drm
+  modprobe@fuse.service                          loaded    inactive dead    Load Kernel Module fuse
+  mount-data.service                             loaded    active   exited  mount-data
+  multi-user-done.service                        loaded    active   exited  multi-user.target complete marker
+● ntpd.service                                   not-found inactive dead    ntpd.service
+● ntpdate.service                                not-found inactive dead    ntpdate.service
+  partition-links.service                        loaded    inactive dead    partition symlinks for by-name
+● plymouth-quit-wait.service                     not-found inactive dead    plymouth-quit-wait.service
+● plymouth-start.service                         not-found inactive dead    plymouth-start.service
+● qti_system_daemon.service                      not-found inactive dead    qti_system_daemon.service
+● qtid.service                                   not-found inactive dead    qtid.service
+  rampost.service                                loaded    active   exited  Early boot self test
+● rebooter.service                               loaded    failed   failed  Robot Rebooter
+  rescue.service                                 loaded    inactive dead    Rescue Shell
+● run-postinsts.service                          not-found inactive dead    run-postinsts.service
+  serial-getty@ttyMSM0.service                   loaded    active   running Serial Getty on ttyMSM0
+● sntp.service                                   not-found inactive dead    sntp.service
+● sshd.service                                   not-found inactive dead    sshd.service
+  sshd@4-10.59.2.111:22-10.59.2.37:50848.service loaded    active   running OpenSSH Per-Connection Daemon (10.59.2.37:50848)
+  sshdgenkeys.service                            loaded    inactive dead    OpenSSH Key Generation
+  start-anki.service                             loaded    inactive dead    Start the actual Anki services
+  syslog-ng@default.service                      loaded    active   running System Logger Daemon "default" instance
+● syslog.service                                 not-found inactive dead    syslog.service
+  systemd-ask-password-console.service           loaded    inactive dead    Dispatch Password Requests to Console
+  systemd-ask-password-wall.service              loaded    inactive dead    Forward Password Requests to Wall
+  systemd-battery-check.service                  loaded    inactive dead    Check battery level during early boot
+● systemd-confext.service                        not-found inactive dead    systemd-confext.service
+  systemd-fsck-root.service                      loaded    inactive dead    File System Check on Root Device
+  systemd-hibernate-resume.service               loaded    inactive dead    Resume from hibernation
+  systemd-hostnamed.service                      loaded    inactive dead    Hostname Service
+  systemd-hwdb-update.service                    loaded    inactive dead    Rebuild Hardware Database
+  systemd-journal-catalog-update.service         loaded    inactive dead    Rebuild Journal Catalog
+  systemd-journal-flush.service                  loaded    active   exited  Flush Journal to Persistent Storage
+  systemd-journald.service                       loaded    active   running Journal Service
+  systemd-logind.service                         loaded    active   running User Login Management
+  systemd-machine-id-commit.service              loaded    inactive dead    Save Transient machine-id to Disk
+  systemd-modules-load.service                   loaded    inactive dead    Load Kernel Modules
+  systemd-network-generator.service              loaded    active   exited  Generate network units from Kernel command line
+  systemd-quotacheck-root.service                loaded    inactive dead    Root File System Quota Check
+  systemd-random-seed.service                    loaded    active   exited  Load/Save OS Random Seed
+  systemd-remount-fs.service                     loaded    active   exited  Remount Root and Kernel File Systems
+● systemd-resolved.service                       not-found inactive dead    systemd-resolved.service
+  systemd-rfkill.service                         loaded    inactive dead    Load/Save RF Kill Switch Status
+  systemd-soft-reboot.service                    loaded    inactive dead    Reboot System Userspace
+  systemd-sysctl.service                         loaded    active   exited  Apply Kernel Variables
+  systemd-sysusers.service                       loaded    inactive dead    Create System Users
+● systemd-timesyncd.service                      not-found inactive dead    systemd-timesyncd.service
+  systemd-tmpfiles-clean.service                 loaded    inactive dead    Cleanup of Temporary Directories
+  systemd-tmpfiles-setup-dev-early.service       loaded    active   exited  Create Static Device Nodes in /dev gracefully
+  systemd-tmpfiles-setup-dev.service             loaded    active   exited  Create Static Device Nodes in /dev
+  systemd-tmpfiles-setup.service                 loaded    active   exited  Create System Files and Directories
+  systemd-udev-load-credentials.service          loaded    active   exited  Load udev Rules from Credentials
+  systemd-udev-settle.service                    loaded    inactive dead    Wait for udev To Complete Device Initialization
+  systemd-udev-trigger.service                   loaded    active   exited  Coldplug All udev Devices
+  systemd-udevd.service                          loaded    active   running Rule-based Manager for Device Events and Files
+  systemd-update-done.service                    loaded    inactive dead    Update is Completed
+  systemd-update-utmp.service                    loaded    active   exited  Record System Boot/Shutdown in UTMP
+● systemd-user-sessions.service                  not-found inactive dead    systemd-user-sessions.service
+  systemd-userdbd.service                        loaded    active   running User Database Manager
+● systemd-vconsole-setup.service                 loaded    failed   failed  Virtual Console Setup
+  update-engine-oneshot.service                  loaded    active   exited  Use update-engine to do an OTA right after we get Internet
+  update-engine.service                          loaded    inactive dead    Victor OS Update Engine
+  usb.service                                    loaded    active   exited  usb Service
+  var-volatile-cache.service                     loaded    active   exited  Bind mount volatile /var/cache
+  var-volatile-lib.service                       loaded    active   exited  Bind mount volatile /var/lib
+  var-volatile-spool.service                     loaded    inactive dead    Bind mount volatile /var/spool
+  var-volatile-srv.service                       loaded    inactive dead    Bind mount volatile /srv
+  vhostname-publish.service                      loaded    active   running publish alt hostname
+  vic-anim.service                               loaded    active   running Victor animator daemon
+  vic-bootAnim.service                           loaded    inactive dead    Victor Boot Animator
+  vic-cloud.service                              loaded    active   running Victor cloud services daemon
+  vic-engine.service                             loaded    active   running Victor engine daemon
+  vic-gateway-cert.service                       loaded    active   exited  Generate x509 cert for vic-gateway
+  vic-init.service                               loaded    active   exited  Victor init service
+  vic-robot.service                              loaded    active   running Victor robot daemon
+  vic-switchboard.service                        loaded    active   running Victor switchboard daemon
+  wcnss_wlan.service                             loaded    active   exited  WCNSS platform
+  wired.service                                  loaded    active   running Silly wire daemon
+  wpa_supplicant.service                         loaded    active   running WPA supplicant
+
+Legend: LOAD   → Reflects whether the unit definition was properly loaded.
+        ACTIVE → The high-level unit activation state, i.e. generalization of SUB.
+        SUB    → The low-level unit activation state, values depend on unit type.
+
+119 loaded units listed.
+To show all installed unit files use 'systemctl list-unit-files'.
+[root@Vector-P3W3 ~]# systemctl list-unit-files --type=service
+UNIT FILE                                STATE           PRESET
+adbd.service                             disabled        disabled
+animfail.service                         static          -
+anki-audio-init.service                  disabled        disabled
+anki-crash-log.service                   static          -
+ankibluetoothd.service                   enabled         disabled
+ankiinit.service                         disabled        disabled
+autovt@.service                          alias           -
+avahi-daemon.service                     enabled         enabled
+boot-successful.service                  enabled         disabled
+btproperty.service                       enabled         disabled
+capsule@.service                         static          -
+chgrp-diag.service                       enabled         disabled
+chronyd.service                          enabled         enabled
+connman-wait-online.service              enabled         enabled
+connman.service                          enabled         enabled
+console-getty.service                    disabled        disabled
+container-getty@.service                 static          -
+dbus-org.freedesktop.hostname1.service   alias           -
+dbus-org.freedesktop.locale1.service     alias           -
+dbus-org.freedesktop.login1.service      alias           -
+dbus-org.freedesktop.timedate1.service   alias           -
+dbus.service                             static          -
+debug-shell.service                      disabled        disabled
+emergency.service                        static          -
+enable-wifi.service                      disabled        disabled
+fake-hwclock-cmd.service                 static          -
+fake-hwclock-earlyboot.service           enabled         disabled
+fake-hwclock-tick.service                enabled         disabled
+fake-hwclock.service                     enabled         disabled
+fault-code.service                       static          -
+find_partitions.service                  disabled        disabled
+getty@.service                           enabled         enabled
+init_post_boot.service                   static          -
+initrd-cleanup.service                   static          -
+initrd-parse-etc.service                 static          -
+initrd-switch-root.service               static          -
+initrd-udevadm-cleanup-db.service        static          -
+ip6tables.service                        enabled         enabled
+iptables.service                         enabled         enabled
+irsc_util.service                        disabled        disabled
+kmod-static-nodes.service                static          -
+ldconfig.service                         static          -
+leprop.service                           disabled        disabled
+logd.service                             static          -
+logrotate.service                        static          -
+mm-anki-camera.service                   disabled        disabled
+mm-qcamera-daemon.service                disabled        disabled
+modprobe@.service                        static          -
+mount-data.service                       disabled        disabled
+multi-user-done.service                  static          -
+pam_namespace.service                    static          -
+partition-links.service                  disabled        disabled
+quotaon-root.service                     static          -
+quotaon@.service                         static          -
+rampost.service                          enabled         enabled
+rebooter.service                         static          -
+rescue.service                           static          -
+rsyncd.service                           static          -
+serial-getty@.service                    indirect        disabled
+setup-persist.service                    disabled        disabled
+sshd-unix-local@.service                 alias           -
+sshd@.service                            indirect        disabled
+sshdgenkeys.service                      static          -
+start-anki.service                       disabled        disabled
+syslog-ng@.service                       enabled         enabled
+system-update-cleanup.service            static          -
+systemd-ask-password-console.service     static          -
+systemd-ask-password-wall.service        static          -
+systemd-backlight@.service               static          -
+systemd-battery-check.service            static          -
+systemd-boot-check-no-failures.service   disabled        disabled
+systemd-creds@.service                   static          -
+systemd-exit.service                     static          -
+systemd-fsck-root.service                static          -
+systemd-fsck@.service                    static          -
+systemd-growfs-root.service              static          -
+systemd-growfs@.service                  static          -
+systemd-halt.service                     static          -
+systemd-hibernate-resume.service         static          -
+systemd-hibernate.service                static          -
+systemd-hostnamed.service                static          -
+systemd-hwdb-update.service              static          -
+systemd-hybrid-sleep.service             static          -
+systemd-journal-catalog-update.service   static          -
+systemd-journal-flush.service            static          -
+systemd-journald-sync@.service           static          -
+systemd-journald.service                 static          -
+systemd-journald@.service                static          -
+systemd-kexec.service                    static          -
+systemd-localed.service                  static          -
+systemd-logind.service                   static          -
+systemd-machine-id-commit.service        static          -
+systemd-modules-load.service             static          -
+systemd-network-generator.service        enabled         enabled
+systemd-poweroff.service                 static          -
+systemd-quotacheck-root.service          static          -
+systemd-quotacheck@.service              static          -
+systemd-random-seed.service              static          -
+systemd-reboot.service                   static          -
+systemd-remount-fs.service               enabled-runtime disabled
+systemd-rfkill.service                   static          -
+systemd-soft-reboot.service              static          -
+systemd-storagetm.service                static          -
+systemd-suspend-then-hibernate.service   static          -
+systemd-suspend.service                  static          -
+systemd-sysctl.service                   static          -
+systemd-sysusers.service                 static          -
+systemd-timedated.service                static          -
+systemd-tmpfiles-clean.service           static          -
+systemd-tmpfiles-setup-dev-early.service static          -
+systemd-tmpfiles-setup-dev.service       static          -
+systemd-tmpfiles-setup.service           static          -
+systemd-udev-load-credentials.service    disabled        disabled
+systemd-udev-settle.service              static          -
+systemd-udev-trigger.service             static          -
+systemd-udevd.service                    static          -
+systemd-update-done.service              static          -
+systemd-update-utmp.service              static          -
+systemd-userdbd.service                  indirect        disabled
+systemd-vconsole-setup.service           static          -
+systemd-volatile-root.service            static          -
+update-engine-oneshot.service            disabled        disabled
+update-engine.service                    static          -
+usb.service                              disabled        disabled
+user-runtime-dir@.service                static          -
+user@.service                            static          -
+var-volatile-cache.service               enabled         enabled
+var-volatile-lib.service                 enabled         enabled
+var-volatile-spool.service               enabled         enabled
+var-volatile-srv.service                 enabled         enabled
+vhostname-publish.service                enabled         enabled
+vic-anim.service                         enabled         enabled
+vic-bootAnim.service                     enabled         enabled
+vic-cloud.service                        enabled         enabled
+vic-engine.service                       enabled         enabled
+vic-gateway-cert.service                 enabled         enabled
+vic-init.service                         enabled         enabled
+vic-robot.service                        enabled         enabled
+vic-switchboard.service                  enabled         enabled
+wcnss_wlan.service                       enabled         disabled
+wired.service                            enabled         enabled
+wpa_supplicant-nl80211@.service          disabled        disabled
+wpa_supplicant-wired@.service            disabled        disabled
+wpa_supplicant.service                   disabled        disabled
+wpa_supplicant@.service                  disabled        disabled
+
+145 unit files listed.
+[root@Vector-P3W3 ~]# find /anki/etc -type f
+/anki/etc/config/platform_config.json
+/anki/etc/fault-code-handler.env
+/anki/etc/ota.pas
+/anki/etc/ota.pub
+/anki/etc/revision
+/anki/etc/update-engine.env
+/anki/etc/version
+/anki/etc/vic-anim.env
+/anki/etc/vic-cloud.env
+/anki/etc/vic-crashuploader.env
+/anki/etc/vic-dasmgr.env
+/anki/etc/vic-engine.env
+/anki/etc/vic-gateway-cert.env
+/anki/etc/vic-gateway.env
+/anki/etc/vic-log-uploader.env
+/anki/etc/vic-robot.env
+/anki/etc/vic-switchboard.env
+/anki/etc/vic-testcrash.env
+/anki/etc/vic-webserver.env
+/anki/etc/victor-compat-version
+[root@Vector-P3W3 ~]# find /etc/systemd/system /lib/systemd/system -type f
+/etc/systemd/system/ankibluetoothd.service
+/etc/systemd/system/boot-successful.service
+/etc/systemd/system/btproperty.service
+/etc/systemd/system/chgrp-diag.service
+/etc/systemd/system/fake-hwclock-cmd.service
+/etc/systemd/system/fake-hwclock-cmd.socket
+/etc/systemd/system/fake-hwclock-earlyboot.service
+/etc/systemd/system/fake-hwclock-tick.service
+/etc/systemd/system/fake-hwclock-tick.timer
+/etc/systemd/system/fake-hwclock.service
+/etc/systemd/system/rebooter.service
+/etc/systemd/system/rebooter.timer
+/etc/systemd/system/vic-gateway-cert.service
+/etc/systemd/system/wcnss_wlan.service
+/lib/systemd/system/adbd.service
+/lib/systemd/system/animfail.service
+/lib/systemd/system/anki-audio-init.service
+/lib/systemd/system/anki-crash-log.service
+/lib/systemd/system/anki-crash-log.socket
+/lib/systemd/system/anki-robot.target
+/lib/systemd/system/ankiinit.service
+/lib/systemd/system/avahi-daemon.service
+/lib/systemd/system/basic.target
+/lib/systemd/system/blockdev@.target
+/lib/systemd/system/bluetooth.target
+/lib/systemd/system/boot-complete.target
+/lib/systemd/system/capsule.slice
+/lib/systemd/system/capsule@.service
+/lib/systemd/system/chronyd.service
+/lib/systemd/system/connman-wait-online.service
+/lib/systemd/system/connman.service
+/lib/systemd/system/console-getty.service
+/lib/systemd/system/container-getty@.service
+/lib/systemd/system/dbus.service
+/lib/systemd/system/dbus.socket
+/lib/systemd/system/debug-shell.service
+/lib/systemd/system/dev-hugepages.mount
+/lib/systemd/system/dev-mqueue.mount
+/lib/systemd/system/emergency.service
+/lib/systemd/system/emergency.target
+/lib/systemd/system/enable-wifi.service
+/lib/systemd/system/exit.target
+/lib/systemd/system/factory-reset.target
+/lib/systemd/system/fault-code.service
+/lib/systemd/system/fault-code.socket
+/lib/systemd/system/final.target
+/lib/systemd/system/find_partitions.service
+/lib/systemd/system/first-boot-complete.target
+/lib/systemd/system/getty-pre.target
+/lib/systemd/system/getty.target
+/lib/systemd/system/getty@.service
+/lib/systemd/system/graphical.target
+/lib/systemd/system/halt.target
+/lib/systemd/system/hibernate.target
+/lib/systemd/system/hybrid-sleep.target
+/lib/systemd/system/init_post_boot.service
+/lib/systemd/system/initrd-cleanup.service
+/lib/systemd/system/initrd-fs.target
+/lib/systemd/system/initrd-parse-etc.service
+/lib/systemd/system/initrd-root-device.target
+/lib/systemd/system/initrd-root-fs.target
+/lib/systemd/system/initrd-switch-root.service
+/lib/systemd/system/initrd-switch-root.target
+/lib/systemd/system/initrd-udevadm-cleanup-db.service
+/lib/systemd/system/initrd-usr-fs.target
+/lib/systemd/system/initrd.target
+/lib/systemd/system/ip6tables.service
+/lib/systemd/system/iptables.service
+/lib/systemd/system/irsc_util.service
+/lib/systemd/system/kexec.target
+/lib/systemd/system/kmod-static-nodes.service
+/lib/systemd/system/ldconfig.service
+/lib/systemd/system/leprop.service
+/lib/systemd/system/local-fs-pre.target
+/lib/systemd/system/local-fs.target
+/lib/systemd/system/logd.service
+/lib/systemd/system/logrotate.service
+/lib/systemd/system/logrotate.timer
+/lib/systemd/system/mm-anki-camera.service
+/lib/systemd/system/mm-qcamera-daemon.service
+/lib/systemd/system/modprobe@.service
+/lib/systemd/system/mount-data.service
+/lib/systemd/system/multi-user-done.service
+/lib/systemd/system/multi-user.target
+/lib/systemd/system/network-online.target
+/lib/systemd/system/network-pre.target
+/lib/systemd/system/network.target
+/lib/systemd/system/nss-lookup.target
+/lib/systemd/system/nss-user-lookup.target
+/lib/systemd/system/pam_namespace.service
+/lib/systemd/system/partition-links.service
+/lib/systemd/system/paths.target
+/lib/systemd/system/poweroff.target
+/lib/systemd/system/printer.target
+/lib/systemd/system/quotaon-root.service
+/lib/systemd/system/quotaon@.service
+/lib/systemd/system/rampost.service
+/lib/systemd/system/reboot.target
+/lib/systemd/system/remote-fs-pre.target
+/lib/systemd/system/remote-fs.target
+/lib/systemd/system/rescue.service
+/lib/systemd/system/rescue.target
+/lib/systemd/system/rpcbind.target
+/lib/systemd/system/rsyncd.service
+/lib/systemd/system/serial-getty@.service
+/lib/systemd/system/setup-persist.service
+/lib/systemd/system/shutdown.target
+/lib/systemd/system/sigpwr.target
+/lib/systemd/system/sleep.target
+/lib/systemd/system/slices.target
+/lib/systemd/system/smartcard.target
+/lib/systemd/system/sockets.target
+/lib/systemd/system/soft-reboot.target
+/lib/systemd/system/sound.target
+/lib/systemd/system/ssh-access.target
+/lib/systemd/system/sshd.socket
+/lib/systemd/system/sshd@.service
+/lib/systemd/system/sshdgenkeys.service
+/lib/systemd/system/start-anki.service
+/lib/systemd/system/storage-target-mode.target
+/lib/systemd/system/suspend-then-hibernate.target
+/lib/systemd/system/suspend.target
+/lib/systemd/system/swap.target
+/lib/systemd/system/sys-fs-fuse-connections.mount
+/lib/systemd/system/sys-kernel-config.mount
+/lib/systemd/system/sys-kernel-debug.mount
+/lib/systemd/system/sys-kernel-tracing.mount
+/lib/systemd/system/sysinit.target
+/lib/systemd/system/syslog-ng@.service
+/lib/systemd/system/syslog.socket
+/lib/systemd/system/system-update-cleanup.service
+/lib/systemd/system/system-update-pre.target
+/lib/systemd/system/system-update.target
+/lib/systemd/system/systemd-ask-password-console.path
+/lib/systemd/system/systemd-ask-password-console.service
+/lib/systemd/system/systemd-ask-password-wall.path
+/lib/systemd/system/systemd-ask-password-wall.service
+/lib/systemd/system/systemd-backlight@.service
+/lib/systemd/system/systemd-battery-check.service
+/lib/systemd/system/systemd-boot-check-no-failures.service
+/lib/systemd/system/systemd-creds.socket
+/lib/systemd/system/systemd-creds@.service
+/lib/systemd/system/systemd-exit.service
+/lib/systemd/system/systemd-fsck-root.service
+/lib/systemd/system/systemd-fsck@.service
+/lib/systemd/system/systemd-growfs-root.service
+/lib/systemd/system/systemd-growfs@.service
+/lib/systemd/system/systemd-halt.service
+/lib/systemd/system/systemd-hibernate-resume.service
+/lib/systemd/system/systemd-hibernate.service
+/lib/systemd/system/systemd-hostnamed.service
+/lib/systemd/system/systemd-hostnamed.socket
+/lib/systemd/system/systemd-hwdb-update.service
+/lib/systemd/system/systemd-hybrid-sleep.service
+/lib/systemd/system/systemd-journal-catalog-update.service
+/lib/systemd/system/systemd-journal-flush.service
+/lib/systemd/system/systemd-journald-audit.socket
+/lib/systemd/system/systemd-journald-dev-log.socket
+/lib/systemd/system/systemd-journald-sync@.service
+/lib/systemd/system/systemd-journald-varlink@.socket
+/lib/systemd/system/systemd-journald.service
+/lib/systemd/system/systemd-journald.socket
+/lib/systemd/system/systemd-journald@.service
+/lib/systemd/system/systemd-journald@.socket
+/lib/systemd/system/systemd-kexec.service
+/lib/systemd/system/systemd-localed.service
+/lib/systemd/system/systemd-logind.service
+/lib/systemd/system/systemd-machine-id-commit.service
+/lib/systemd/system/systemd-modules-load.service
+/lib/systemd/system/systemd-network-generator.service
+/lib/systemd/system/systemd-poweroff.service
+/lib/systemd/system/systemd-quotacheck-root.service
+/lib/systemd/system/systemd-quotacheck@.service
+/lib/systemd/system/systemd-random-seed.service
+/lib/systemd/system/systemd-reboot.service
+/lib/systemd/system/systemd-remount-fs.service
+/lib/systemd/system/systemd-rfkill.service
+/lib/systemd/system/systemd-rfkill.socket
+/lib/systemd/system/systemd-soft-reboot.service
+/lib/systemd/system/systemd-storagetm.service
+/lib/systemd/system/systemd-suspend-then-hibernate.service
+/lib/systemd/system/systemd-suspend.service
+/lib/systemd/system/systemd-sysctl.service
+/lib/systemd/system/systemd-sysusers.service
+/lib/systemd/system/systemd-timedated.service
+/lib/systemd/system/systemd-tmpfiles-clean.service
+/lib/systemd/system/systemd-tmpfiles-clean.timer
+/lib/systemd/system/systemd-tmpfiles-setup-dev-early.service
+/lib/systemd/system/systemd-tmpfiles-setup-dev.service
+/lib/systemd/system/systemd-tmpfiles-setup.service
+/lib/systemd/system/systemd-udev-load-credentials.service
+/lib/systemd/system/systemd-udev-settle.service
+/lib/systemd/system/systemd-udev-trigger.service
+/lib/systemd/system/systemd-udevd-control.socket
+/lib/systemd/system/systemd-udevd-kernel.socket
+/lib/systemd/system/systemd-udevd.service
+/lib/systemd/system/systemd-update-done.service
+/lib/systemd/system/systemd-update-utmp.service
+/lib/systemd/system/systemd-userdbd.service
+/lib/systemd/system/systemd-userdbd.socket
+/lib/systemd/system/systemd-vconsole-setup.service
+/lib/systemd/system/systemd-volatile-root.service
+/lib/systemd/system/time-set.target
+/lib/systemd/system/time-sync.target
+/lib/systemd/system/timers.target
+/lib/systemd/system/tmp.mount
+/lib/systemd/system/tpm2.target
+/lib/systemd/system/umount.target
+/lib/systemd/system/update-engine-oneshot.service
+/lib/systemd/system/update-engine.service
+/lib/systemd/system/update-engine.timer
+/lib/systemd/system/usb-gadget.target
+/lib/systemd/system/usb.service
+/lib/systemd/system/user-.slice.d/10-defaults.conf
+/lib/systemd/system/user-runtime-dir@.service
+/lib/systemd/system/user.slice
+/lib/systemd/system/user@.service
+/lib/systemd/system/user@.service.d/10-login-barrier.conf
+/lib/systemd/system/user@0.service.d/10-login-barrier.conf
+/lib/systemd/system/var-volatile-cache.service
+/lib/systemd/system/var-volatile-lib.service
+/lib/systemd/system/var-volatile-spool.service
+/lib/systemd/system/var-volatile-srv.service
+/lib/systemd/system/vhostname-publish.service
+/lib/systemd/system/vic-anim.service
+/lib/systemd/system/vic-bootAnim.service
+/lib/systemd/system/vic-cloud.service
+/lib/systemd/system/vic-engine.service
+/lib/systemd/system/vic-init.service
+/lib/systemd/system/vic-robot.service
+/lib/systemd/system/vic-switchboard.service
+/lib/systemd/system/wired.service
+/lib/systemd/system/wpa_supplicant-nl80211@.service
+/lib/systemd/system/wpa_supplicant-wired@.service
+/lib/systemd/system/wpa_supplicant.service
+/lib/systemd/system/wpa_supplicant@.service
+[root@Vector-P3W3 ~]# grep -RniE 'ExecStart|EnvironmentFile|listen|port|socket|grpc|endpoint' /anki/etc /etc/systemd/system /lib/systemd/system 2>/dev/null
+/etc/systemd/system/anki-robot.target.wants/vic-anim.service:11:EnvironmentFile=/anki/etc/vic-anim.env
+/etc/systemd/system/anki-robot.target.wants/vic-anim.service:13:ExecStartPre=-/bin/systemctl stop vic-bootAnim.service
+/etc/systemd/system/anki-robot.target.wants/vic-anim.service:14:ExecStart=/usr/bin/logwrapper /anki/bin/vic-anim $VIC_ANIM_OPTS
+/etc/systemd/system/anki-robot.target.wants/vic-cloud.service:14:EnvironmentFile=/anki/etc/vic-cloud.env
+/etc/systemd/system/anki-robot.target.wants/vic-cloud.service:15:ExecStartPre=/bin/mkdir -p /run/vic-cloud
+/etc/systemd/system/anki-robot.target.wants/vic-cloud.service:16:ExecStartPre=/bin/chown -R anki:anki /run/vic-cloud
+/etc/systemd/system/anki-robot.target.wants/vic-cloud.service:17:ExecStart=/usr/bin/logwrapper /anki/bin/vic-cloud $VIC_CLOUD_OPTS
+/etc/systemd/system/anki-robot.target.wants/vic-engine.service:11:EnvironmentFile=/anki/etc/vic-engine.env
+/etc/systemd/system/anki-robot.target.wants/vic-engine.service:12:ExecStartPre=/bin/chown engine:root /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+/etc/systemd/system/anki-robot.target.wants/vic-engine.service:13:ExecStartPre=/bin/chown engine:root /sys/devices/system/cpu/cpu0/cpufreq/scaling_setspeed
+/etc/systemd/system/anki-robot.target.wants/vic-engine.service:14:ExecStartPre=/bin/chown engine:root /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_cur_freq
+/etc/systemd/system/anki-robot.target.wants/vic-engine.service:15:ExecStartPre=/bin/chgrp anki /dev/block/bootdevice/by-name/emr
+/etc/systemd/system/anki-robot.target.wants/vic-engine.service:16:ExecStartPre=/bin/chown engine /dev/i2c-6
+/etc/systemd/system/anki-robot.target.wants/vic-engine.service:17:ExecStartPre=/bin/chown engine /dev/kgsl-3d0
+/etc/systemd/system/anki-robot.target.wants/vic-engine.service:18:ExecStartPre=/sbin/export-gpio 94
+/etc/systemd/system/anki-robot.target.wants/vic-engine.service:19:ExecStartPre=/sbin/export-gpio 0
+/etc/systemd/system/anki-robot.target.wants/vic-engine.service:21:ExecStartPre=/bin/sleep 0.1
+/etc/systemd/system/anki-robot.target.wants/vic-engine.service:22:ExecStart=/usr/bin/logwrapper /anki/bin/vic-engine $VIC_ENGINE_OPTS
+/etc/systemd/system/anki-robot.target.wants/vic-gateway-cert.service:17:EnvironmentFile=/anki/etc/vic-gateway-cert.env
+/etc/systemd/system/anki-robot.target.wants/vic-gateway-cert.service:18:ExecStart=/bin/sh -c "/sbin/vic-gateway-cert || SERVICE_RESULT=exit-code EXIT_CODE=exited EXIT_STATUS=1 /anki/bin/vic-on-exit"
+/etc/systemd/system/anki-robot.target.wants/vic-init.service:18:ExecStart=/bin/sh /anki/bin/vic-init.sh
+/etc/systemd/system/anki-robot.target.wants/vic-robot.service:11:EnvironmentFile=/anki/etc/vic-robot.env
+/etc/systemd/system/anki-robot.target.wants/vic-robot.service:12:ExecStartPre=/bin/chown robot /dev/ttyHS0 /dev/spidev0.0
+/etc/systemd/system/anki-robot.target.wants/vic-robot.service:13:ExecStartPre=/bin/chgrp anki /dev/block/bootdevice/by-name/emr
+/etc/systemd/system/anki-robot.target.wants/vic-robot.service:14:ExecStart=/anki/bin/vic-robot $VIC_ROBOT_OPTS
+/etc/systemd/system/anki-robot.target.wants/vic-switchboard.service:11:EnvironmentFile=/anki/etc/vic-switchboard.env
+/etc/systemd/system/anki-robot.target.wants/vic-switchboard.service:12:ExecStartPre=/bin/chown net:anki /dev/block/bootdevice/by-name/switchboard
+/etc/systemd/system/anki-robot.target.wants/vic-switchboard.service:13:ExecStartPre=/bin/mkdir -p /run/vic-switchboard
+/etc/systemd/system/anki-robot.target.wants/vic-switchboard.service:14:ExecStartPre=/bin/chown -R net:anki /run/vic-switchboard
+/etc/systemd/system/anki-robot.target.wants/vic-switchboard.service:15:ExecStart=/usr/bin/logwrapper /anki/bin/vic-switchboard $VIC_SWITCHBOARD_OPTS
+/etc/systemd/system/ankibluetoothd.service:10:ExecStart=/usr/bin/ankibluetoothd
+/etc/systemd/system/boot-successful.service:12:ExecStart=/etc/initscripts/boot-successful
+/etc/systemd/system/btproperty.service:10:ExecStart=/etc/initscripts/start_btproperty start
+/etc/systemd/system/chgrp-diag.service:13:ExecStart=/etc/initscripts/chgrp-diag start
+/etc/systemd/system/fake-hwclock-cmd.service:5:Description=Save hwclock by socket
+/etc/systemd/system/fake-hwclock-cmd.service:6:Requires=mount-data.service fake-hwclock-cmd.socket
+/etc/systemd/system/fake-hwclock-cmd.service:15:ExecStart=/sbin/fake-hwclock stdin > /dev/null
+/etc/systemd/system/fake-hwclock-cmd.service:16:StandardInput=socket
+/etc/systemd/system/fake-hwclock-cmd.socket:2:Description=Fake Hardware Clock socket
+/etc/systemd/system/fake-hwclock-cmd.socket:4:[Socket]
+/etc/systemd/system/fake-hwclock-cmd.socket:5:ListenFIFO=/run/fake-hwclock-cmd
+/etc/systemd/system/fake-hwclock-cmd.socket:8:WantedBy=sockets.target
+/etc/systemd/system/fake-hwclock-earlyboot.service:16:ExecStart=/sbin/fake-hwclock load
+/etc/systemd/system/fake-hwclock-tick.service:12:ExecStart=/sbin/fake-hwclock tick > /dev/null
+/etc/systemd/system/fake-hwclock.service:19:ExecStart=/sbin/fake-hwclock load
+/etc/systemd/system/ffbm.target.wants/wcnss_wlan.service:37:ExecStart=/etc/initscripts/set_wcnss_mode
+/etc/systemd/system/getty.target.wants/getty@tty1.service:36:ExecStart=-/sbin/agetty -o '-- \\u' --noreset --noclear - ${TERM}
+/etc/systemd/system/getty.target.wants/getty@tty1.service:49:ImportCredential=tty.virtual.%I.agetty.*:agetty.
+/etc/systemd/system/getty.target.wants/getty@tty1.service:50:ImportCredential=tty.virtual.%I.login.*:login.
+/etc/systemd/system/getty.target.wants/getty@tty1.service:51:ImportCredential=agetty.*
+/etc/systemd/system/getty.target.wants/getty@tty1.service:52:ImportCredential=login.*
+/etc/systemd/system/getty.target.wants/getty@tty1.service:53:ImportCredential=shell.*
+/etc/systemd/system/local-fs.target.wants/var-volatile-cache.service:15:ExecStart=/sbin/mount-copybind /var/volatile/cache /var/cache
+/etc/systemd/system/local-fs.target.wants/var-volatile-lib.service:15:ExecStart=/sbin/mount-copybind /var/volatile/lib /var/lib
+/etc/systemd/system/local-fs.target.wants/var-volatile-spool.service:15:ExecStart=/sbin/mount-copybind /var/volatile/spool /var/spool
+/etc/systemd/system/local-fs.target.wants/var-volatile-srv.service:15:ExecStart=/sbin/mount-copybind /var/volatile/srv /srv
+/etc/systemd/system/multi-user.target.requires/avahi-daemon.service:26:ExecStart=/usr/sbin/avahi-daemon -s --no-drop-root
+/etc/systemd/system/multi-user.target.requires/connman.service:15:ExecStart=/usr/sbin/connmand -n
+/etc/systemd/system/multi-user.target.wants/ankibluetoothd.service:10:ExecStart=/usr/bin/ankibluetoothd
+/etc/systemd/system/multi-user.target.wants/boot-successful.service:12:ExecStart=/etc/initscripts/boot-successful
+/etc/systemd/system/multi-user.target.wants/btproperty.service:10:ExecStart=/etc/initscripts/start_btproperty start
+/etc/systemd/system/multi-user.target.wants/chronyd.service:12:EnvironmentFile=-/etc/default/chronyd
+/etc/systemd/system/multi-user.target.wants/chronyd.service:13:ExecStart=/usr/sbin/chronyd -n $OPTIONS
+/etc/systemd/system/multi-user.target.wants/fake-hwclock-earlyboot.service:16:ExecStart=/sbin/fake-hwclock load
+/etc/systemd/system/multi-user.target.wants/fake-hwclock-tick.service:12:ExecStart=/sbin/fake-hwclock tick > /dev/null
+/etc/systemd/system/multi-user.target.wants/fake-hwclock.service:19:ExecStart=/sbin/fake-hwclock load
+/etc/systemd/system/multi-user.target.wants/ip6tables.service:9:ExecStart=/usr/sbin/ip6tables-restore /etc/iptables/ip6tables.rules
+/etc/systemd/system/multi-user.target.wants/iptables.service:9:ExecStart=/usr/sbin/iptables-restore /etc/iptables/iptables.rules
+/etc/systemd/system/multi-user.target.wants/syslog-ng@default.service:10:EnvironmentFile=-/etc/default/syslog-ng@%i
+/etc/systemd/system/multi-user.target.wants/syslog-ng@default.service:11:EnvironmentFile=-/etc/sysconfig/syslog-ng@%i
+/etc/systemd/system/multi-user.target.wants/syslog-ng@default.service:12:ExecStart=/usr/sbin/syslog-ng -F $OTHER_OPTIONS --cfgfile $CONFIG_FILE --control $CONTROL_FILE --persist-file $PERSIST_FILE --pidfile $PID_FILE
+/etc/systemd/system/multi-user.target.wants/vhostname-publish.service:9:ExecStart=/usr/sbin/vhostname-publish
+/etc/systemd/system/multi-user.target.wants/wcnss_wlan.service:37:ExecStart=/etc/initscripts/set_wcnss_mode
+/etc/systemd/system/multi-user.target.wants/wired.service:12:ExecStartPre=/usr/bin/sleep 3
+/etc/systemd/system/multi-user.target.wants/wired.service:13:ExecStart=/usr/bin/wired
+/etc/systemd/system/network-online.target.wants/connman-wait-online.service:11:ExecStart=/usr/sbin/connmand-wait-online
+/etc/systemd/system/rebooter.service:10:EnvironmentFile=-/data/etc/rebooter.env
+/etc/systemd/system/rebooter.service:11:ExecStart=/sbin/rebooter.sh
+/etc/systemd/system/sockets.target.wants/anki-crash-log.socket:2:Description=Anki Crash Log Socket
+/etc/systemd/system/sockets.target.wants/anki-crash-log.socket:4:[Socket]
+/etc/systemd/system/sockets.target.wants/anki-crash-log.socket:5:ListenFIFO=/run/anki-crash-log
+/etc/systemd/system/sockets.target.wants/anki-crash-log.socket:8:WantedBy=sockets.target
+/etc/systemd/system/sockets.target.wants/fake-hwclock-cmd.socket:2:Description=Fake Hardware Clock socket
+/etc/systemd/system/sockets.target.wants/fake-hwclock-cmd.socket:4:[Socket]
+/etc/systemd/system/sockets.target.wants/fake-hwclock-cmd.socket:5:ListenFIFO=/run/fake-hwclock-cmd
+/etc/systemd/system/sockets.target.wants/fake-hwclock-cmd.socket:8:WantedBy=sockets.target
+/etc/systemd/system/sockets.target.wants/fault-code.socket:2:Description=Fault Code socket
+/etc/systemd/system/sockets.target.wants/fault-code.socket:4:[Socket]
+/etc/systemd/system/sockets.target.wants/fault-code.socket:5:ListenFIFO=/run/fault_code
+/etc/systemd/system/sockets.target.wants/fault-code.socket:8:WantedBy=sockets.target
+/etc/systemd/system/sockets.target.wants/sshd.socket:6:[Socket]
+/etc/systemd/system/sockets.target.wants/sshd.socket:7:ExecStartPre=/usr/bin/mkdir -p /var/run/sshd
+/etc/systemd/system/sockets.target.wants/sshd.socket:8:ListenStream=22
+/etc/systemd/system/sockets.target.wants/sshd.socket:12:WantedBy=sockets.target
+/etc/systemd/system/sockets.target.wants/systemd-journald-audit.socket:11:Description=Journal Audit Socket
+/etc/systemd/system/sockets.target.wants/systemd-journald-audit.socket:14:Before=sockets.target
+/etc/systemd/system/sockets.target.wants/systemd-journald-audit.socket:18:[Socket]
+/etc/systemd/system/sockets.target.wants/systemd-journald-audit.socket:21:ListenNetlink=audit 1
+/etc/systemd/system/sockets.target.wants/systemd-journald-audit.socket:25:WantedBy=sockets.target
+/etc/systemd/system/sockets.target.wants/systemd-userdbd.socket:11:Description=User Database Manager Socket
+/etc/systemd/system/sockets.target.wants/systemd-userdbd.socket:14:Before=sockets.target
+/etc/systemd/system/sockets.target.wants/systemd-userdbd.socket:16:[Socket]
+/etc/systemd/system/sockets.target.wants/systemd-userdbd.socket:17:ListenStream=/run/systemd/userdb/io.systemd.Multiplexer
+/etc/systemd/system/sockets.target.wants/systemd-userdbd.socket:19:SocketMode=0666
+/etc/systemd/system/sockets.target.wants/systemd-userdbd.socket:22:WantedBy=sockets.target
+/etc/systemd/system/sysinit.target.wants/rampost.service:14:ExecStart=/usr/bin/rampost-init.sh
+/etc/systemd/system/sysinit.target.wants/systemd-network-generator.service:23:ExecStart=/usr/lib/systemd/systemd-network-generator
+/etc/systemd/system/sysinit.target.wants/systemd-network-generator.service:24:ImportCredential=network.netdev.*
+/etc/systemd/system/sysinit.target.wants/systemd-network-generator.service:25:ImportCredential=network.link.*
+/etc/systemd/system/sysinit.target.wants/systemd-network-generator.service:26:ImportCredential=network.network.*
+/etc/systemd/system/sysinit.target.wants/vic-bootAnim.service:11:ExecStart=/anki/bin/vic-bootAnim
+/etc/systemd/system/systemd-journald.service.wants/systemd-journald-audit.socket:11:Description=Journal Audit Socket
+/etc/systemd/system/systemd-journald.service.wants/systemd-journald-audit.socket:14:Before=sockets.target
+/etc/systemd/system/systemd-journald.service.wants/systemd-journald-audit.socket:18:[Socket]
+/etc/systemd/system/systemd-journald.service.wants/systemd-journald-audit.socket:21:ListenNetlink=audit 1
+/etc/systemd/system/systemd-journald.service.wants/systemd-journald-audit.socket:25:WantedBy=sockets.target
+/etc/systemd/system/systemd-random-seed.service.wants/var-volatile-lib.service:15:ExecStart=/sbin/mount-copybind /var/volatile/lib /var/lib
+/etc/systemd/system/systemd-timesyncd.service.wants/var-volatile-lib.service:15:ExecStart=/sbin/mount-copybind /var/volatile/lib /var/lib
+/etc/systemd/system/vic-gateway-cert.service:17:EnvironmentFile=/anki/etc/vic-gateway-cert.env
+/etc/systemd/system/vic-gateway-cert.service:18:ExecStart=/bin/sh -c "/sbin/vic-gateway-cert || SERVICE_RESULT=exit-code EXIT_CODE=exited EXIT_STATUS=1 /anki/bin/vic-on-exit"
+/etc/systemd/system/wcnss_wlan.service:37:ExecStart=/etc/initscripts/set_wcnss_mode
+/lib/systemd/system/adbd.service:41:ExecStart=/etc/launch_adbd start
+/lib/systemd/system/animfail.service:10:ExecStart=/bin/animfail
+/lib/systemd/system/anki-audio-init.service:12:ExecStart=/etc/initscripts/anki-audio-init
+/lib/systemd/system/anki-crash-log.service:10:EnvironmentFile=-/anki/etc/anki-crash-log.env
+/lib/systemd/system/anki-crash-log.service:11:ExecStart=/bin/anki-crash-log
+/lib/systemd/system/anki-crash-log.service:12:StandardInput=socket
+/lib/systemd/system/anki-crash-log.socket:2:Description=Anki Crash Log Socket
+/lib/systemd/system/anki-crash-log.socket:4:[Socket]
+/lib/systemd/system/anki-crash-log.socket:5:ListenFIFO=/run/anki-crash-log
+/lib/systemd/system/anki-crash-log.socket:8:WantedBy=sockets.target
+/lib/systemd/system/ankiinit.service:12:ExecStart=/etc/initscripts/ankiinit
+/lib/systemd/system/autovt@.service:36:ExecStart=-/sbin/agetty -o '-- \\u' --noreset --noclear - ${TERM}
+/lib/systemd/system/autovt@.service:49:ImportCredential=tty.virtual.%I.agetty.*:agetty.
+/lib/systemd/system/autovt@.service:50:ImportCredential=tty.virtual.%I.login.*:login.
+/lib/systemd/system/autovt@.service:51:ImportCredential=agetty.*
+/lib/systemd/system/autovt@.service:52:ImportCredential=login.*
+/lib/systemd/system/autovt@.service:53:ImportCredential=shell.*
+/lib/systemd/system/avahi-daemon.service:26:ExecStart=/usr/sbin/avahi-daemon -s --no-drop-root
+/lib/systemd/system/basic.target:14:Wants=sockets.target timers.target paths.target slices.target
+/lib/systemd/system/basic.target:15:After=sysinit.target sockets.target paths.target slices.target tmp.mount
+/lib/systemd/system/basic.target:17:# We support /var, /tmp, /var/tmp, being on NFS, but we don't pull in
+/lib/systemd/system/basic.target:20:# we support that unit being masked, and this should not be considered an error.
+/lib/systemd/system/bluetooth.target:11:Description=Bluetooth Support
+/lib/systemd/system/capsule@.service:19:ExecStart=/usr/lib/systemd/systemd --user --unit=capsule@%i.target
+/lib/systemd/system/chronyd.service:12:EnvironmentFile=-/etc/default/chronyd
+/lib/systemd/system/chronyd.service:13:ExecStart=/usr/sbin/chronyd -n $OPTIONS
+/lib/systemd/system/connman-wait-online.service:11:ExecStart=/usr/sbin/connmand-wait-online
+/lib/systemd/system/connman.service:15:ExecStart=/usr/sbin/connmand -n
+/lib/systemd/system/console-getty.service:22:ExecStart=-/sbin/agetty -o '-- \\u' --noreset --noclear --keep-baud 115200,57600,38400,9600 - ${TERM}
+/lib/systemd/system/console-getty.service:33:ImportCredential=tty.console.agetty.*:agetty.
+/lib/systemd/system/console-getty.service:34:ImportCredential=tty.console.login.*:login.
+/lib/systemd/system/console-getty.service:35:ImportCredential=agetty.*
+/lib/systemd/system/console-getty.service:36:ImportCredential=login.*
+/lib/systemd/system/console-getty.service:37:ImportCredential=shell.*
+/lib/systemd/system/container-getty@.service:27:ExecStart=-/sbin/agetty -o '-- \\u' --noreset --noclear - ${TERM}
+/lib/systemd/system/container-getty@.service:39:ImportCredential=tty.container.%I.agetty.*:agetty.
+/lib/systemd/system/container-getty@.service:40:ImportCredential=tty.container.%I.login.*:login.
+/lib/systemd/system/container-getty@.service:41:ImportCredential=agetty.*
+/lib/systemd/system/container-getty@.service:42:ImportCredential=login.*
+/lib/systemd/system/container-getty@.service:43:ImportCredential=shell.*
+/lib/systemd/system/dbus-org.freedesktop.hostname1.service:21:ExecStart=/usr/lib/systemd/systemd-hostnamed
+/lib/systemd/system/dbus-org.freedesktop.locale1.service:21:ExecStart=/usr/lib/systemd/systemd-localed
+/lib/systemd/system/dbus-org.freedesktop.login1.service:20:# Ask for the dbus socket.
+/lib/systemd/system/dbus-org.freedesktop.login1.service:21:Wants=dbus.socket
+/lib/systemd/system/dbus-org.freedesktop.login1.service:22:After=dbus.socket
+/lib/systemd/system/dbus-org.freedesktop.login1.service:35:ExecStart=/usr/lib/systemd/systemd-logind
+/lib/systemd/system/dbus-org.freedesktop.timedate1.service:21:ExecStart=/usr/lib/systemd/systemd-timedated
+/lib/systemd/system/dbus.service:4:Requires=dbus.socket
+/lib/systemd/system/dbus.service:9:ExecStart=/usr/bin/dbus-daemon --system --address=systemd: --nofork --nopidfile --systemd-activation --syslog-only
+/lib/systemd/system/dbus.socket:2:Description=D-Bus System Message Bus Socket
+/lib/systemd/system/dbus.socket:4:[Socket]
+/lib/systemd/system/dbus.socket:5:ListenStream=/run/dbus/system_bus_socket
+/lib/systemd/system/debug-shell.service:20:ExecStart=/bin/sh
+/lib/systemd/system/emergency.service:22:ExecStartPre=-plymouth --wait quit
+/lib/systemd/system/emergency.service:23:ExecStart=-/usr/lib/systemd/systemd-sulogin-shell emergency
+/lib/systemd/system/enable-wifi.service:9:ExecStart=/etc/initscripts/enable-wifi
+/lib/systemd/system/fault-code.service:10:EnvironmentFile=-/anki/etc/fault-code-handler.env
+/lib/systemd/system/fault-code.service:11:ExecStart=/usr/bin/logwrapper /bin/fault-code-handler
+/lib/systemd/system/fault-code.service:12:StandardInput=socket
+/lib/systemd/system/fault-code.socket:2:Description=Fault Code socket
+/lib/systemd/system/fault-code.socket:4:[Socket]
+/lib/systemd/system/fault-code.socket:5:ListenFIFO=/run/fault_code
+/lib/systemd/system/fault-code.socket:8:WantedBy=sockets.target
+/lib/systemd/system/ffbm.target.wants/adbd.service:41:ExecStart=/etc/launch_adbd start
+/lib/systemd/system/ffbm.target.wants/init_post_boot.service:41:ExecStart=/etc/initscripts/init_post_boot start
+/lib/systemd/system/ffbm.target.wants/leprop.service:12:ExecStart=/sbin/leprop-service
+/lib/systemd/system/ffbm.target.wants/usb.service:43:ExecStart=/etc/initscripts/usb start
+/lib/systemd/system/find_partitions.service:38:ExecStart=/etc/initscripts/find_partitions.sh start
+/lib/systemd/system/getty@.service:36:ExecStart=-/sbin/agetty -o '-- \\u' --noreset --noclear - ${TERM}
+/lib/systemd/system/getty@.service:49:ImportCredential=tty.virtual.%I.agetty.*:agetty.
+/lib/systemd/system/getty@.service:50:ImportCredential=tty.virtual.%I.login.*:login.
+/lib/systemd/system/getty@.service:51:ImportCredential=agetty.*
+/lib/systemd/system/getty@.service:52:ImportCredential=login.*
+/lib/systemd/system/getty@.service:53:ImportCredential=shell.*
+/lib/systemd/system/init_post_boot.service:41:ExecStart=/etc/initscripts/init_post_boot start
+/lib/systemd/system/initrd-cleanup.service:21:ExecStart=systemctl --no-block isolate initrd-switch-root.target
+/lib/systemd/system/initrd-parse-etc.service:26:ExecStart=/usr/lib/systemd/systemd-sysroot-fstab-check
+/lib/systemd/system/initrd-parse-etc.service:33:ExecStart=systemctl --no-block start initrd-cleanup.service
+/lib/systemd/system/initrd-switch-root.service:23:ExecStart=systemctl --no-block switch-root
+/lib/systemd/system/initrd-udevadm-cleanup-db.service:14:Conflicts=systemd-udevd.service systemd-udevd-control.socket systemd-udevd-kernel.socket systemd-udev-trigger.service systemd-udev-settle.service
+/lib/systemd/system/initrd-udevadm-cleanup-db.service:15:After=systemd-udevd.service systemd-udevd-control.socket systemd-udevd-kernel.socket systemd-udev-trigger.service systemd-udev-settle.service
+/lib/systemd/system/initrd-udevadm-cleanup-db.service:20:ExecStart=-udevadm info --cleanup-db
+/lib/systemd/system/initrd.target.wants/systemd-battery-check.service:25:ExecStart=/usr/lib/systemd/systemd-battery-check
+/lib/systemd/system/ip6tables.service:9:ExecStart=/usr/sbin/ip6tables-restore /etc/iptables/ip6tables.rules
+/lib/systemd/system/iptables.service:9:ExecStart=/usr/sbin/iptables-restore /etc/iptables/iptables.rules
+/lib/systemd/system/irsc_util.service:14:ExecStart=/usr/bin/irsc_util /etc/sec_config
+/lib/systemd/system/kmod-static-nodes.service:21:ExecStart=/usr/bin/kmod static-nodes --format=tmpfiles --output=/run/tmpfiles.d/static-nodes.conf
+/lib/systemd/system/ldconfig.service:28:ExecStart=/sbin/ldconfig -X
+/lib/systemd/system/leprop.service:12:ExecStart=/sbin/leprop-service
+/lib/systemd/system/local-fs.target.requires/mount-data.service:43:ExecStartPre=/bin/sleep 0.1
+/lib/systemd/system/local-fs.target.requires/mount-data.service:44:ExecStart=/etc/initscripts/mount-data start
+/lib/systemd/system/logd.service:41:ExecStart=/etc/initscripts/logd start
+/lib/systemd/system/logrotate.service:9:ExecStart=/usr/sbin/logrotate /etc/logrotate.conf
+/lib/systemd/system/mm-anki-camera.service:9:ExecStart=/usr/bin/mm-anki-camera-wrapper -v 0 -r 1 $MM_ANKI_CAMERA_OPTS
+/lib/systemd/system/mm-qcamera-daemon.service:9:ExecStart=/usr/bin/mm-qcamera-daemon
+/lib/systemd/system/modprobe@.service:20:ExecStart=-/sbin/modprobe -abq %i
+/lib/systemd/system/mount-data.service:43:ExecStartPre=/bin/sleep 0.1
+/lib/systemd/system/mount-data.service:44:ExecStart=/etc/initscripts/mount-data start
+/lib/systemd/system/multi-user-done.service:11:ExecStart=/bin/true
+/lib/systemd/system/multi-user.target.requires/connman.service:15:ExecStart=/usr/sbin/connmand -n
+/lib/systemd/system/multi-user.target.wants/adbd.service:41:ExecStart=/etc/launch_adbd start
+/lib/systemd/system/multi-user.target.wants/anki-audio-init.service:12:ExecStart=/etc/initscripts/anki-audio-init
+/lib/systemd/system/multi-user.target.wants/dbus.service:4:Requires=dbus.socket
+/lib/systemd/system/multi-user.target.wants/dbus.service:9:ExecStart=/usr/bin/dbus-daemon --system --address=systemd: --nofork --nopidfile --systemd-activation --syslog-only
+/lib/systemd/system/multi-user.target.wants/enable-wifi.service:9:ExecStart=/etc/initscripts/enable-wifi
+/lib/systemd/system/multi-user.target.wants/init_post_boot.service:41:ExecStart=/etc/initscripts/init_post_boot start
+/lib/systemd/system/multi-user.target.wants/leprop.service:12:ExecStart=/sbin/leprop-service
+/lib/systemd/system/multi-user.target.wants/logd.service:41:ExecStart=/etc/initscripts/logd start
+/lib/systemd/system/multi-user.target.wants/mm-anki-camera.service:9:ExecStart=/usr/bin/mm-anki-camera-wrapper -v 0 -r 1 $MM_ANKI_CAMERA_OPTS
+/lib/systemd/system/multi-user.target.wants/mm-qcamera-daemon.service:9:ExecStart=/usr/bin/mm-qcamera-daemon
+/lib/systemd/system/multi-user.target.wants/multi-user-done.service:11:ExecStart=/bin/true
+/lib/systemd/system/multi-user.target.wants/partition-links.service:7:ExecStart=/etc/initscripts/partition-links
+/lib/systemd/system/multi-user.target.wants/start-anki.service:9:ExecStart=/bin/systemctl start anki-robot.target
+/lib/systemd/system/multi-user.target.wants/syslog-ng@default.service:10:EnvironmentFile=-/etc/default/syslog-ng@%i
+/lib/systemd/system/multi-user.target.wants/syslog-ng@default.service:11:EnvironmentFile=-/etc/sysconfig/syslog-ng@%i
+/lib/systemd/system/multi-user.target.wants/syslog-ng@default.service:12:ExecStart=/usr/sbin/syslog-ng -F $OTHER_OPTIONS --cfgfile $CONFIG_FILE --control $CONTROL_FILE --persist-file $PERSIST_FILE --pidfile $PID_FILE
+/lib/systemd/system/multi-user.target.wants/systemd-logind.service:20:# Ask for the dbus socket.
+/lib/systemd/system/multi-user.target.wants/systemd-logind.service:21:Wants=dbus.socket
+/lib/systemd/system/multi-user.target.wants/systemd-logind.service:22:After=dbus.socket
+/lib/systemd/system/multi-user.target.wants/systemd-logind.service:35:ExecStart=/usr/lib/systemd/systemd-logind
+/lib/systemd/system/multi-user.target.wants/update-engine-oneshot.service:10:# This service should be considered started even after the ExecStart line below
+/lib/systemd/system/multi-user.target.wants/update-engine-oneshot.service:20:ExecStartPre=/bin/bash -c 'echo UPDATE_ENGINE_MAX_SLEEP=1 > /run/update-engine-oneshot.env'
+/lib/systemd/system/multi-user.target.wants/update-engine-oneshot.service:24:ExecStart=/bin/systemctl start update-engine
+/lib/systemd/system/multi-user.target.wants/usb.service:43:ExecStart=/etc/initscripts/usb start
+/lib/systemd/system/nss-lookup.target:11:# implementations lacking socket/bus activation.
+/lib/systemd/system/nss-user-lookup.target:10:# This exists mostly for implementations lacking socket/bus
+/lib/systemd/system/pam_namespace.service:10:ExecStart=/usr/sbin/pam_namespace_helper
+/lib/systemd/system/partition-links.service:7:ExecStart=/etc/initscripts/partition-links
+/lib/systemd/system/printer.target:11:Description=Printer Support
+/lib/systemd/system/quotaon-root.service:24:ExecStart=/usr/sbin/quotaon -ug /
+/lib/systemd/system/quotaon@.service:26:ExecStart=/usr/sbin/quotaon -ug %f
+/lib/systemd/system/rampost.service:14:ExecStart=/usr/bin/rampost-init.sh
+/lib/systemd/system/rescue.service:21:ExecStartPre=-plymouth --wait quit
+/lib/systemd/system/rescue.service:22:ExecStart=-/usr/lib/systemd/systemd-sulogin-shell rescue
+/lib/systemd/system/rpcbind.target:11:# implementations lacking socket/bus activation.
+/lib/systemd/system/rpcbind.target:14:Description=RPC Port Mapper
+/lib/systemd/system/rsyncd.service:8:ExecStart=/usr/bin/rsync --daemon --config=/etc/rsyncd-victor.conf
+/lib/systemd/system/serial-getty@.service:32:ExecStart=-/sbin/agetty -o '-- \\u' --noreset --noclear --keep-baud 115200,57600,38400,9600 - ${TERM}
+/lib/systemd/system/serial-getty@.service:43:ImportCredential=tty.serial.%I.agetty.*:agetty.
+/lib/systemd/system/serial-getty@.service:44:ImportCredential=tty.serial.%I.login.*:login.
+/lib/systemd/system/serial-getty@.service:45:ImportCredential=agetty.*
+/lib/systemd/system/serial-getty@.service:46:ImportCredential=login.*
+/lib/systemd/system/serial-getty@.service:47:ImportCredential=shell.*
+/lib/systemd/system/setup-persist.service:9:ExecStart=/etc/initscripts/setup-persist start
+/lib/systemd/system/sockets.target:11:Description=Socket Units
+/lib/systemd/system/sockets.target.wants/dbus.socket:2:Description=D-Bus System Message Bus Socket
+/lib/systemd/system/sockets.target.wants/dbus.socket:4:[Socket]
+/lib/systemd/system/sockets.target.wants/dbus.socket:5:ListenStream=/run/dbus/system_bus_socket
+/lib/systemd/system/sockets.target.wants/systemd-creds.socket:14:Before=sockets.target
+/lib/systemd/system/sockets.target.wants/systemd-creds.socket:16:[Socket]
+/lib/systemd/system/sockets.target.wants/systemd-creds.socket:17:ListenStream=/run/systemd/io.systemd.Credentials
+/lib/systemd/system/sockets.target.wants/systemd-creds.socket:19:SocketMode=0666
+/lib/systemd/system/sockets.target.wants/systemd-hostnamed.socket:11:Description=Hostname Service Socket
+/lib/systemd/system/sockets.target.wants/systemd-hostnamed.socket:16:[Socket]
+/lib/systemd/system/sockets.target.wants/systemd-hostnamed.socket:17:ListenStream=/run/systemd/io.systemd.Hostname
+/lib/systemd/system/sockets.target.wants/systemd-hostnamed.socket:19:SocketMode=0666
+/lib/systemd/system/sockets.target.wants/systemd-journald-dev-log.socket:11:Description=Journal Socket (/dev/log)
+/lib/systemd/system/sockets.target.wants/systemd-journald-dev-log.socket:14:Before=sockets.target
+/lib/systemd/system/sockets.target.wants/systemd-journald-dev-log.socket:16:# Mount and swap units need this. If this socket unit is removed by an isolate
+/lib/systemd/system/sockets.target.wants/systemd-journald-dev-log.socket:18:# systemd-journald and its sockets from isolate requests.
+/lib/systemd/system/sockets.target.wants/systemd-journald-dev-log.socket:21:[Socket]
+/lib/systemd/system/sockets.target.wants/systemd-journald-dev-log.socket:22:ListenDatagram=/run/systemd/journal/dev-log
+/lib/systemd/system/sockets.target.wants/systemd-journald-dev-log.socket:26:SocketMode=0666
+/lib/systemd/system/sockets.target.wants/systemd-journald-dev-log.socket:31:# block early. Note that journald internally uses the this socket both
+/lib/systemd/system/sockets.target.wants/systemd-journald.socket:11:Description=Journal Sockets
+/lib/systemd/system/sockets.target.wants/systemd-journald.socket:14:Before=sockets.target
+/lib/systemd/system/sockets.target.wants/systemd-journald.socket:16:# Mount and swap units need this. If this socket unit is removed by an isolate
+/lib/systemd/system/sockets.target.wants/systemd-journald.socket:18:# systemd-journald and its sockets from isolate requests.
+/lib/systemd/system/sockets.target.wants/systemd-journald.socket:21:[Socket]
+/lib/systemd/system/sockets.target.wants/systemd-journald.socket:22:ListenDatagram=/run/systemd/journal/socket
+/lib/systemd/system/sockets.target.wants/systemd-journald.socket:23:ListenStream=/run/systemd/journal/stdout
+/lib/systemd/system/sockets.target.wants/systemd-journald.socket:28:SocketMode=0666
+/lib/systemd/system/sockets.target.wants/systemd-udevd-control.socket:11:Description=udev Control Socket
+/lib/systemd/system/sockets.target.wants/systemd-udevd-control.socket:12:Documentation=man:systemd-udevd-control.socket(8) man:udev(7)
+/lib/systemd/system/sockets.target.wants/systemd-udevd-control.socket:14:Before=sockets.target
+/lib/systemd/system/sockets.target.wants/systemd-udevd-control.socket:17:[Socket]
+/lib/systemd/system/sockets.target.wants/systemd-udevd-control.socket:19:ListenSequentialPacket=/run/udev/control
+/lib/systemd/system/sockets.target.wants/systemd-udevd-control.socket:20:SocketMode=0600
+/lib/systemd/system/sockets.target.wants/systemd-udevd-kernel.socket:11:Description=udev Kernel Socket
+/lib/systemd/system/sockets.target.wants/systemd-udevd-kernel.socket:12:Documentation=man:systemd-udevd-kernel.socket(8) man:udev(7)
+/lib/systemd/system/sockets.target.wants/systemd-udevd-kernel.socket:14:Before=sockets.target
+/lib/systemd/system/sockets.target.wants/systemd-udevd-kernel.socket:17:[Socket]
+/lib/systemd/system/sockets.target.wants/systemd-udevd-kernel.socket:20:ListenNetlink=kobject-uevent 1
+/lib/systemd/system/sshd.socket:6:[Socket]
+/lib/systemd/system/sshd.socket:7:ExecStartPre=/usr/bin/mkdir -p /var/run/sshd
+/lib/systemd/system/sshd.socket:8:ListenStream=22
+/lib/systemd/system/sshd.socket:12:WantedBy=sockets.target
+/lib/systemd/system/sshd@.service:7:EnvironmentFile=-/etc/default/ssh
+/lib/systemd/system/sshd@.service:8:ExecStart=-/usr/sbin/sshd -i $SSHD_OPTS
+/lib/systemd/system/sshd@.service:9:StandardInput=socket
+/lib/systemd/system/sshdgenkeys.service:11:ExecStart=/usr/bin/mkdir -p $SYSCONFDIR
+/lib/systemd/system/sshdgenkeys.service:12:ExecStart=/usr/bin/ssh-keygen -q -f ${SYSCONFDIR}/ssh_host_rsa_key -N '' -t rsa
+/lib/systemd/system/sshdgenkeys.service:13:ExecStart=/usr/bin/ssh-keygen -q -f ${SYSCONFDIR}/ssh_host_dsa_key -N '' -t dsa
+/lib/systemd/system/sshdgenkeys.service:14:ExecStart=/usr/bin/ssh-keygen -q -f ${SYSCONFDIR}/ssh_host_ecdsa_key -N '' -t ecdsa
+/lib/systemd/system/sshdgenkeys.service:15:ExecStart=/usr/bin/ssh-keygen -q -f ${SYSCONFDIR}/ssh_host_ed25519_key -N '' -t ed25519
+/lib/systemd/system/start-anki.service:9:ExecStart=/bin/systemctl start anki-robot.target
+/lib/systemd/system/storage-target-mode.target:13:Wants=systemd-storagetm.service systemd-udevd.service systemd-udev-trigger.service systemd-networkd.service systemd-network-generator.service systemd-journald.socket systemd-journald-dev-log.socket plymouth-start.service
+/lib/systemd/system/storage-target-mode.target:15:After=systemd-storagetm.service systemd-udevd.service systemd-udev-trigger.service systemd-networkd.service systemd-network-generator.service systemd-journald.socket systemd-journald-dev-log.socket plymouth-start.service rescue.service rescue.target
+/lib/systemd/system/sysinit.target.wants/find_partitions.service:38:ExecStart=/etc/initscripts/find_partitions.sh start
+/lib/systemd/system/sysinit.target.wants/irsc_util.service:14:ExecStart=/usr/bin/irsc_util /etc/sec_config
+/lib/systemd/system/sysinit.target.wants/kmod-static-nodes.service:21:ExecStart=/usr/bin/kmod static-nodes --format=tmpfiles --output=/run/tmpfiles.d/static-nodes.conf
+/lib/systemd/system/sysinit.target.wants/ldconfig.service:28:ExecStart=/sbin/ldconfig -X
+/lib/systemd/system/sysinit.target.wants/systemd-hwdb-update.service:28:ExecStart=systemd-hwdb update
+/lib/systemd/system/sysinit.target.wants/systemd-journal-catalog-update.service:25:ExecStart=journalctl --update-catalog
+/lib/systemd/system/sysinit.target.wants/systemd-journal-flush.service:27:ExecStart=journalctl --flush
+/lib/systemd/system/sysinit.target.wants/systemd-journald.service:14:Requires=systemd-journald.socket
+/lib/systemd/system/sysinit.target.wants/systemd-journald.service:15:After=systemd-journald.socket systemd-journald-dev-log.socket systemd-journald-audit.socket syslog.socket
+/lib/systemd/system/sysinit.target.wants/systemd-journald.service:26:# Mount and swap units need the journal socket units. If they were removed by
+/lib/systemd/system/sysinit.target.wants/systemd-journald.service:28:# exclude systemd-journald and its sockets from isolate requests.
+/lib/systemd/system/sysinit.target.wants/systemd-journald.service:33:ExecStart=/usr/lib/systemd/systemd-journald
+/lib/systemd/system/sysinit.target.wants/systemd-journald.service:37:ImportCredential=journal.*
+/lib/systemd/system/sysinit.target.wants/systemd-journald.service:52:# Audit socket is not listed here because this unit can be turned off. However
+/lib/systemd/system/sysinit.target.wants/systemd-journald.service:53:# the link between the socket and the service units is still created thanks to
+/lib/systemd/system/sysinit.target.wants/systemd-journald.service:54:# the 'Service=' setting specified in the socket unit.
+/lib/systemd/system/sysinit.target.wants/systemd-journald.service:55:Sockets=systemd-journald.socket systemd-journald-dev-log.socket
+/lib/systemd/system/sysinit.target.wants/systemd-machine-id-commit.service:23:ExecStart=systemd-machine-id-setup --commit
+/lib/systemd/system/sysinit.target.wants/systemd-modules-load.service:30:ExecStart=/usr/lib/systemd/systemd-modules-load
+/lib/systemd/system/sysinit.target.wants/systemd-random-seed.service:28:ExecStart=/usr/lib/systemd/systemd-random-seed load
+/lib/systemd/system/sysinit.target.wants/systemd-sysctl.service:22:ExecStart=/usr/lib/systemd/systemd-sysctl
+/lib/systemd/system/sysinit.target.wants/systemd-sysctl.service:24:ImportCredential=sysctl.*
+/lib/systemd/system/sysinit.target.wants/systemd-sysusers.service:28:ExecStart=systemd-sysusers
+/lib/systemd/system/sysinit.target.wants/systemd-sysusers.service:32:# credential passed to the service manager. This is useful for importing this
+/lib/systemd/system/sysinit.target.wants/systemd-sysusers.service:34:ImportCredential=passwd.hashed-password.root
+/lib/systemd/system/sysinit.target.wants/systemd-sysusers.service:35:ImportCredential=passwd.plaintext-password.root
+/lib/systemd/system/sysinit.target.wants/systemd-sysusers.service:36:ImportCredential=passwd.shell.root
+/lib/systemd/system/sysinit.target.wants/systemd-sysusers.service:39:ImportCredential=sysusers.*
+/lib/systemd/system/sysinit.target.wants/systemd-tmpfiles-setup-dev-early.service:23:ExecStart=systemd-tmpfiles --prefix=/dev --create --boot --graceful
+/lib/systemd/system/sysinit.target.wants/systemd-tmpfiles-setup-dev-early.service:25:ImportCredential=tmpfiles.*
+/lib/systemd/system/sysinit.target.wants/systemd-tmpfiles-setup-dev.service:24:ExecStart=systemd-tmpfiles --prefix=/dev --create --boot
+/lib/systemd/system/sysinit.target.wants/systemd-tmpfiles-setup-dev.service:26:ImportCredential=tmpfiles.*
+/lib/systemd/system/sysinit.target.wants/systemd-tmpfiles-setup.service:24:ExecStart=systemd-tmpfiles --create --remove --boot --exclude-prefix=/dev
+/lib/systemd/system/sysinit.target.wants/systemd-tmpfiles-setup.service:26:ImportCredential=tmpfiles.*
+/lib/systemd/system/sysinit.target.wants/systemd-tmpfiles-setup.service:27:ImportCredential=login.motd
+/lib/systemd/system/sysinit.target.wants/systemd-tmpfiles-setup.service:28:ImportCredential=login.issue
+/lib/systemd/system/sysinit.target.wants/systemd-tmpfiles-setup.service:29:ImportCredential=network.hosts
+/lib/systemd/system/sysinit.target.wants/systemd-tmpfiles-setup.service:30:ImportCredential=ssh.authorized_keys.root
+/lib/systemd/system/sysinit.target.wants/systemd-udev-trigger.service:15:After=systemd-udevd-kernel.socket systemd-udevd-control.socket
+/lib/systemd/system/sysinit.target.wants/systemd-udev-trigger.service:22:ExecStart=-udevadm trigger --type=all --action=add --prioritized-subsystem=module,block,tpmrm,net,tty,input
+/lib/systemd/system/sysinit.target.wants/systemd-udevd.service:26:Sockets=systemd-udevd-control.socket systemd-udevd-kernel.socket
+/lib/systemd/system/sysinit.target.wants/systemd-udevd.service:29:ExecStart=/usr/lib/systemd/systemd-udevd
+/lib/systemd/system/sysinit.target.wants/systemd-update-done.service:23:ExecStart=/usr/lib/systemd/systemd-update-done
+/lib/systemd/system/sysinit.target.wants/systemd-update-utmp.service:25:ExecStart=/usr/lib/systemd/systemd-update-utmp reboot
+/lib/systemd/system/syslog-ng@.service:10:EnvironmentFile=-/etc/default/syslog-ng@%i
+/lib/systemd/system/syslog-ng@.service:11:EnvironmentFile=-/etc/sysconfig/syslog-ng@%i
+/lib/systemd/system/syslog-ng@.service:12:ExecStart=/usr/sbin/syslog-ng -F $OTHER_OPTIONS --cfgfile $CONFIG_FILE --control $CONTROL_FILE --persist-file $PERSIST_FILE --pidfile $PID_FILE
+/lib/systemd/system/syslog.socket:11:Description=Syslog Socket
+/lib/systemd/system/syslog.socket:15:Before=sockets.target
+/lib/systemd/system/syslog.socket:25:[Socket]
+/lib/systemd/system/syslog.socket:26:ListenDatagram=/run/systemd/journal/syslog
+/lib/systemd/system/syslog.socket:27:SocketMode=0666
+/lib/systemd/system/syslog.socket:33:# symlink to itself, so that this socket activates the right actual
+/lib/systemd/system/system-update-cleanup.service:37:ExecStart=rm -fv /system-update /etc/system-update
+/lib/systemd/system/systemd-ask-password-console.service:24:ExecStart=systemd-tty-ask-password-agent --watch --console
+/lib/systemd/system/systemd-ask-password-wall.service:16:ExecStartPre=-systemctl stop systemd-ask-password-console.path systemd-ask-password-console.service systemd-ask-password-plymouth.path systemd-ask-password-plymouth.service
+/lib/systemd/system/systemd-ask-password-wall.service:17:ExecStart=systemd-tty-ask-password-agent --wall
+/lib/systemd/system/systemd-backlight@.service:22:ExecStart=/usr/lib/systemd/systemd-backlight load %i
+/lib/systemd/system/systemd-battery-check.service:25:ExecStart=/usr/lib/systemd/systemd-battery-check
+/lib/systemd/system/systemd-boot-check-no-failures.service:19:ExecStart=/usr/lib/systemd/systemd-boot-check-no-failures
+/lib/systemd/system/systemd-creds.socket:14:Before=sockets.target
+/lib/systemd/system/systemd-creds.socket:16:[Socket]
+/lib/systemd/system/systemd-creds.socket:17:ListenStream=/run/systemd/io.systemd.Credentials
+/lib/systemd/system/systemd-creds.socket:19:SocketMode=0666
+/lib/systemd/system/systemd-creds@.service:18:ExecStart=-systemd-creds
+/lib/systemd/system/systemd-fsck-root.service:23:ExecStart=/usr/lib/systemd/systemd-fsck
+/lib/systemd/system/systemd-fsck@.service:23:ExecStart=/usr/lib/systemd/systemd-fsck %f
+/lib/systemd/system/systemd-growfs-root.service:22:ExecStart=/usr/lib/systemd/systemd-growfs /
+/lib/systemd/system/systemd-growfs@.service:23:ExecStart=/usr/lib/systemd/systemd-growfs %f
+/lib/systemd/system/systemd-hibernate-resume.service:24:ExecStart=/usr/lib/systemd/systemd-hibernate-resume
+/lib/systemd/system/systemd-hibernate.service:19:ExecStart=/usr/lib/systemd/systemd-sleep hibernate
+/lib/systemd/system/systemd-hostnamed.service:21:ExecStart=/usr/lib/systemd/systemd-hostnamed
+/lib/systemd/system/systemd-hostnamed.socket:11:Description=Hostname Service Socket
+/lib/systemd/system/systemd-hostnamed.socket:16:[Socket]
+/lib/systemd/system/systemd-hostnamed.socket:17:ListenStream=/run/systemd/io.systemd.Hostname
+/lib/systemd/system/systemd-hostnamed.socket:19:SocketMode=0666
+/lib/systemd/system/systemd-hwdb-update.service:28:ExecStart=systemd-hwdb update
+/lib/systemd/system/systemd-hybrid-sleep.service:19:ExecStart=/usr/lib/systemd/systemd-sleep hybrid-sleep
+/lib/systemd/system/systemd-journal-catalog-update.service:25:ExecStart=journalctl --update-catalog
+/lib/systemd/system/systemd-journal-flush.service:27:ExecStart=journalctl --flush
+/lib/systemd/system/systemd-journald-audit.socket:11:Description=Journal Audit Socket
+/lib/systemd/system/systemd-journald-audit.socket:14:Before=sockets.target
+/lib/systemd/system/systemd-journald-audit.socket:18:[Socket]
+/lib/systemd/system/systemd-journald-audit.socket:21:ListenNetlink=audit 1
+/lib/systemd/system/systemd-journald-audit.socket:25:WantedBy=sockets.target
+/lib/systemd/system/systemd-journald-dev-log.socket:11:Description=Journal Socket (/dev/log)
+/lib/systemd/system/systemd-journald-dev-log.socket:14:Before=sockets.target
+/lib/systemd/system/systemd-journald-dev-log.socket:16:# Mount and swap units need this. If this socket unit is removed by an isolate
+/lib/systemd/system/systemd-journald-dev-log.socket:18:# systemd-journald and its sockets from isolate requests.
+/lib/systemd/system/systemd-journald-dev-log.socket:21:[Socket]
+/lib/systemd/system/systemd-journald-dev-log.socket:22:ListenDatagram=/run/systemd/journal/dev-log
+/lib/systemd/system/systemd-journald-dev-log.socket:26:SocketMode=0666
+/lib/systemd/system/systemd-journald-dev-log.socket:31:# block early. Note that journald internally uses the this socket both
+/lib/systemd/system/systemd-journald-sync@.service:15:# systemd-journald@.service may not be started yet. Hence, both socket
+/lib/systemd/system/systemd-journald-sync@.service:17:Requires=systemd-journald@%i.socket systemd-journald-varlink@%i.socket
+/lib/systemd/system/systemd-journald-sync@.service:18:After=systemd-journald@%i.socket systemd-journald-varlink@%i.socket
+/lib/systemd/system/systemd-journald-varlink@.socket:11:Description=Journal Varlink Socket for Namespace %i
+/lib/systemd/system/systemd-journald-varlink@.socket:15:[Socket]
+/lib/systemd/system/systemd-journald-varlink@.socket:17:ListenStream=/run/systemd/journal.%i/io.systemd.journal
+/lib/systemd/system/systemd-journald-varlink@.socket:18:SocketMode=0600
+/lib/systemd/system/systemd-journald.service:14:Requires=systemd-journald.socket
+/lib/systemd/system/systemd-journald.service:15:After=systemd-journald.socket systemd-journald-dev-log.socket systemd-journald-audit.socket syslog.socket
+/lib/systemd/system/systemd-journald.service:26:# Mount and swap units need the journal socket units. If they were removed by
+/lib/systemd/system/systemd-journald.service:28:# exclude systemd-journald and its sockets from isolate requests.
+/lib/systemd/system/systemd-journald.service:33:ExecStart=/usr/lib/systemd/systemd-journald
+/lib/systemd/system/systemd-journald.service:37:ImportCredential=journal.*
+/lib/systemd/system/systemd-journald.service:52:# Audit socket is not listed here because this unit can be turned off. However
+/lib/systemd/system/systemd-journald.service:53:# the link between the socket and the service units is still created thanks to
+/lib/systemd/system/systemd-journald.service:54:# the 'Service=' setting specified in the socket unit.
+/lib/systemd/system/systemd-journald.service:55:Sockets=systemd-journald.socket systemd-journald-dev-log.socket
+/lib/systemd/system/systemd-journald.socket:11:Description=Journal Sockets
+/lib/systemd/system/systemd-journald.socket:14:Before=sockets.target
+/lib/systemd/system/systemd-journald.socket:16:# Mount and swap units need this. If this socket unit is removed by an isolate
+/lib/systemd/system/systemd-journald.socket:18:# systemd-journald and its sockets from isolate requests.
+/lib/systemd/system/systemd-journald.socket:21:[Socket]
+/lib/systemd/system/systemd-journald.socket:22:ListenDatagram=/run/systemd/journal/socket
+/lib/systemd/system/systemd-journald.socket:23:ListenStream=/run/systemd/journal/stdout
+/lib/systemd/system/systemd-journald.socket:28:SocketMode=0666
+/lib/systemd/system/systemd-journald@.service:13:Requires=systemd-journald@%i.socket systemd-journald-varlink@%i.socket
+/lib/systemd/system/systemd-journald@.service:14:After=systemd-journald@%i.socket systemd-journald-varlink@%i.socket
+/lib/systemd/system/systemd-journald@.service:19:ExecStart=/usr/lib/systemd/systemd-journald %i
+/lib/systemd/system/systemd-journald@.service:34:Sockets=systemd-journald@%i.socket
+/lib/systemd/system/systemd-journald@.socket:11:Description=Journal Sockets for Namespace %i
+/lib/systemd/system/systemd-journald@.socket:15:[Socket]
+/lib/systemd/system/systemd-journald@.socket:17:ListenStream=/run/systemd/journal.%i/stdout
+/lib/systemd/system/systemd-journald@.socket:18:ListenDatagram=/run/systemd/journal.%i/socket
+/lib/systemd/system/systemd-journald@.socket:19:ListenDatagram=/run/systemd/journal.%i/dev-log
+/lib/systemd/system/systemd-journald@.socket:20:SocketMode=0666
+/lib/systemd/system/systemd-journald@.socket:27:WantedBy=sockets.target
+/lib/systemd/system/systemd-localed.service:21:ExecStart=/usr/lib/systemd/systemd-localed
+/lib/systemd/system/systemd-logind.service:20:# Ask for the dbus socket.
+/lib/systemd/system/systemd-logind.service:21:Wants=dbus.socket
+/lib/systemd/system/systemd-logind.service:22:After=dbus.socket
+/lib/systemd/system/systemd-logind.service:35:ExecStart=/usr/lib/systemd/systemd-logind
+/lib/systemd/system/systemd-machine-id-commit.service:23:ExecStart=systemd-machine-id-setup --commit
+/lib/systemd/system/systemd-modules-load.service:30:ExecStart=/usr/lib/systemd/systemd-modules-load
+/lib/systemd/system/systemd-network-generator.service:23:ExecStart=/usr/lib/systemd/systemd-network-generator
+/lib/systemd/system/systemd-network-generator.service:24:ImportCredential=network.netdev.*
+/lib/systemd/system/systemd-network-generator.service:25:ImportCredential=network.link.*
+/lib/systemd/system/systemd-network-generator.service:26:ImportCredential=network.network.*
+/lib/systemd/system/systemd-quotacheck-root.service:24:ExecStart=/usr/lib/systemd/systemd-quotacheck /
+/lib/systemd/system/systemd-quotacheck@.service:26:ExecStart=/usr/lib/systemd/systemd-quotacheck %f
+/lib/systemd/system/systemd-random-seed.service:28:ExecStart=/usr/lib/systemd/systemd-random-seed load
+/lib/systemd/system/systemd-remount-fs.service:25:ExecStart=/usr/lib/systemd/systemd-remount-fs
+/lib/systemd/system/systemd-rfkill.service:22:ExecStart=/usr/lib/systemd/systemd-rfkill
+/lib/systemd/system/systemd-rfkill.socket:12:Documentation=man:systemd-rfkill.socket(8)
+/lib/systemd/system/systemd-rfkill.socket:22:[Socket]
+/lib/systemd/system/systemd-rfkill.socket:23:ListenSpecial=/dev/rfkill
+/lib/systemd/system/systemd-storagetm.service:27:ExecStart=/usr/lib/systemd/systemd-storagetm --all
+/lib/systemd/system/systemd-suspend-then-hibernate.service:19:ExecStart=/usr/lib/systemd/systemd-sleep suspend-then-hibernate
+/lib/systemd/system/systemd-suspend.service:19:ExecStart=/usr/lib/systemd/systemd-sleep suspend
+/lib/systemd/system/systemd-sysctl.service:22:ExecStart=/usr/lib/systemd/systemd-sysctl
+/lib/systemd/system/systemd-sysctl.service:24:ImportCredential=sysctl.*
+/lib/systemd/system/systemd-sysusers.service:28:ExecStart=systemd-sysusers
+/lib/systemd/system/systemd-sysusers.service:32:# credential passed to the service manager. This is useful for importing this
+/lib/systemd/system/systemd-sysusers.service:34:ImportCredential=passwd.hashed-password.root
+/lib/systemd/system/systemd-sysusers.service:35:ImportCredential=passwd.plaintext-password.root
+/lib/systemd/system/systemd-sysusers.service:36:ImportCredential=passwd.shell.root
+/lib/systemd/system/systemd-sysusers.service:39:ImportCredential=sysusers.*
+/lib/systemd/system/systemd-timedated.service:21:ExecStart=/usr/lib/systemd/systemd-timedated
+/lib/systemd/system/systemd-tmpfiles-clean.service:21:ExecStart=systemd-tmpfiles --clean
+/lib/systemd/system/systemd-tmpfiles-clean.service:24:ImportCredential=tmpfiles.*
+/lib/systemd/system/systemd-tmpfiles-setup-dev-early.service:23:ExecStart=systemd-tmpfiles --prefix=/dev --create --boot --graceful
+/lib/systemd/system/systemd-tmpfiles-setup-dev-early.service:25:ImportCredential=tmpfiles.*
+/lib/systemd/system/systemd-tmpfiles-setup-dev.service:24:ExecStart=systemd-tmpfiles --prefix=/dev --create --boot
+/lib/systemd/system/systemd-tmpfiles-setup-dev.service:26:ImportCredential=tmpfiles.*
+/lib/systemd/system/systemd-tmpfiles-setup.service:24:ExecStart=systemd-tmpfiles --create --remove --boot --exclude-prefix=/dev
+/lib/systemd/system/systemd-tmpfiles-setup.service:26:ImportCredential=tmpfiles.*
+/lib/systemd/system/systemd-tmpfiles-setup.service:27:ImportCredential=login.motd
+/lib/systemd/system/systemd-tmpfiles-setup.service:28:ImportCredential=login.issue
+/lib/systemd/system/systemd-tmpfiles-setup.service:29:ImportCredential=network.hosts
+/lib/systemd/system/systemd-tmpfiles-setup.service:30:ImportCredential=ssh.authorized_keys.root
+/lib/systemd/system/systemd-udev-load-credentials.service:24:ExecStart=udevadm control --load-credentials
+/lib/systemd/system/systemd-udev-load-credentials.service:25:ImportCredential=udev.conf.*
+/lib/systemd/system/systemd-udev-load-credentials.service:26:ImportCredential=udev.rules.*
+/lib/systemd/system/systemd-udev-settle.service:27:ExecStart=udevadm settle
+/lib/systemd/system/systemd-udev-trigger.service:15:After=systemd-udevd-kernel.socket systemd-udevd-control.socket
+/lib/systemd/system/systemd-udev-trigger.service:22:ExecStart=-udevadm trigger --type=all --action=add --prioritized-subsystem=module,block,tpmrm,net,tty,input
+/lib/systemd/system/systemd-udevd-control.socket:11:Description=udev Control Socket
+/lib/systemd/system/systemd-udevd-control.socket:12:Documentation=man:systemd-udevd-control.socket(8) man:udev(7)
+/lib/systemd/system/systemd-udevd-control.socket:14:Before=sockets.target
+/lib/systemd/system/systemd-udevd-control.socket:17:[Socket]
+/lib/systemd/system/systemd-udevd-control.socket:19:ListenSequentialPacket=/run/udev/control
+/lib/systemd/system/systemd-udevd-control.socket:20:SocketMode=0600
+/lib/systemd/system/systemd-udevd-kernel.socket:11:Description=udev Kernel Socket
+/lib/systemd/system/systemd-udevd-kernel.socket:12:Documentation=man:systemd-udevd-kernel.socket(8) man:udev(7)
+/lib/systemd/system/systemd-udevd-kernel.socket:14:Before=sockets.target
+/lib/systemd/system/systemd-udevd-kernel.socket:17:[Socket]
+/lib/systemd/system/systemd-udevd-kernel.socket:20:ListenNetlink=kobject-uevent 1
+/lib/systemd/system/systemd-udevd.service:26:Sockets=systemd-udevd-control.socket systemd-udevd-kernel.socket
+/lib/systemd/system/systemd-udevd.service:29:ExecStart=/usr/lib/systemd/systemd-udevd
+/lib/systemd/system/systemd-update-done.service:23:ExecStart=/usr/lib/systemd/systemd-update-done
+/lib/systemd/system/systemd-update-utmp.service:25:ExecStart=/usr/lib/systemd/systemd-update-utmp reboot
+/lib/systemd/system/systemd-userdbd.service:13:Requires=systemd-userdbd.socket
+/lib/systemd/system/systemd-userdbd.service:14:After=systemd-userdbd.socket
+/lib/systemd/system/systemd-userdbd.service:20:ExecStart=/usr/lib/systemd/systemd-userdbd
+/lib/systemd/system/systemd-userdbd.service:45:Also=systemd-userdbd.socket
+/lib/systemd/system/systemd-userdbd.socket:11:Description=User Database Manager Socket
+/lib/systemd/system/systemd-userdbd.socket:14:Before=sockets.target
+/lib/systemd/system/systemd-userdbd.socket:16:[Socket]
+/lib/systemd/system/systemd-userdbd.socket:17:ListenStream=/run/systemd/userdb/io.systemd.Multiplexer
+/lib/systemd/system/systemd-userdbd.socket:19:SocketMode=0666
+/lib/systemd/system/systemd-userdbd.socket:22:WantedBy=sockets.target
+/lib/systemd/system/systemd-vconsole-setup.service:34:ExecStart=/usr/lib/systemd/systemd-vconsole-setup
+/lib/systemd/system/systemd-vconsole-setup.service:36:ImportCredential=vconsole.*
+/lib/systemd/system/systemd-volatile-root.service:22:ExecStart=/usr/lib/systemd/systemd-volatile-root yes /sysroot
+/lib/systemd/system/update-engine-oneshot.service:10:# This service should be considered started even after the ExecStart line below
+/lib/systemd/system/update-engine-oneshot.service:20:ExecStartPre=/bin/bash -c 'echo UPDATE_ENGINE_MAX_SLEEP=1 > /run/update-engine-oneshot.env'
+/lib/systemd/system/update-engine-oneshot.service:24:ExecStart=/bin/systemctl start update-engine
+/lib/systemd/system/update-engine.service:38:# value can be overridden by the EnvironmentFiles below
+/lib/systemd/system/update-engine.service:42:# EnvironmentFile below
+/lib/systemd/system/update-engine.service:47:# EnvironmentFile and typically is for development builds
+/lib/systemd/system/update-engine.service:55:# The following EnvironmentFiles override the above Environment variables that
+/lib/systemd/system/update-engine.service:66:EnvironmentFile=-/anki/etc/update-engine.env
+/lib/systemd/system/update-engine.service:67:EnvironmentFile=-/run/update-engine-oneshot.env
+/lib/systemd/system/update-engine.service:68:EnvironmentFile=-/run/vic-switchboard/update-engine.env
+/lib/systemd/system/update-engine.service:72:ExecStartPre=/bin/rm -rf /run/update-engine
+/lib/systemd/system/update-engine.service:78:ExecStartPre=/bin/mkdir -p /run/update-engine /run/vic-switchboard
+/lib/systemd/system/update-engine.service:82:ExecStartPre=/bin/test $UPDATE_ENGINE_ENABLED = "True"
+/lib/systemd/system/update-engine.service:87:ExecStartPre=/bin/bash -c 'echo sleeping > /run/update-engine/phase'
+/lib/systemd/system/update-engine.service:88:ExecStartPre=/bin/bash -c 'sleep $(( RANDOM % $UPDATE_ENGINE_MAX_SLEEP ))'
+/lib/systemd/system/update-engine.service:92:ExecStartPre=/bin/bash -c 'echo Unclean exit > /run/update-engine/error'
+/lib/systemd/system/update-engine.service:97:ExecStartPre=/bin/bash -c 'echo starting > /run/update-engine/phase'
+/lib/systemd/system/update-engine.service:103:ExecStart=/bin/bash -c '/usr/bin/logwrapper /anki/bin/update-engine; echo $? > /run/update-engine/exit_code'
+/lib/systemd/system/update-engine.service:110:# Remove the EnvironmentFiles from the /run tmpfs.  This will ensure that they
+/lib/systemd/system/usb.service:43:ExecStart=/etc/initscripts/usb start
+/lib/systemd/system/user-runtime-dir@.service:17:ExecStart=/usr/lib/systemd/systemd-user-runtime-dir start %i
+/lib/systemd/system/user@.service:21:ExecStart=/usr/lib/systemd/systemd --user
+/lib/systemd/system/var-volatile-cache.service:15:ExecStart=/sbin/mount-copybind /var/volatile/cache /var/cache
+/lib/systemd/system/var-volatile-lib.service:15:ExecStart=/sbin/mount-copybind /var/volatile/lib /var/lib
+/lib/systemd/system/var-volatile-spool.service:15:ExecStart=/sbin/mount-copybind /var/volatile/spool /var/spool
+/lib/systemd/system/var-volatile-srv.service:15:ExecStart=/sbin/mount-copybind /var/volatile/srv /srv
+/lib/systemd/system/vhostname-publish.service:9:ExecStart=/usr/sbin/vhostname-publish
+/lib/systemd/system/vic-anim.service:11:EnvironmentFile=/anki/etc/vic-anim.env
+/lib/systemd/system/vic-anim.service:13:ExecStartPre=-/bin/systemctl stop vic-bootAnim.service
+/lib/systemd/system/vic-anim.service:14:ExecStart=/usr/bin/logwrapper /anki/bin/vic-anim $VIC_ANIM_OPTS
+/lib/systemd/system/vic-bootAnim.service:11:ExecStart=/anki/bin/vic-bootAnim
+/lib/systemd/system/vic-cloud.service:14:EnvironmentFile=/anki/etc/vic-cloud.env
+/lib/systemd/system/vic-cloud.service:15:ExecStartPre=/bin/mkdir -p /run/vic-cloud
+/lib/systemd/system/vic-cloud.service:16:ExecStartPre=/bin/chown -R anki:anki /run/vic-cloud
+/lib/systemd/system/vic-cloud.service:17:ExecStart=/usr/bin/logwrapper /anki/bin/vic-cloud $VIC_CLOUD_OPTS
+/lib/systemd/system/vic-engine.service:11:EnvironmentFile=/anki/etc/vic-engine.env
+/lib/systemd/system/vic-engine.service:12:ExecStartPre=/bin/chown engine:root /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+/lib/systemd/system/vic-engine.service:13:ExecStartPre=/bin/chown engine:root /sys/devices/system/cpu/cpu0/cpufreq/scaling_setspeed
+/lib/systemd/system/vic-engine.service:14:ExecStartPre=/bin/chown engine:root /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_cur_freq
+/lib/systemd/system/vic-engine.service:15:ExecStartPre=/bin/chgrp anki /dev/block/bootdevice/by-name/emr
+/lib/systemd/system/vic-engine.service:16:ExecStartPre=/bin/chown engine /dev/i2c-6
+/lib/systemd/system/vic-engine.service:17:ExecStartPre=/bin/chown engine /dev/kgsl-3d0
+/lib/systemd/system/vic-engine.service:18:ExecStartPre=/sbin/export-gpio 94
+/lib/systemd/system/vic-engine.service:19:ExecStartPre=/sbin/export-gpio 0
+/lib/systemd/system/vic-engine.service:21:ExecStartPre=/bin/sleep 0.1
+/lib/systemd/system/vic-engine.service:22:ExecStart=/usr/bin/logwrapper /anki/bin/vic-engine $VIC_ENGINE_OPTS
+/lib/systemd/system/vic-init.service:18:ExecStart=/bin/sh /anki/bin/vic-init.sh
+/lib/systemd/system/vic-robot.service:11:EnvironmentFile=/anki/etc/vic-robot.env
+/lib/systemd/system/vic-robot.service:12:ExecStartPre=/bin/chown robot /dev/ttyHS0 /dev/spidev0.0
+/lib/systemd/system/vic-robot.service:13:ExecStartPre=/bin/chgrp anki /dev/block/bootdevice/by-name/emr
+/lib/systemd/system/vic-robot.service:14:ExecStart=/anki/bin/vic-robot $VIC_ROBOT_OPTS
+/lib/systemd/system/vic-switchboard.service:11:EnvironmentFile=/anki/etc/vic-switchboard.env
+/lib/systemd/system/vic-switchboard.service:12:ExecStartPre=/bin/chown net:anki /dev/block/bootdevice/by-name/switchboard
+/lib/systemd/system/vic-switchboard.service:13:ExecStartPre=/bin/mkdir -p /run/vic-switchboard
+/lib/systemd/system/vic-switchboard.service:14:ExecStartPre=/bin/chown -R net:anki /run/vic-switchboard
+/lib/systemd/system/vic-switchboard.service:15:ExecStart=/usr/bin/logwrapper /anki/bin/vic-switchboard $VIC_SWITCHBOARD_OPTS
+/lib/systemd/system/wired.service:12:ExecStartPre=/usr/bin/sleep 3
+/lib/systemd/system/wired.service:13:ExecStart=/usr/bin/wired
+/lib/systemd/system/wpa_supplicant-nl80211@.service:12:ExecStart=/usr/sbin/wpa_supplicant -c/etc/wpa_supplicant/wpa_supplicant-nl80211-%I.conf -Dnl80211 -i%I
+/lib/systemd/system/wpa_supplicant-wired@.service:12:ExecStart=/usr/sbin/wpa_supplicant -c/etc/wpa_supplicant/wpa_supplicant-wired-%I.conf -Dwired -i%I
+/lib/systemd/system/wpa_supplicant.service:9:ExecStart=/usr/sbin/wpa_supplicant -u
+/lib/systemd/system/wpa_supplicant@.service:12:ExecStart=/usr/sbin/wpa_supplicant -c/etc/wpa_supplicant/wpa_supplicant-%I.conf -i%I
+[root@Vector-P3W3 ~]#
