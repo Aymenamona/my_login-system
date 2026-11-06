@@ -3099,3 +3099,19 @@ Date: Fri, 06 Nov 2026 15:51:01 GMT
 </html>[root@Vector-P3W3 ~]# curl -k -i --max-time 3 https://127.0.0.1:8890/
 curl: (35) TLS connect error: error:0A00010B:SSL routines::wrong version number
 [root@Vector-P3W3 ~]#
+
+
+
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+PS C:\Users\Aymen> $ports = 8888,8889,8890,8080,443
+PS C:\Users\Aymen>
+PS C:\Users\Aymen> foreach ($port in $ports) {
+>>     Test-NetConnection 10.59.2.111 -Port $port -InformationLevel Quiet
+>> }
+True
+True
+True
+True
+True
+PS C:\Users\Aymen>
