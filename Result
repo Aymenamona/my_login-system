@@ -1,254 +1,380 @@
-(.venv) PS C:\VectorAI> Select-String -Path ".\.venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2_grpc.py" -Pattern "AudioFeed|Aud
+PS C:\Users\Aymen> $base = "http://10.93.245.111:8889"
+PS C:\Users\Aymen>
+PS C:\Users\Aymen> Write-Host "===== MIC DATA ENGINE ====="
+===== MIC DATA ENGINE =====
+PS C:\Users\Aymen>
+PS C:\Users\Aymen> $r = Invoke-WebRequest -Uri "$base/webVizModules/micDataEngine.js" -UseBasicParsing
+PS C:\Users\Aymen>
+PS C:\Users\Aymen> Write-Host "Status:" $r.StatusCode
+Status: 200
+PS C:\Users\Aymen> $r.Content
+/*
+ * This module draws the directional mic information on a clock face,
+ * along with confidence values and other debug information.
+ * Only useful on a Victor robot as Webots has no direction information from
+ * the mic.
+ */
+
+(function(myMethods, sendData) {
+
+  var ClockData = {}
+  ClockData.center = [125, 125]
+  ClockData.radius = 100;
+   // max width of the chart
+  var maxWidth_s = 60.0;
+  var chartOptions = {
+    legend: {
+      show: true,
+      position: "sw",
+      labelFormatter: GetLegendLabel
+    },
+    yaxis: {
+      min: 0.0,
+      max: 10.0,
+      ticks: [0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0],
+    },
+    xaxis: {
+      ticks: 10,
+      tickLength: 10,
+       tickDecimals: 0
+    },
+    grid: {
+      show: true,
+    }
+  }
+
+  var first = true;
+  var plotData = [];
+  var micDataPower = [];
+  var micDataPeakAverage = [];
+  var micDataPeakThreshold = [];
+  var micDataPeakMinThreshold = [];
+  var chart;
 
 
+  function GetLegendLabel(label, series) {
+    if( series.lines.show ) {
+      return `<div class="legendLabelBox">
+                <div class="legendLabelBoxFill" style="background-color:` + series.color + `"></div>
+              </div>`
+              + label;
+    } else {
+      return `<div class="legendLabelBox">
+                <div class="legendLabelBoxUnused"></div>
+              </div>`
+              + label;
+    }
+  }
 
 
+  function drawClockFace() {
+    var context = $('#myCanvas')[0].getContext("2d");
+     // draw our clock face ...
+     // larger filled circle
+    context.beginPath();
+    context.arc( ClockData.center[0], ClockData.center[1], ClockData.radius, 0, 2*Math.PI );
+    context.lineWidth = 5;
+    context.strokeStyle = '#0000FF';
+    context.stroke();
+    context.fillStyle = '#FFFFFF';
+    context.fill();
+     // center dot
+    context.beginPath();
+    context.arc( ClockData.center[0], ClockData.center[1], 2, 0, 2*Math.PI );
+    context.fillStyle = '#000000';
+    context.fill();
+  }
+
+  myMethods.init = function(elem) {
+    // Called once when the module is loaded.
+    if ( location.port != "8888" )
+    {
+      $('<h3>You must use this tab with the engine process (port 8888)</h3>').appendTo(elem);
+    }
+
+    var angleFactorA = 0.866; // cos(30 degrees)
+    var angleFactorB = 0.5; // sin(30 degrees)
+
+    // Multiplying factors (cos/sin) for the clock directions.
+    // NOTE: Needs to have the 13th value so the unknown direction dot can display properly
+    ClockData.offsets =
+    [
+      [-0.0, -1.0], // 12 o'clock - in front of robot so point down
+      [angleFactorB, -angleFactorA], // 1 o'clock
+      [angleFactorA, -angleFactorB], // 2 o'clock
+      [1.0, -0.0], // 3 o'clock
+      [angleFactorA, angleFactorB], // 4 o'clock
+      [angleFactorB, angleFactorA], // 5 o'clock
+      [-0.0, 1.0], // 6 o'clock - behind robot so point up
+      [-angleFactorB, angleFactorA], // 7 o'clock
+      [-angleFactorA, angleFactorB], // 8 o'clock
+      [-1.0, -0.0], // 9 o'clock
+      [-angleFactorA, -angleFactorB], // 10 o'clock
+      [-angleFactorB, -angleFactorA], // 11 o'clock
+      [-0.0, -0.0] // Unknown direction
+    ];
+
+    // create our canvas
+    $('<canvas></canvas>', {id: 'myCanvas'}).appendTo(elem);
+
+    // set our canvas size to fit all of our stuff
+    var canvas = $('#myCanvas')[0];
+    canvas.height = 250;
+    canvas.width = 700;
+
+    // default to an empty clock face
+    drawClockFace();
+
+    // Add in the chart for displaying loudness
+    $(elem).append('<div id="chartContainer"></div>');
+    $('body').on('click', '.legendLabel', function () {
+      var labelName = this.innerText;
+      var labelIdx = -1;
+      for (i=0; i < plotData.length; i++)
+      {
+        if (plotData[i].label == labelName)
+        {
+          labelIdx = i;
+          break;
+        }
+      }
+       if (labelIdx != -1)
+      {
+        plotData[labelIdx].lines.show = !plotData[labelIdx].lines.show;
+        chart.setData(plotData);
+        chart.setupGrid();
+        chart.draw();
+      }
+    });
+
+    $(elem).append('<p>NOTE: trigger values are for display purposes only (true values live in instance jsons)</p>');
+  };
 
 
+  myMethods.onData = function(data, elem) {
+
+    // The engine has sent a new json blob.
+    var canvas = $('#myCanvas')[0];
+    var context = canvas.getContext("2d");
+
+    // clear our canvas so we can paint!
+    context.clearRect(0, 0, canvas.width, canvas.height);
+
+    // need to redraw this each time
+    drawClockFace();
+
+    // Audio strongest direction
+    var dotRadius = 8;
+    var dotX = ClockData.center[0] + ( ClockData.offsets[data.direction][0] * ClockData.radius );
+    var dotY = ClockData.center[1] + ( ClockData.offsets[data.direction][1] * ClockData.radius );
+    context.beginPath();
+    context.arc( dotX, dotY, dotRadius, 0, 2*Math.PI );
+    context.fillStyle = '#FF0000';
+    context.fill();
+
+    // Audio beamforming selected direction
+    var dotRadius = 5;
+    var dotX = ClockData.center[0] + ( ClockData.offsets[data.selectedDirection][0] * ClockData.radius );
+    var dotY = ClockData.center[1] + ( ClockData.offsets[data.selectedDirection][1] * ClockData.radius );
+    context.beginPath();
+    context.arc( dotX, dotY, dotRadius, 0, 2*Math.PI );
+    context.fillStyle = '#00FF00';
+    context.fill();
+
+    // Update data used in the chart
+    var micPowerValue = parseFloat(data["latestPowerValue"]);
+    var micNoiseFloor = parseFloat(data["latestNoiseFloor"]);
+    var micPeakValue = parseFloat(data["powerScore"]);
+    var micPeakAverage = parseFloat(data["powerScoreAvg"]);
+    var micPeakThreshold = parseFloat(data["powerScoreThreshold"]);
+    var micPeakMinThreshold = parseFloat(data["powerScoreMinThreshold"])
+
+    micDataPower.push( [data["time"], micPowerValue] );
+    micDataPeakAverage.push( [data["time"], micNoiseFloor+micPeakAverage] );
+    micDataPeakThreshold.push( [data["time"], micNoiseFloor+micPeakAverage+micPeakThreshold] );
+    micDataPeakMinThreshold.push( [data["time"], micNoiseFloor+micPeakAverage+micPeakMinThreshold] );
+
+    // add in our confidence values ...
+    var labelX = 250, valueX = 400;
+    var textY = 25, textHeight = 25;
+
+    context.font="normal 18px Arial";
+    context.textBaseline="top";
+    context.fillStyle = '#000000';
+    context.textAlign = "start";
+
+    context.fillText( "Confidence : ", labelX, textY );
+    context.fillText( data.confidence, valueX, textY );
+
+    textY += textHeight;
+    context.fillText( "Scoring Level : ", labelX, textY );
+    context.fillText( micPeakValue.toFixed(3), valueX, textY );
+
+    textY += textHeight;
+    context.fillText( "Scoring Avg : ", labelX, textY );
+    context.fillText( micPeakAverage.toFixed(3), valueX, textY );
+
+    // VAD active
+    textY += textHeight;
+    context.fillText( "Voice Detected :", labelX, textY );
+    dotRadius = 8;
+    context.beginPath();
+    context.arc( valueX + 10, textY + 11, dotRadius, 0, 2*Math.PI );
+    context.fillStyle = '#FF0000';
+    if (data.activeState) {
+      context.fillStyle = '#00FF00';
+    }
+    context.fill();
+    context.fillStyle = '#000000';
+
+    valueX = 450;
+    if ( data.isTriggered )
+    {
+      textY += textHeight*2;
+      context.fillText( "Reaction Score : ", labelX, textY );
+      context.fillText( data.triggerScore.toFixed(3), valueX, textY );
+       textY += textHeight;
+      context.fillText( "Reaction Confidence : ", labelX, textY );
+      context.fillText( data.triggerConfidence, valueX, textY );
+       textY += textHeight;
+      context.fillText( "Reaction Direction : ", labelX, textY );
+      context.fillText( data.triggerDirection, valueX, textY );
+    }
+
+    // Set up chart the first time
+    if( first ) {
+      var newData = { label: "Mic Power",
+                      data: micDataPower,
+                      lines: {show: true} };
+      plotData.push( newData );
+       newData = { label: "Mic Peak Avg",
+                      data: micDataPeakAverage,
+                      lines: {show: true} };
+      plotData.push( newData );
+       newData = { label: "Mic Power Trigger",
+                      data: micDataPeakThreshold,
+                      lines: {show: true} };
+      plotData.push( newData );
+       newData = { label: "Mic Conf Trigger",
+                      data: micDataPeakMinThreshold,
+                      lines: {show: true} };
+      plotData.push( newData );
+       chart = $.plot("#chartContainer", plotData, chartOptions);
+      first = false;
+    }
+
+    // Remove old data
+    var dt = data["time"] - micDataPower[0][0];
+    while( dt > maxWidth_s && micDataPower.length > 0 ) {
+      micDataPower.shift();
+      dt = data["time"] - micDataPower[0][0];
+    }
+
+    dt = data["time"] - micDataPeakAverage[0][0];
+    while( dt > maxWidth_s && micDataPeakAverage.length > 0 ) {
+      micDataPeakAverage.shift();
+      dt = data["time"] - micDataPeakAverage[0][0];
+    }
+
+    dt = data["time"] - micDataPeakThreshold[0][0];
+    while( dt > maxWidth_s && micDataPeakThreshold.length > 0 ) {
+      micDataPeakThreshold.shift();
+      dt = data["time"] - micDataPeakThreshold[0][0];
+    }
+
+    dt = data["time"] - micDataPeakMinThreshold[0][0];
+    while( dt > maxWidth_s && micDataPeakMinThreshold.length > 0 ) {
+      micDataPeakMinThreshold.shift();
+      dt = data["time"] - micDataPeakMinThreshold[0][0];
+    }
+
+    // fixed width data
+    var xMin = data["time"] - maxWidth_s;
+    chart.getAxes().xaxis.options.min = xMin;
+    chart.getAxes().xaxis.options.max = xMin + maxWidth_s + 0.1;
+
+    chart.setData(plotData);
+    chart.setupGrid();
+    chart.draw();
+  };
 
 
+  myMethods.update = function(dt, elem) {};
+
+  myMethods.getStyles = function() {
+    return `
+      #chartContainer {
+        height: 370px;
+        width: 100%;
+      }
+
+      .legendColorBox {
+        /* we manually create the boxes below */
+        display:none;
+      }
+      .legendLabel {
+        cursor: pointer;
+      }
+      .legendLabelBox {
+        display: inline-block;
+        border: 1px solid #ccc;
+        padding: 1px;
+        height: 14px;
+        width: 14px;
+        vertical-align: middle;
+        margin-right: 3px;
+      }
+      .legendLabelBoxFill {
+        display:inline-block;
+        width:10px;
+        height:10px;
+      }
+      .legendLabelBoxUnused {
+        width: 18px;
+        height: 18px;
+        border-bottom: 1px solid black;
+        transform: translateY(-10px) translateX(-10px) rotate(-45deg);
+        -ms-transform: translateY(-10px) translateX(-10px) rotate(-45deg);
+        -moz-transform: translateY(-10px) translateX(-10px) rotate(-45deg);
+        -webkit-transform: translateY(-10px) translateX(-10px) rotate(-45deg);
+      }
+    `;
+  };
+
+})(moduleMethods, moduleSendDataFunc);
+
+PS C:\Users\Aymen>
+PS C:\Users\Aymen> Write-Host "`n===== AUDIO RELATED FILES IN WEBVIZ ====="
+
+===== AUDIO RELATED FILES IN WEBVIZ =====
+PS C:\Users\Aymen>
+PS C:\Users\Aymen> $html = (Invoke-WebRequest -Uri "$base/webViz.html" -UseBasicParsing).Content
+PS C:\Users\Aymen>
+PS C:\Users\Aymen> $html -split "`n" |
+>> Select-String -Pattern "audio|speech|mic|websocket|socket|SoundReactions"
+
+      SoundReactions : 'webVizModules/micDataEngine.js',
+      MicData : 'webVizModules/micData.js',
+      AudioEvents: 'webVizModules/audioEvents.js',
+      SpeechRecognizerSys : 'webVizModules/speechRecognizerSys.js'
+    var socket;
+    function setupSocket() {
+      if( typeof socket !== 'undefined' ) {
+      var uri = "ws:" + "//" + loc.host + "/socket";
+      socket = new WebSocket(uri);
+      socket.onopen = function(){
+      socket.onmessage = function(msg){
+      socket.onclose = function(e){
+      socket.onerror=function (e) {
+        $('#status').text('WebSockets error: ' + e.code + ' '  + e.reason).css('color','red');
+        socket.send( JSON.stringify(subscribeData) );
+      socket.send( JSON.stringify(unsubscribeData) );
+    var sendToSocket = function(moduleName, data) {
+      socket.send( JSON.stringify(payload) );
+                  sendToSocket(moduleName, data);
+          // connect to websockets
+          setupSocket();
+                // Save the tab reference, so when the socket finishes
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                                                                                                                                   dioSendMode" -Context 5,10
-
-  .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2_grpc.py:341:    self.SetCubeLights = channel.unary_unary(
-  .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2_grpc.py:342:
-'/Anki.Vector.external_interface.ExternalInterface/SetCubeLights',
-  .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2_grpc.py:343:
-request_serializer=anki__vector_dot_messaging_dot_cube__pb2.SetCubeLightsRequest.SerializeToString,
-  .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2_grpc.py:344:
-response_deserializer=anki__vector_dot_messaging_dot_cube__pb2.SetCubeLightsResponse.FromString,
-  .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2_grpc.py:345:        )
-> .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2_grpc.py:346:    self.AudioFeed = channel.unary_stream(
-> .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2_grpc.py:347:
-'/Anki.Vector.external_interface.ExternalInterface/AudioFeed',
-> .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2_grpc.py:348:
-request_serializer=anki__vector_dot_messaging_dot_messages__pb2.AudioFeedRequest.SerializeToString,
-> .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2_grpc.py:349:
-response_deserializer=anki__vector_dot_messaging_dot_messages__pb2.AudioFeedResponse.FromString,
-  .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2_grpc.py:350:        )
-  .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2_grpc.py:351:    self.CameraFeed = channel.unary_stream(
-  .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2_grpc.py:352:        
-'/Anki.Vector.external_interface.ExternalInterface/CameraFeed',
-  .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2_grpc.py:353:
-request_serializer=anki__vector_dot_messaging_dot_messages__pb2.CameraFeedRequest.SerializeToString,
-  .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2_grpc.py:354:
-response_deserializer=anki__vector_dot_messaging_dot_messages__pb2.CameraFeedResponse.FromString,
-  .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2_grpc.py:355:        )
-  .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2_grpc.py:356:    self.CaptureSingleImage = channel.unary_unary(
-  .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2_grpc.py:357:
-'/Anki.Vector.external_interface.ExternalInterface/CaptureSingleImage',
-  .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2_grpc.py:358:
-request_serializer=anki__vector_dot_messaging_dot_messages__pb2.CaptureSingleImageRequest.SerializeToString,
-  .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2_grpc.py:359:
-response_deserializer=anki__vector_dot_messaging_dot_messages__pb2.CaptureSingleImageResponse.FromString,
-  .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2_grpc.py:847:    """
-  .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2_grpc.py:848:    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-  .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2_grpc.py:849:    context.set_details('Method not implemented!')
-  .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2_grpc.py:850:    raise NotImplementedError('Method not implemented!')
-  .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2_grpc.py:851:
-> .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2_grpc.py:852:  def AudioFeed(self, request, context):
-  .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2_grpc.py:853:    """Request an audio feed from the robot.
-  .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2_grpc.py:854:    """
-  .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2_grpc.py:855:    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-  .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2_grpc.py:856:    context.set_details('Method not implemented!')
-  .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2_grpc.py:857:    raise NotImplementedError('Method not implemented!')
-  .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2_grpc.py:858:
-  .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2_grpc.py:859:  def CameraFeed(self, request, context):
-  .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2_grpc.py:860:    """Request a camera feed from the robot.
-  .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2_grpc.py:861:    """
-  .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2_grpc.py:862:    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-  .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2_grpc.py:1224:      'SetCubeLights': grpc.unary_unary_rpc_method_handler(     
-  .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2_grpc.py:1225:          servicer.SetCubeLights,
-  .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2_grpc.py:1226:
-request_deserializer=anki__vector_dot_messaging_dot_cube__pb2.SetCubeLightsRequest.FromString,
-  .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2_grpc.py:1227:
-response_serializer=anki__vector_dot_messaging_dot_cube__pb2.SetCubeLightsResponse.SerializeToString,
-  .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2_grpc.py:1228:      ),
-> .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2_grpc.py:1229:      'AudioFeed': grpc.unary_stream_rpc_method_handler(        
-> .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2_grpc.py:1230:          servicer.AudioFeed,
-> .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2_grpc.py:1231:
-request_deserializer=anki__vector_dot_messaging_dot_messages__pb2.AudioFeedRequest.FromString,
-> .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2_grpc.py:1232:
-response_serializer=anki__vector_dot_messaging_dot_messages__pb2.AudioFeedResponse.SerializeToString,
-  .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2_grpc.py:1233:      ),
-  .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2_grpc.py:1234:      'CameraFeed': grpc.unary_stream_rpc_method_handler(       
-  .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2_grpc.py:1235:          servicer.CameraFeed,
-  .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2_grpc.py:1236:
-request_deserializer=anki__vector_dot_messaging_dot_messages__pb2.CameraFeedRequest.FromString,
-  .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2_grpc.py:1237:
-response_serializer=anki__vector_dot_messaging_dot_messages__pb2.CameraFeedResponse.SerializeToString,
-  .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2_grpc.py:1238:      ),
-  .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2_grpc.py:1239:      'CaptureSingleImage':
-grpc.unary_unary_rpc_method_handler(
-  .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2_grpc.py:1240:          servicer.CaptureSingleImage,
-  .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2_grpc.py:1241:
-request_deserializer=anki__vector_dot_messaging_dot_messages__pb2.CaptureSingleImageRequest.FromString,
-  .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2_grpc.py:1242:
-response_serializer=anki__vector_dot_messaging_dot_messages__pb2.CaptureSingleImageResponse.SerializeToString,
-
-
-(.venv) PS C:\VectorAI> Select-String -Path ".\.venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2.py" -Pattern "AudioFeedRequest|AudioFeedResponse|AudioChunk|AudioSendModeRequest|MICROPHONE_SAMPLE_RATE" -Context 2,8
-
-  .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2.py:22:
-  .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2.py:23:
-> .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2.py:24:DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n.anki_ve 
-ctor/messaging/external_interface.proto\x12\x1e\x41nki.Vector.external_interface\x1a\x1cgoogle/api/annotations.proto\x1a!anki_vector/messaging/alex 
-a.proto\x1a$anki_vector/messaging/behavior.proto\x1a anki_vector/messaging/cube.proto\x1a$anki_vector/messaging/messages.proto\x1a#anki_vector/mess 
-aging/nav_map.proto\x1a\"anki_vector/messaging/shared.proto\x1a$anki_vector/messaging/settings.proto*o\n\x0fProtocolVersion\x12\x1c\n\x18PROTOCOL_V 
-ERSION_UNKNOWN\x10\x00\x12\x1c\n\x18PROTOCOL_VERSION_MINIMUM\x10\x00\x12\x1c\n\x18PROTOCOL_VERSION_CURRENT\x10\x05\x1a\x02\x10\x01\x32\xd8j\n\x11\x 
-45xternalInterface\x12\xa3\x01\n\x0fProtocolVersion\x12\x36.Anki.Vector.external_interface.ProtocolVersionRequest\x1a\x37.Anki.Vector.external_inte 
-rface.ProtocolVersionResponse\"\x1f\x82\xd3\xe4\x93\x02\x19\"\x14/v1/protocol_version:\x01*\x12\xab\x01\n\x11SDKInitialization\x12\x38.Anki.Vector. 
-external_interface.SDKInitializationRequest\x1a\x39.Anki.Vector.external_interface.SDKInitializationResponse\"!\x82\xd3\xe4\x93\x02\x1b\"\x16/v1/sd 
-k_initialization:\x01*\x12x\n\x0b\x44riveWheels\x12\x32.Anki.Vector.external_interface.DriveWheelsRequest\x1a\x33.Anki.Vector.external_interface.Dr 
-iveWheelsResponse\"\x00\x12\x8c\x01\n\x14PlayAnimationTrigger\x12;.Anki.Vector.external_interface.PlayAnimationTriggerRequest\x1a\x35.Anki.Vector.e 
-xternal_interface.PlayAnimationResponse\"\x00\x12~\n\rPlayAnimation\x12\x34.Anki.Vector.external_interface.PlayAnimationRequest\x1a\x35.Anki.Vector 
-.external_interface.PlayAnimationResponse\"\x00\x12\x9f\x01\n\x0eListAnimations\x12\x35.Anki.Vector.external_interface.ListAnimationsRequest\x1a\x3 
-6.Anki.Vector.external_interface.ListAnimationsResponse\"\x1e\x82\xd3\xe4\x93\x02\x18\"\x13/v1/list_animations:\x01*\x12\xbc\x01\n\x15ListAnimation 
-Triggers\x12<.Anki.Vector.external_interface.ListAnimationTriggersRequest\x1a=.Anki.Vector.external_interface.ListAnimationTriggersResponse\"&\x82\ 
-xd3\xe4\x93\x02 \"\x1b/v1/list_animation_triggers:\x01*\x12o\n\x08MoveHead\x12/.Anki.Vector.external_interface.MoveHeadRequest\x1a\x30.Anki.Vector. 
-external_interface.MoveHeadResponse\"\x00\x12o\n\x08MoveLift\x12/.Anki.Vector.external_interface.MoveLiftRequest\x1a\x30.Anki.Vector.external_inter 
-face.MoveLiftResponse\"\x00\x12~\n\rStopAllMotors\x12\x34.Anki.Vector.external_interface.StopAllMotorsRequest\x1a\x35.Anki.Vector.external_interfac 
-e.StopAllMotorsResponse\"\x00\x12\xb5\x01\n\x13\x44isplayFaceImageRGB\x12:.Anki.Vector.external_interface.DisplayFaceImageRGBRequest\x1a;.Anki.Vect 
-or.external_interface.DisplayFaceImageRGBResponse\"%\x82\xd3\xe4\x93\x02\x1f\"\x1a/v1/display_face_image_rgb:\x01*\x12\x9d\x01\n\x0b\x45ventStream\ 
-x12,.Anki.Vector.external_interface.EventRequest\x1a-.Anki.Vector.external_interface.EventResponse\"/\x82\xd3\xe4\x93\x02)\"\x10/v1/event_stream:\x 
-01*Z\x12\x12\x10/v1/event_stream0\x01\x12\x9c\x01\n\x1b\x45xternalAudioStreamPlayback\x12:.Anki.Vector.external_interface.ExternalAudioStreamReques 
-t\x1a;.Anki.Vector.external_interface.ExternalAudioStreamResponse\"\x00(\x01\x30\x01\x12\x88\x01\n\x0f\x42\x65haviorControl\x12\x36.Anki.Vector.ext 
-ernal_interface.BehaviorControlRequest\x1a\x37.Anki.Vector.external_interface.BehaviorControlResponse\"\x00(\x01\x30\x01\x12\xb2\x01\n\x15\x41ssume 
-BehaviorControl\x12\x36.Anki.Vector.external_interface.BehaviorControlRequest\x1a\x37.Anki.Vector.external_interface.BehaviorControlResponse\"&\x82 
-\xd3\xe4\x93\x02 \"\x1b/v1/assume_behavior_control:\x01*0\x01\x12\xb8\x01\n\x14\x43\x61ncelFaceEnrollment\x12;.Anki.Vector.external_interface.Cance 
-lFaceEnrollmentRequest\x1a<.Anki.Vector.external_interface.CancelFaceEnrollmentResponse\"%\x82\xd3\xe4\x93\x02\x1f\"\x1a/v1/cancel_face_enrollment: 
-\x01*\x12\xb8\x01\n\x14RequestEnrolledNames\x12;.Anki.Vector.external_interface.RequestEnrolledNamesRequest\x1a<.Anki.Vector.external_interface.Req 
-uestEnrolledNamesResponse\"%\x82\xd3\xe4\x93\x02\x1f\"\x1a/v1/request_enrolled_names:\x01*\x12\xc2\x01\n\x16UpdateEnrolledFaceByID\x12=.Anki.Vector 
-.external_interface.UpdateEnrolledFaceByIDRequest\x1a>.Anki.Vector.external_interface.UpdateEnrolledFaceByIDResponse\")\x82\xd3\xe4\x93\x02#\"\x1e/ 
-v1/update_enrolled_face_by_id:\x01*\x12\xbe\x01\n\x15\x45raseEnrolledFaceByID\x12<.Anki.Vector.external_interface.EraseEnrolledFaceByIDRequest\x1a= 
-.Anki.Vector.external_interface.EraseEnrolledFaceByIDResponse\"(\x82\xd3\xe4\x93\x02\"\"\x1d/v1/erase_enrolled_face_by_id:\x01*\x12\xbd\x01\n\x15\x 
-45raseAllEnrolledFaces\x12<.Anki.Vector.external_interface.EraseAllEnrolledFacesRequest\x1a=.Anki.Vector.external_interface.EraseAllEnrolledFacesRe 
-sponse\"\'\x82\xd3\xe4\x93\x02!\"\x1c/v1/erase_all_enrolled_faces:\x01*\x12\xa5\x01\n\x0fSetFaceToEnroll\x12\x36.Anki.Vector.external_interface.Set 
-FaceToEnrollRequest\x1a\x37.Anki.Vector.external_interface.SetFaceToEnrollResponse\"!\x82\xd3\xe4\x93\x02\x1b\"\x16/v1/set_face_to_enroll:\x01*\x12 
-\x8f\x01\n\nEnrollFace\x12\x31.Anki.Vector.external_interface.EnrollFaceRequest\x1a\x32.Anki.Vector.external_interface.EnrollFaceResponse\"\x1a\x82 
-\xd3\xe4\x93\x02\x14\"\x0f/v1/enroll_face:\x01*\x12\xbc\x01\n\x15\x45nableMarkerDetection\x12<.Anki.Vector.external_interface.EnableMarkerDetection 
-Request\x1a=.Anki.Vector.external_interface.EnableMarkerDetectionResponse\"&\x82\xd3\xe4\x93\x02 \"\x1b/v1/enable_marker_detection:\x01*\x12\xb4\x0 
-1\n\x13\x45nableFaceDetection\x12:.Anki.Vector.external_interface.EnableFaceDetectionRequest\x1a;.Anki.Vector.external_interface.EnableFaceDetectio 
-nResponse\"$\x82\xd3\xe4\x93\x02\x1e\"\x19/v1/enable_face_detection:\x01*\x12\xbc\x01\n\x15\x45nableMotionDetection\x12<.Anki.Vector.external_inter 
-face.EnableMotionDetectionRequest\x1a=.Anki.Vector.external_interface.EnableMotionDetectionResponse\"&\x82\xd3\xe4\x93\x02 \"\x1b/v1/enable_motion_ 
-detection:\x01*\x12\xa8\x01\n\x10\x45nableMirrorMode\x12\x37.Anki.Vector.external_interface.EnableMirrorModeRequest\x1a\x38.Anki.Vector.external_in 
-terface.EnableMirrorModeResponse\"!\x82\xd3\xe4\x93\x02\x1b\"\x16/v1/enable_mirror_mode:\x01*\x12\xb8\x01\n\x14\x45nableImageStreaming\x12;.Anki.Ve 
-ctor.external_interface.EnableImageStreamingRequest\x1a<.Anki.Vector.external_interface.EnableImageStreamingResponse\"%\x82\xd3\xe4\x93\x02\x1f\"\x 
-1a/v1/enable_image_streaming:\x01*\x12\xc5\x01\n\x17IsImageStreamingEnabled\x12>.Anki.Vector.external_interface.IsImageStreamingEnabledRequest\x1a? 
-.Anki.Vector.external_interface.IsImageStreamingEnabledResponse\")\x82\xd3\xe4\x93\x02#\"\x1e/v1/is_image_streaming_enabled:\x01*\x12\xb6\x01\n\x13 
-\x43\x61ncelActionByIdTag\x12:.Anki.Vector.external_interface.CancelActionByIdTagRequest\x1a;.Anki.Vector.external_interface.CancelActionByIdTagRes 
-ponse\"&\x82\xd3\xe4\x93\x02 \"\x1b/v1/cancel_action_by_id_tag:\x01*\x12\x9f\x01\n\x0e\x43\x61ncelBehavior\x12\x35.Anki.Vector.external_interface.C 
-ancelBehaviorRequest\x1a\x36.Anki.Vector.external_interface.CancelBehaviorResponse\"\x1e\x82\xd3\xe4\x93\x02\x18\"\x13/v1/cancel_behavior:\x01*\x12 
-\x88\x01\n\x08GoToPose\x12/.Anki.Vector.external_interface.GoToPoseRequest\x1a\x30.Anki.Vector.external_interface.GoToPoseResponse\"\x19\x82\xd3\xe 
-4\x93\x02\x13\"\x0e/v1/go_to_pose:\x01*\x12\x98\x01\n\x0c\x44ockWithCube\x12\x33.Anki.Vector.external_interface.DockWithCubeRequest\x1a\x34.Anki.Ve 
-ctor.external_interface.DockWithCubeResponse\"\x1d\x82\xd3\xe4\x93\x02\x17\"\x12/v1/dock_with_cube:\x01*\x12\xa4\x01\n\x0f\x44riveOffCharger\x12\x3 
-6.Anki.Vector.external_interface.DriveOffChargerRequest\x1a\x37.Anki.Vector.external_interface.DriveOffChargerResponse\" \x82\xd3\xe4\x93\x02\x1a\" 
-\x15/v1/drive_off_charger:\x01*\x12\xa0\x01\n\x0e\x44riveOnCharger\x12\x35.Anki.Vector.external_interface.DriveOnChargerRequest\x1a\x36.Anki.Vector 
-.external_interface.DriveOnChargerResponse\"\x1f\x82\xd3\xe4\x93\x02\x19\"\x14/v1/drive_on_charger:\x01*\x12\x8b\x01\n\tFindFaces\x12\x30.Anki.Vect 
-or.external_interface.FindFacesRequest\x1a\x31.Anki.Vector.external_interface.FindFacesResponse\"\x19\x82\xd3\xe4\x93\x02\x13\"\x0e/v1/find_faces:\ 
-x01*\x12\xad\x01\n\x11LookAroundInPlace\x12\x38.Anki.Vector.external_interface.LookAroundInPlaceRequest\x1a\x39.Anki.Vector.external_interface.Look 
-AroundInPlaceResponse\"#\x82\xd3\xe4\x93\x02\x1d\"\x18/v1/look_around_in_place:\x01*\x12\x8b\x01\n\tRollBlock\x12\x30.Anki.Vector.external_interfac 
-e.RollBlockRequest\x1a\x31.Anki.Vector.external_interface.RollBlockResponse\"\x19\x82\xd3\xe4\x93\x02\x13\"\x0e/v1/roll_block:\x01*\x12\x8f\x01\n\n 
-PhotosInfo\x12\x31.Anki.Vector.external_interface.PhotosInfoRequest\x1a\x32.Anki.Vector.external_interface.PhotosInfoResponse\"\x1a\x82\xd3\xe4\x93 
-\x02\x14\"\x0f/v1/photos_info:\x01*\x12z\n\x05Photo\x12,.Anki.Vector.external_interface.PhotoRequest\x1a-.Anki.Vector.external_interface.PhotoRespo 
-nse\"\x14\x82\xd3\xe4\x93\x02\x0e\"\t/v1/photo:\x01*\x12\x8a\x01\n\tThumbnail\x12\x30.Anki.Vector.external_interface.ThumbnailRequest\x1a\x31.Anki. 
-Vector.external_interface.ThumbnailResponse\"\x18\x82\xd3\xe4\x93\x02\x12\"\r/v1/thumbnail:\x01*\x12\x93\x01\n\x0b\x44\x65letePhoto\x12\x32.Anki.Ve 
-ctor.external_interface.DeletePhotoRequest\x1a\x33.Anki.Vector.external_interface.DeletePhotoResponse\"\x1b\x82\xd3\xe4\x93\x02\x15\"\x10/v1/delete 
-_photo:\x01*\x12~\n\rDriveStraight\x12\x34.Anki.Vector.external_interface.DriveStraightRequest\x1a\x35.Anki.Vector.external_interface.DriveStraight 
-Response\"\x00\x12x\n\x0bTurnInPlace\x12\x32.Anki.Vector.external_interface.TurnInPlaceRequest\x1a\x33.Anki.Vector.external_interface.TurnInPlaceRe 
-sponse\"\x00\x12{\n\x0cSetHeadAngle\x12\x33.Anki.Vector.external_interface.SetHeadAngleRequest\x1a\x34.Anki.Vector.external_interface.SetHeadAngleR 
-esponse\"\x00\x12~\n\rSetLiftHeight\x12\x34.Anki.Vector.external_interface.SetLiftHeightRequest\x1a\x35.Anki.Vector.external_interface.SetLiftHeigh 
-tResponse\"\x00\x12\x84\x01\n\x0fTurnTowardsFace\x12\x36.Anki.Vector.external_interface.TurnTowardsFaceRequest\x1a\x37.Anki.Vector.external_interfa 
-ce.TurnTowardsFaceResponse\"\x00\x12u\n\nGoToObject\x12\x31.Anki.Vector.external_interface.GoToObjectRequest\x1a\x32.Anki.Vector.external_interface 
-.GoToObjectResponse\"\x00\x12u\n\nRollObject\x12\x31.Anki.Vector.external_interface.RollObjectRequest\x1a\x32.Anki.Vector.external_interface.RollOb 
-jectResponse\"\x00\x12x\n\x0bPopAWheelie\x12\x32.Anki.Vector.external_interface.PopAWheelieRequest\x1a\x33.Anki.Vector.external_interface.PopAWheel 
-ieResponse\"\x00\x12{\n\x0cPickupObject\x12\x33.Anki.Vector.external_interface.PickupObjectRequest\x1a\x34.Anki.Vector.external_interface.PickupObj 
-ectResponse\"\x00\x12\x9c\x01\n\x17PlaceObjectOnGroundHere\x12>.Anki.Vector.external_interface.PlaceObjectOnGroundHereRequest\x1a?.Anki.Vector.exte 
-rnal_interface.PlaceObjectOnGroundHereResponse\"\x00\x12~\n\x0fSetMasterVolume\x12\x33.Anki.Vector.external_interface.MasterVolumeRequest\x1a\x34.A 
-nki.Vector.external_interface.MasterVolumeResponse\"\x00\x12\xaf\x01\n\x12UserAuthentication\x12\x39.Anki.Vector.external_interface.UserAuthenticat 
-ionRequest\x1a:.Anki.Vector.external_interface.UserAuthenticationResponse\"\"\x82\xd3\xe4\x93\x02\x1c\"\x17/v1/user_authentication:\x01*\x12\x97\x0 
-1\n\x0c\x42\x61tteryState\x12\x33.Anki.Vector.external_interface.BatteryStateRequest\x1a\x34.Anki.Vector.external_interface.BatteryStateResponse\"\ 
-x1c\x82\xd3\xe4\x93\x02\x16\"\x11/v1/battery_state:\x01*\x12\x97\x01\n\x0cVersionState\x12\x33.Anki.Vector.external_interface.VersionStateRequest\x 
-1a\x34.Anki.Vector.external_interface.VersionStateResponse\"\x1c\x82\xd3\xe4\x93\x02\x16\"\x11/v1/version_state:\x01*\x12\x83\x01\n\x07SayText\x12. 
-.Anki.Vector.external_interface.SayTextRequest\x1a/.Anki.Vector.external_interface.SayTextResponse\"\x17\x82\xd3\xe4\x93\x02\x11\"\x0c/v1/say_text:
-\x01*\x12\x93\x01\n\x0b\x43onnectCube\x12\x32.Anki.Vector.external_interface.ConnectCubeRequest\x1a\x33.Anki.Vector.external_interface.ConnectCubeR 
-esponse\"\x1b\x82\xd3\xe4\x93\x02\x15\"\x10/v1/connect_cube:\x01*\x12\x9f\x01\n\x0e\x44isconnectCube\x12\x35.Anki.Vector.external_interface.Disconn 
-ectCubeRequest\x1a\x36.Anki.Vector.external_interface.DisconnectCubeResponse\"\x1e\x82\xd3\xe4\x93\x02\x18\"\x13/v1/disconnect_cube:\x01*\x12\x9f\x 
-01\n\x0e\x43ubesAvailable\x12\x35.Anki.Vector.external_interface.CubesAvailableRequest\x1a\x36.Anki.Vector.external_interface.CubesAvailableRespons 
-e\"\x1e\x82\xd3\xe4\x93\x02\x18\"\x13/v1/cubes_available:\x01*\x12\xa4\x01\n\x0f\x46lashCubeLights\x12\x36.Anki.Vector.external_interface.FlashCube 
-LightsRequest\x1a\x37.Anki.Vector.external_interface.FlashCubeLightsResponse\" \x82\xd3\xe4\x93\x02\x1a\"\x15/v1/flash_cube_lights:\x01*\x12\xb4\x0 
-1\n\x13\x46orgetPreferredCube\x12:.Anki.Vector.external_interface.ForgetPreferredCubeRequest\x1a;.Anki.Vector.external_interface.ForgetPreferredCub 
-eResponse\"$\x82\xd3\xe4\x93\x02\x1e\"\x19/v1/forget_preferred_cube:\x01*\x12\xa8\x01\n\x10SetPreferredCube\x12\x37.Anki.Vector.external_interface. 
-SetPreferredCubeRequest\x1a\x38.Anki.Vector.external_interface.SetPreferredCubeResponse\"!\x82\xd3\xe4\x93\x02\x1b\"\x16/v1/set_preferred_cube:\x01 
-*\x12\xb4\x01\n\x13\x44\x65leteCustomObjects\x12:.Anki.Vector.external_interface.DeleteCustomObjectsRequest\x1a;.Anki.Vector.external_interface.Del 
-eteCustomObjectsResponse\"$\x82\xd3\xe4\x93\x02\x1e\"\x19/v1/delete_custom_objects:\x01*\x12\xc5\x01\n\x17\x43reateFixedCustomObject\x12>.Anki.Vect 
-or.external_interface.CreateFixedCustomObjectRequest\x1a?.Anki.Vector.external_interface.CreateFixedCustomObjectResponse\")\x82\xd3\xe4\x93\x02#\"\ 
-x1e/v1/create_fixed_custom_object:\x01*\x12\xb0\x01\n\x12\x44\x65\x66ineCustomObject\x12\x39.Anki.Vector.external_interface.DefineCustomObjectReque 
-st\x1a:.Anki.Vector.external_interface.DefineCustomObjectResponse\"#\x82\xd3\xe4\x93\x02\x1d\"\x18/v1/define_custom_object:\x01*\x12~\n\rSetCubeLig 
-hts\x12\x34.Anki.Vector.external_interface.SetCubeLightsRequest\x1a\x35.Anki.Vector.external_interface.SetCubeLightsResponse\"\x00\x12\x8d\x01\n\tA 
-udioFeed\x12\x30.Anki.Vector.external_interface.AudioFeedRequest\x1a\x31.Anki.Vector.external_interface.AudioFeedResponse\"\x19\x82\xd3\xe4\x93\x02 
-\x13\"\x0e/v1/audio_feed:\x01*0\x01\x12\x91\x01\n\nCameraFeed\x12\x31.Anki.Vector.external_interface.CameraFeedRequest\x1a\x32.Anki.Vector.external 
-_interface.CameraFeedResponse\"\x1a\x82\xd3\xe4\x93\x02\x14\"\x0f/v1/camera_feed:\x01*0\x01\x12\xb0\x01\n\x12\x43\x61ptureSingleImage\x12\x39.Anki. 
-Vector.external_interface.CaptureSingleImageRequest\x1a:.Anki.Vector.external_interface.CaptureSingleImageResponse\"#\x82\xd3\xe4\x93\x02\x1d\"\x18 
-/v1/capture_single_image:\x01*\x12\x9e\x01\n\x0fGetCameraConfig\x12\x33.Anki.Vector.external_interface.CameraConfigRequest\x1a\x34.Anki.Vector.exte 
-rnal_interface.CameraConfigResponse\" \x82\xd3\xe4\x93\x02\x1a\"\x15/v1/get_camera_config:\x01*\x12\x94\x01\n\x0bSetEyeColor\x12\x32.Anki.Vector.ex 
-ternal_interface.SetEyeColorRequest\x1a\x33.Anki.Vector.external_interface.SetEyeColorResponse\"\x1c\x82\xd3\xe4\x93\x02\x16\"\x11/v1/set_eye_color 
-:\x01*\x12\x92\x01\n\nNavMapFeed\x12\x31.Anki.Vector.external_interface.NavMapFeedRequest\x1a\x32.Anki.Vector.external_interface.NavMapFeedResponse 
-\"\x1b\x82\xd3\xe4\x93\x02\x15\"\x10/v1/nav_map_feed:\x01*0\x01\x12\xac\x01\n\x11SetCameraSettings\x12\x38.Anki.Vector.external_interface.SetCamera 
-SettingsRequest\x1a\x39.Anki.Vector.external_interface.SetCameraSettingsResponse\"\"\x82\xd3\xe4\x93\x02\x1c\"\x17/v1/set_camera_settings:\x01*\x12 
-\x8b\x01\n\tAppIntent\x12\x30.Anki.Vector.external_interface.AppIntentRequest\x1a\x31.Anki.Vector.external_interface.AppIntentResponse\"\x19\x82\xd 
-3\xe4\x93\x02\x13\"\x0e/v1/app_intent:\x01*\x12\x9f\x01\n\x0eUpdateSettings\x12\x35.Anki.Vector.external_interface.UpdateSettingsRequest\x1a\x36.An 
-ki.Vector.external_interface.UpdateSettingsResponse\"\x1e\x82\xd3\xe4\x93\x02\x18\"\x13/v1/update_settings:\x01*\x12\xcb\x01\n\x1aGetLatestAttentio 
-nTransfer\x12>.Anki.Vector.external_interface.LatestAttentionTransferRequest\x1a?.Anki.Vector.external_interface.LatestAttentionTransferResponse\", 
-\x82\xd3\xe4\x93\x02&\"!/v1/get_latest_attention_transfer:\x01*\x12\x8b\x01\n\tPullJdocs\x12\x30.Anki.Vector.external_interface.PullJdocsRequest\x1 
-a\x31.Anki.Vector.external_interface.PullJdocsResponse\"\x19\x82\xd3\xe4\x93\x02\x13\"\x0e/v1/pull_jdocs:\x01*\x12\xbc\x01\n\x15UpdateAccountSettin 
-gs\x12<.Anki.Vector.external_interface.UpdateAccountSettingsRequest\x1a=.Anki.Vector.external_interface.UpdateAccountSettingsResponse\"&\x82\xd3\xe 
-4\x93\x02 \"\x1b/v1/update_account_settings:\x01*\x12\xac\x01\n\x11StartUpdateEngine\x12\x38.Anki.Vector.external_interface.CheckUpdateStatusReques 
-t\x1a\x39.Anki.Vector.external_interface.CheckUpdateStatusResponse\"\"\x82\xd3\xe4\x93\x02\x1c\"\x17/v1/start_update_engine:\x01*\x12\xac\x01\n\x11 
-\x43heckUpdateStatus\x12\x38.Anki.Vector.external_interface.CheckUpdateStatusRequest\x1a\x39.Anki.Vector.external_interface.CheckUpdateStatusRespon 
-se\"\"\x82\xd3\xe4\x93\x02\x1c\"\x17/v1/check_update_status:\x01*\x12\xa8\x01\n\x10UpdateAndRestart\x12\x37.Anki.Vector.external_interface.UpdateAn 
-dRestartRequest\x1a\x38.Anki.Vector.external_interface.UpdateAndRestartResponse\"!\x82\xd3\xe4\x93\x02\x1b\"\x16/v1/update_and_restart:\x01*\x12\xa 
-4\x01\n\x14\x43heckCloudConnection\x12\x31.Anki.Vector.external_interface.CheckCloudRequest\x1a\x32.Anki.Vector.external_interface.CheckCloudRespon 
-se\"%\x82\xd3\xe4\x93\x02\x1f\"\x1a/v1/check_cloud_connection:\x01*\x12\x96\x01\n\x0eGetFeatureFlag\x12\x32.Anki.Vector.external_interface.FeatureF 
-lagRequest\x1a\x33.Anki.Vector.external_interface.FeatureFlagResponse\"\x1b\x82\xd3\xe4\x93\x02\x15\"\x10/v1/feature_flag:\x01*\x12\xa7\x01\n\x12Ge 
-tFeatureFlagList\x12\x36.Anki.Vector.external_interface.FeatureFlagListRequest\x1a\x37.Anki.Vector.external_interface.FeatureFlagListResponse\" \x8 
-2\xd3\xe4\x93\x02\x1a\"\x15/v1/feature_flag_list:\x01*\x12\xa3\x01\n\x11GetAlexaAuthState\x12\x35.Anki.Vector.external_interface.AlexaAuthStateRequ 
-est\x1a\x36.Anki.Vector.external_interface.AlexaAuthStateResponse\"\x1f\x82\xd3\xe4\x93\x02\x19\"\x14/v1/alexa_auth_state:\x01*\x12\x90\x01\n\nAlex 
-aOptIn\x12\x31.Anki.Vector.external_interface.AlexaOptInRequest\x1a\x32.Anki.Vector.external_interface.AlexaOptInResponse\"\x1b\x82\xd3\xe4\x93\x02 
-\x15\"\x10/v1/alexa_opt_in:\x01*b\x06proto3')
-  .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2.py:25:
-  .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2.py:26:_builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
-  .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2.py:27:_builder.BuildTopDescriptorsAndMessages(DESCRIPTOR,
-'anki_vector.messaging.external_interface_pb2', globals())
-  .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2.py:28:if _descriptor._USE_C_DESCRIPTORS == False:
-  .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2.py:29:
-  .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2.py:30:  DESCRIPTOR._options = None
-  .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2.py:31:  _PROTOCOLVERSION._options = None
-  .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2.py:32:  _PROTOCOLVERSION._serialized_options = b'\020\001'
-
-
-(.venv) PS C:\VectorAI> 
+PS C:\Users\Aymen>
