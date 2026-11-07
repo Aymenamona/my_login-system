@@ -32,7 +32,7 @@
 
 
 
-                                                                                                                                                   dioSendMode|audio_feed|audio_send" -Context 5,10
+                                                                                                                                                   dioSendMode" -Context 5,10
 
   .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2_grpc.py:341:    self.SetCubeLights = channel.unary_unary(
   .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2_grpc.py:342:
@@ -45,13 +45,13 @@ response_deserializer=anki__vector_dot_messaging_dot_cube__pb2.SetCubeLightsResp
 > .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2_grpc.py:346:    self.AudioFeed = channel.unary_stream(
 > .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2_grpc.py:347:
 '/Anki.Vector.external_interface.ExternalInterface/AudioFeed',
-> .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2_grpc.py:348:        
+> .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2_grpc.py:348:
 request_serializer=anki__vector_dot_messaging_dot_messages__pb2.AudioFeedRequest.SerializeToString,
 > .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2_grpc.py:349:
 response_deserializer=anki__vector_dot_messaging_dot_messages__pb2.AudioFeedResponse.FromString,
   .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2_grpc.py:350:        )
   .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2_grpc.py:351:    self.CameraFeed = channel.unary_stream(
-  .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2_grpc.py:352:
+  .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2_grpc.py:352:        
 '/Anki.Vector.external_interface.ExternalInterface/CameraFeed',
   .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2_grpc.py:353:
 request_serializer=anki__vector_dot_messaging_dot_messages__pb2.CameraFeedRequest.SerializeToString,
@@ -181,7 +181,7 @@ ctor.external_interface.DeletePhotoRequest\x1a\x33.Anki.Vector.external_interfac
 _photo:\x01*\x12~\n\rDriveStraight\x12\x34.Anki.Vector.external_interface.DriveStraightRequest\x1a\x35.Anki.Vector.external_interface.DriveStraight 
 Response\"\x00\x12x\n\x0bTurnInPlace\x12\x32.Anki.Vector.external_interface.TurnInPlaceRequest\x1a\x33.Anki.Vector.external_interface.TurnInPlaceRe 
 sponse\"\x00\x12{\n\x0cSetHeadAngle\x12\x33.Anki.Vector.external_interface.SetHeadAngleRequest\x1a\x34.Anki.Vector.external_interface.SetHeadAngleR 
-esponse\"\x00\x12~\n\rSetLiftHeight\x12\x34.Anki.Vector.external_interface.SetLiftHeightRequest\x1a\x35.Anki.Vector.external_interface.SetLiftHeigh
+esponse\"\x00\x12~\n\rSetLiftHeight\x12\x34.Anki.Vector.external_interface.SetLiftHeightRequest\x1a\x35.Anki.Vector.external_interface.SetLiftHeigh 
 tResponse\"\x00\x12\x84\x01\n\x0fTurnTowardsFace\x12\x36.Anki.Vector.external_interface.TurnTowardsFaceRequest\x1a\x37.Anki.Vector.external_interfa 
 ce.TurnTowardsFaceResponse\"\x00\x12u\n\nGoToObject\x12\x31.Anki.Vector.external_interface.GoToObjectRequest\x1a\x32.Anki.Vector.external_interface 
 .GoToObjectResponse\"\x00\x12u\n\nRollObject\x12\x31.Anki.Vector.external_interface.RollObjectRequest\x1a\x32.Anki.Vector.external_interface.RollOb 
@@ -194,7 +194,7 @@ ionRequest\x1a:.Anki.Vector.external_interface.UserAuthenticationResponse\"\"\x8
 1\n\x0c\x42\x61tteryState\x12\x33.Anki.Vector.external_interface.BatteryStateRequest\x1a\x34.Anki.Vector.external_interface.BatteryStateResponse\"\ 
 x1c\x82\xd3\xe4\x93\x02\x16\"\x11/v1/battery_state:\x01*\x12\x97\x01\n\x0cVersionState\x12\x33.Anki.Vector.external_interface.VersionStateRequest\x 
 1a\x34.Anki.Vector.external_interface.VersionStateResponse\"\x1c\x82\xd3\xe4\x93\x02\x16\"\x11/v1/version_state:\x01*\x12\x83\x01\n\x07SayText\x12. 
-.Anki.Vector.external_interface.SayTextRequest\x1a/.Anki.Vector.external_interface.SayTextResponse\"\x17\x82\xd3\xe4\x93\x02\x11\"\x0c/v1/say_text: 
+.Anki.Vector.external_interface.SayTextRequest\x1a/.Anki.Vector.external_interface.SayTextResponse\"\x17\x82\xd3\xe4\x93\x02\x11\"\x0c/v1/say_text:
 \x01*\x12\x93\x01\n\x0b\x43onnectCube\x12\x32.Anki.Vector.external_interface.ConnectCubeRequest\x1a\x33.Anki.Vector.external_interface.ConnectCubeR 
 esponse\"\x1b\x82\xd3\xe4\x93\x02\x15\"\x10/v1/connect_cube:\x01*\x12\x9f\x01\n\x0e\x44isconnectCube\x12\x35.Anki.Vector.external_interface.Disconn 
 ectCubeRequest\x1a\x36.Anki.Vector.external_interface.DisconnectCubeResponse\"\x1e\x82\xd3\xe4\x93\x02\x18\"\x13/v1/disconnect_cube:\x01*\x12\x9f\x 
@@ -250,3 +250,5 @@ aOptIn\x12\x31.Anki.Vector.external_interface.AlexaOptInRequest\x1a\x32.Anki.Vec
   .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2.py:31:  _PROTOCOLVERSION._options = None
   .venv\Lib\site-packages\anki_vector\messaging\external_interface_pb2.py:32:  _PROTOCOLVERSION._serialized_options = b'\020\001'
 
+
+(.venv) PS C:\VectorAI> 
