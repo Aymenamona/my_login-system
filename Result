@@ -1,4 +1,4 @@
-root@Vector-P3W3 ~]# strings /anki/lib/libaudio_engine.so | grep -iE 'microphone|audiofeed|capture|record|stream|input|pcm|voice'
+[root@Vector-P3W3 ~]# strings /anki/lib/libaudio_engine.so | grep -iE 'microphone|audiofeed|capture|record|stream|input|pcm|voice'
 snd_pcm_close
 snd_pcm_drop
 snd_pcm_sw_params_free
