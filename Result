@@ -1,69 +1,350 @@
-عندما يعمل Vector بنسخة **WireOS بدون Wire-Pod**، يتم إلغاء الاعتماد على خادم خارجي لتفسير الأوامر الصوتية المعقدة عبر السحاب. بدلاً من ذلك، يتولى **OSKR** والأنظمة المحلية على الروبوت إدارة المعالجة والوصول المباشر.
+(vector_hand_env) PS C:\Users\Aymen\Desktop> @'
+>> import ssl
+>> import hashlib
+>> from pathlib import Path
+>>
+>> folder = Path.home() / ".anki_vector"
+>>
+>> def fingerprint(pem):
+>>     der = ssl.PEM_cert_to_DER_cert(pem.decode() if isinstance(pem, bytes) else pem)
+>>     return hashlib.sha256(der).hexdigest().upper()
+>>
+>> print("===== LOCAL CERTIFICATES =====")
+>>
+>> for name in [
+>>     "Vector-H4U1-00604d98.cert",
+>>     "Vector-P3W3-00604d98.cert"
+>> ]:
+>>     p = folder / name
+>>     if p.exists():
+>>         print(name)
+>>         print("SHA256:", fingerprint(p.read_bytes()))
+>>
+>> print("\n===== ROBOT CERTIFICATE =====")
+>>
+>> try:
+>>     remote = ssl.get_server_certificate(("192.168.1.104", 443))
+>>     print("SHA256:", fingerprint(remote))
+>>     print("Certificate retrieved successfully")
+>> except Exception as e:
+>>     print("ERROR:", repr(e))
+>> '@ | python -
+===== LOCAL CERTIFICATES =====
+Vector-H4U1-00604d98.cert
+SHA256: 7FBC383AA3708398ABFD1E19FE3DAFBF5A5DB9832EE2EB5DFC40D0A60838A12A
+Vector-P3W3-00604d98.cert
+SHA256: F4E80E414D1D5C96E7104DA8135CF48F345C66B0ADA67A6C65DFBE795AF29B8B
 
----
-
-## 1. كيف تصل الأوامر محلياً بدون Wire-Pod؟
-
-في نظام WireOS المستقل (Standalone)، يعمل الروبوت بنظام تشغيل **Linux مصغر (Yocto/Debian)** مباشرة على المعالج الرئيسي (Qualcomm Snapdragon).
-
-* **المحرك المحلي (Local Intent Engine / OSKR Engine):**
-يستخدم Vector محرك صوتي محلي مثل **vosk-api** أو **PocketSphinx** أو محرك Anki المحلي التراثي.
-* **طريقة معالجة الأمر:**
-1. التقاط الصوت عبر الميكروفونات الأربعة ($\text{Audio Front-End / Sound Processor}$).
-2. التعرّف على الكلمة المفتاحية (Wake Word) ومطابقتها محلياً.
-3. تحويل النص الأصوات المسموعة مباشرة داخل البروسيسور إلى **Intent** بدون إرسال البيانات عبر خادم HTTP خارجي.
-
-
-
----
-
-## 2. المسارات والأوامر الرئيسية (Internal Access & APIs)
-
-في غياب Wire-Pod، يتواصل النظام الداخلي لـ Vector عبر **IPC (Inter-Process Communication)** ونقاط وصول برمجية محلية (Local Endpoints):
-
-| المسار / الأداة | الوظيفة ودورها في WireOS بدون Wire-Pod |
-| --- | --- |
-| **`vic-engine`** | العملية الأساسية (Main Process) التي تقرأ الحساسات وتنفذ القرارات الذاتية. |
-| **`vic-anim`** | المسؤولة عن عرض الرسومات على الشاشة وتطبيق الأصوات والحركات. |
-| **`vic-gateway`** | الخدمة التي تفتح منفذ **gRPC (Port 443/5555)** للوصول المباشر عبر Python SDK أو SSH. |
-| **`ankibluetooth`** | عملية الـ Bluetooth BLE للربط الأولي وشبكة Wi-Fi وإدخال مفاتيح SSH. |
-
-### البارامترات المنفذة للأمر (Parameters):
-
-عند تنصيب أمر محلي عبر OSKR، تنفذ العمليات الحزمة بالطريقة التالية:
-
-```json
-{
-  "intent": "intent_system_charger",
-  "confidence": 0.95,
-  "source": "local_vosk_engine",
-  "parameters": {
-    "action": "drive_to_charger",
-    "speed_mmps": 80.0
-  }
-}
-
-```
-
----
-
-## 3. كيف يصل النظام لجميع الحساسات بدون Wire-Pod؟
-
-بدون خادم، يتم الوصول للحساسات عبر قراءة مباشرة لملفات النظام الداخلي **Hardware Abstraction Layer (HAL)** وشرائح الدوافع (Drivers) في Linux:
-
-1. **حساسات اللمس ومستشعرات السقوط (Cliff & Touch):** عبر HAL & Sysfs.
-يتم قراءة مستشعرات السقوط وحساس اللمس الأومية عبر مسارات `/sys/class/` في نظام Linux مباشرة لتقييم الاتصال بالسطح بدقة تصل إلى 50Hz.
-*Verification:* يمكنك التحقق من قراءتها محلياً عبر تشغيل أمر `vic-engine` في وضع تصحيح الأخطاء (Debug).
+===== ROBOT CERTIFICATE =====
+SHA256: 7FBC383AA3708398ABFD1E19FE3DAFBF5A5DB9832EE2EB5DFC40D0A60838A12A
+Certificate retrieved successfully
+(vector_hand_env) PS C:\Users\Aymen\Desktop> $p = "$env:USERPROFILE\.anki_vector\sdk_config.ini"
+(vector_hand_env) PS C:\Users\Aymen\Desktop> $c = Get-Content $p -Raw
+(vector_hand_env) PS C:\Users\Aymen\Desktop> $c = $c -replace 'Vector-P3W3-00604d98\.cert','Vector-H4U1-00604d98.cert'
+(vector_hand_env) PS C:\Users\Aymen\Desktop> $c = $c -replace 'name\s*=\s*Vector-P3W3','name = Vector-H4U1'
+(vector_hand_env) PS C:\Users\Aymen\Desktop> Set-Content $p $c -Encoding ASCII
+(vector_hand_env) PS C:\Users\Aymen\Desktop> Get-Content "$env:USERPROFILE\.anki_vector\sdk_config.ini"
+[00604d98]
+cert   = C:\Users\Aymen/.anki_vector/Vector-H4U1-00604d98.cert
+ip     = 192.168.1.104
+name = Vector-H4U1
+guid   = 54ZpUZHeGEFhIRvmtQ3fHQ==
+remote = 8.8.8.8
 
 
-2. **الميكروفونات والكاميرا (Audio & Vision):** عبر ALSA & V4L2.
-يقرأ محرك الصوت عبر **ALSA Driver** القنوات الأربع محلياً لتحديد اتجاه الصوت (DOA - Direction of Arrival)، بينما ترفع الكاميرا البث محلياً عبر **Video4Linux2 (V4L2)** لوحدة معالجة الصور (OpenCV/Anki Vision).
-*Verification:* التحقق من التغذية عبر أداة `arecord -l` أو قراءة مخرج الكاميرا من `/dev/video0`.
+(vector_hand_env) PS C:\Users\Aymen\Desktop> python -c "import anki_vector; r=anki_vector.Robot(); r.connect(); print('VECTOR CONNECTED'); r.disconnect()"
+08:11:51.015               robot.Robot WARNING  No serial number or name provided. Automatically selecting 00604d98
+08:11:51.018     connection.Connection    INFO  Connecting to 192.168.1.104:443 for Vector-H4U1 using C:\Users\Aymen/.anki_vector/Vector-H4U1-00604d98.cert
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "C:\Users\Aymen\Desktop\vector_hand_env\lib\site-packages\anki_vector\robot.py", line 641, in connect
+    self.conn.connect(timeout=timeout)
+  File "C:\Users\Aymen\Desktop\vector_hand_env\lib\site-packages\anki_vector\connection.py", line 471, in connect
+    raise VectorNotFoundException()
+anki_vector.exceptions.VectorNotFoundException: Unable to establish a connection to Vector.
+
+Make sure you're on the same network, and Vector is connected to the internet.
 
 
-3. **البوصلة والتسارع (IMU & Wheel Encoders):** عبر I2C Bus.
-تُقرأ بيانات الجيروسكوب وتوازن الجسم عبر ناقل **I2C** المباشر المربوط بـ IMU لتحديث موقع الروبوت الفضائي والتوازن لحظة بلحظة.
-*Verification:* تنفيذ أمر `i2cdetect` عبر SSH للتحقق من عناوين الحساسات المربوطة.
+
+(vector_hand_env) PS C:\Users\Aymen\Desktop> @'
+>> import ssl
+>> import socket
+>> import configparser
+>> from pathlib import Path
+>>
+>> folder = Path.home() / ".anki_vector"
+>> config = configparser.ConfigParser()
+>> config.read(folder / "sdk_config.ini")
+>>
+>> print("===== SDK CONFIG =====")
+>> for section in config.sections():
+>>     print("Section:", section)
+>>     for key in ["name", "ip", "cert", "remote"]:
+>>         print(key, "=", config.get(section, key, fallback="MISSING"))
+>>     guid = config.get(section, "guid", fallback="")
+>>     print("GUID present:", bool(guid))
+>>     print("GUID length:", len(guid))
+>>
+>> print("\n===== TLS / HTTP2 TEST =====")
+>> ctx = ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT)
+>> ctx.load_verify_locations(
+>>     cafile=str(folder / "Vector-H4U1-00604d98.cert")
+>> )
+>> ctx.check_hostname = True
+>> ctx.set_alpn_protocols(["h2"])
+>>
+>> try:
+>>     with socket.create_connection(("192.168.1.104", 443), timeout=8) as sock:
+>>         with ctx.wrap_socket(sock, server_hostname="Vector-H4U1") as s:
+>>             print("TLS:", s.version())
+>>             print("Cipher:", s.cipher())
+>>             print("ALPN:", s.selected_alpn_protocol())
+>>             print("TLS VERIFIED: YES")
+>> except Exception as e:
+>>     print("TLS ERROR:", repr(e))
+>> '@ | python -
+===== SDK CONFIG =====
+Section: 00604d98
+name = Vector-H4U1
+ip = 192.168.1.104
+cert = C:\Users\Aymen/.anki_vector/Vector-H4U1-00604d98.cert
+remote = 8.8.8.8
+GUID present: True
+GUID length: 24
+
+===== TLS / HTTP2 TEST =====
+TLS: TLSv1.3
+Cipher: ('TLS_CHACHA20_POLY1305_SHA256', 'TLSv1.3', 256)
+ALPN: h2
+TLS VERIFIED: YES
+(vector_hand_env) PS C:\Users\Aymen\Desktop> @'
+>> import inspect
+>> import anki_vector.connection as c
+>>
+>> print("===== CONNECTION SOURCE =====")
+>> src = inspect.getsource(c.Connection._connect)
+>> print(src)
+>>
+>> print("\n===== CHANNEL CREATION =====")
+>> for name, obj in inspect.getmembers(c.Connection):
+>>     if callable(obj) and any(x in name.lower() for x in ["channel", "credential", "connect"]):
+>>         try:
+>>             print("\n---", name, "---")
+>>             print(inspect.getsource(obj))
+>>         except Exception:
+>>             pass
+>> '@ | python -
+===== CONNECTION SOURCE =====
+    def _connect(self, timeout: float) -> None:
+        """The function that runs on the connection thread. This will connect to Vector,
+        and establish the BehaviorControl stream.
+        """
+        try:
+            if threading.main_thread() is threading.current_thread():
+                raise VectorAsyncException("\n\nConnection._connect must be run outside of the main thread.")
+            self._loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(self._loop)
+            self._done_signal = asyncio.Event()
+            if not self._behavior_control_level:
+                self._control_events = _ControlEventManager(self._loop)
+            else:
+                self._control_events = _ControlEventManager(self._loop, priority=self._behavior_control_level)
+            trusted_certs = None
+            with open(self.cert_file, 'rb') as cert:
+                trusted_certs = cert.read()
+
+            # Pin the robot certificate for opening the channel
+            channel_credentials = aiogrpc.ssl_channel_credentials(root_certificates=trusted_certs)
+            # Add authorization header for all the calls
+            call_credentials = aiogrpc.access_token_call_credentials(self._guid)
+
+            credentials = aiogrpc.composite_channel_credentials(channel_credentials, call_credentials)
+
+            self._logger.info(f"Connecting to {self.host} for {self.name} using {self.cert_file}")
+            self._channel = aiogrpc.secure_channel(self.host, credentials,
+                                                   options=(("grpc.ssl_target_name_override", self.name,),))
+
+            # Verify the connection to Vector is able to be established (client-side)
+            try:
+                # Explicitly grab _channel._channel to test the underlying grpc channel directly
+                grpc.channel_ready_future(self._channel._channel).result(timeout=timeout)  # pylint: disable=protected-access
+            except grpc.FutureTimeoutError as e:
+                raise VectorNotFoundException() from e
+
+            self._interface = client.ExternalInterfaceStub(self._channel)
+
+            # Verify Vector and the SDK have compatible protocol versions
+            version = protocol.ProtocolVersionRequest(client_version=protocol.PROTOCOL_VERSION_CURRENT, min_host_version=protocol.PROTOCOL_VERSION_MINIMUM)
+            protocol_version = self._loop.run_until_complete(self._interface.ProtocolVersion(version))
+            if protocol_version.result != protocol.ProtocolVersionResponse.SUCCESS or protocol.PROTOCOL_VERSION_MINIMUM > protocol_version.host_version:  # pylint: disable=no-member
+                raise VectorInvalidVersionException(protocol_version)
+
+            self._control_stream_task = self._loop.create_task(self._open_connections())
+
+            # Initialze SDK
+            sdk_module_version = __version__
+            python_version = platform.python_version()
+            python_implementation = platform.python_implementation()
+            os_version = platform.platform()
+            cpu_version = platform.machine()
+            initialize = protocol.SDKInitializationRequest(sdk_module_version=sdk_module_version,
+                                                           python_version=python_version,
+                                                           python_implementation=python_implementation,
+                                                           os_version=os_version,
+                                                           cpu_version=cpu_version)
+            self._loop.run_until_complete(self._interface.SDKInitialization(initialize))
+
+            if self._behavior_control_level:
+                self._loop.run_until_complete(self._request_control(behavior_control_level=self._behavior_control_level, timeout=timeout))
+        except Exception as e:  # pylint: disable=broad-except
+            # Propagate the errors to the calling thread
+            setattr(self._ready_signal, "exception", e)
+            self._loop.close()
+            return
+        finally:
+            self._ready_signal.set()
+
+        try:
+            async def wait_until_done():
+                return await self._done_signal.wait()
+            self._loop.run_until_complete(wait_until_done())
+        finally:
+            self._loop.close()
 
 
----
+===== CHANNEL CREATION =====
+
+--- _connect ---
+    def _connect(self, timeout: float) -> None:
+        """The function that runs on the connection thread. This will connect to Vector,
+        and establish the BehaviorControl stream.
+        """
+        try:
+            if threading.main_thread() is threading.current_thread():
+                raise VectorAsyncException("\n\nConnection._connect must be run outside of the main thread.")
+            self._loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(self._loop)
+            self._done_signal = asyncio.Event()
+            if not self._behavior_control_level:
+                self._control_events = _ControlEventManager(self._loop)
+            else:
+                self._control_events = _ControlEventManager(self._loop, priority=self._behavior_control_level)
+            trusted_certs = None
+            with open(self.cert_file, 'rb') as cert:
+                trusted_certs = cert.read()
+
+            # Pin the robot certificate for opening the channel
+            channel_credentials = aiogrpc.ssl_channel_credentials(root_certificates=trusted_certs)
+            # Add authorization header for all the calls
+            call_credentials = aiogrpc.access_token_call_credentials(self._guid)
+
+            credentials = aiogrpc.composite_channel_credentials(channel_credentials, call_credentials)
+
+            self._logger.info(f"Connecting to {self.host} for {self.name} using {self.cert_file}")
+            self._channel = aiogrpc.secure_channel(self.host, credentials,
+                                                   options=(("grpc.ssl_target_name_override", self.name,),))
+
+            # Verify the connection to Vector is able to be established (client-side)
+            try:
+                # Explicitly grab _channel._channel to test the underlying grpc channel directly
+                grpc.channel_ready_future(self._channel._channel).result(timeout=timeout)  # pylint: disable=protected-access
+            except grpc.FutureTimeoutError as e:
+                raise VectorNotFoundException() from e
+
+            self._interface = client.ExternalInterfaceStub(self._channel)
+
+            # Verify Vector and the SDK have compatible protocol versions
+            version = protocol.ProtocolVersionRequest(client_version=protocol.PROTOCOL_VERSION_CURRENT, min_host_version=protocol.PROTOCOL_VERSION_MINIMUM)
+            protocol_version = self._loop.run_until_complete(self._interface.ProtocolVersion(version))
+            if protocol_version.result != protocol.ProtocolVersionResponse.SUCCESS or protocol.PROTOCOL_VERSION_MINIMUM > protocol_version.host_version:  # pylint: disable=no-member
+                raise VectorInvalidVersionException(protocol_version)
+
+            self._control_stream_task = self._loop.create_task(self._open_connections())
+
+            # Initialze SDK
+            sdk_module_version = __version__
+            python_version = platform.python_version()
+            python_implementation = platform.python_implementation()
+            os_version = platform.platform()
+            cpu_version = platform.machine()
+            initialize = protocol.SDKInitializationRequest(sdk_module_version=sdk_module_version,
+                                                           python_version=python_version,
+                                                           python_implementation=python_implementation,
+                                                           os_version=os_version,
+                                                           cpu_version=cpu_version)
+            self._loop.run_until_complete(self._interface.SDKInitialization(initialize))
+
+            if self._behavior_control_level:
+                self._loop.run_until_complete(self._request_control(behavior_control_level=self._behavior_control_level, timeout=timeout))
+        except Exception as e:  # pylint: disable=broad-except
+            # Propagate the errors to the calling thread
+            setattr(self._ready_signal, "exception", e)
+            self._loop.close()
+            return
+        finally:
+            self._ready_signal.set()
+
+        try:
+            async def wait_until_done():
+                return await self._done_signal.wait()
+            self._loop.run_until_complete(wait_until_done())
+        finally:
+            self._loop.close()
+
+
+--- _open_connections ---
+    async def _open_connections(self):
+        """Starts the BehaviorControl stream, and handles the messages coming back from the robot."""
+        try:
+            async for response in self._interface.BehaviorControl(self._request_handler()):
+                response_type = response.WhichOneof("response_type")
+                if response_type == 'control_granted_response':
+                    self._logger.info(f"BehaviorControl {MessageToString(response, as_one_line=True)}")
+                    self._control_events.update(True)
+                elif response_type == 'control_lost_event':
+                    self._cancel_active()
+                    self._logger.info(f"BehaviorControl {MessageToString(response, as_one_line=True)}")
+                    self._control_events.update(False)
+        except futures.CancelledError:
+            self._logger.debug('Behavior handler task was cancelled. This is expected during disconnection.')
+
+
+--- connect ---
+    def connect(self, timeout: float = 10.0) -> None:
+        """Connect to Vector. This will start the connection thread which handles all messages
+        between Vector and Python.
+
+        .. code-block:: python
+
+            import anki_vector
+
+            # Connect to your Vector
+            conn = anki_vector.connection.Connection("Vector-XXXX", "XX.XX.XX.XX:443", "/path/to/file.cert", "<guid>")
+            conn.connect()
+            # Run your commands
+            async def play_animation():
+                # Run your commands
+                anim = anki_vector.messaging.protocol.Animation(name="anim_pounce_success_02")
+                anim_request = anki_vector.messaging.protocol.PlayAnimationRequest(animation=anim)
+                return await conn.grpc_interface.PlayAnimation(anim_request) # This needs to be run in an asyncio loop
+            conn.run_coroutine(play_animation()).result()
+            # Close the connection
+            conn.close()
+
+        :param timeout: The time allotted to attempt a connection, in seconds.
+        """
+        if self._thread:
+            raise VectorAsyncException("\n\nRepeated connections made to open Connection.")
+        self._ready_signal.clear()
+        self._thread = threading.Thread(target=self._connect, args=(timeout,), daemon=True, name="gRPC Connection Handler Thread")
+        self._thread.start()
+        ready = self._ready_signal.wait(timeout=2 * timeout)
+        if not ready:
+            raise VectorNotFoundException()
+        if hasattr(self._ready_signal, "exception"):
+            e = getattr(self._ready_signal, "exception")
+            delattr(self._ready_signal, "exception")
+            raise e
+
+(vector_hand_env) PS C:\Users\Aymen\Desktop>
