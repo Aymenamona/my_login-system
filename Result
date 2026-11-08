@@ -1,350 +1,66 @@
-(vector_hand_env) PS C:\Users\Aymen\Desktop> @'
->> import ssl
->> import hashlib
->> from pathlib import Path
->>
->> folder = Path.home() / ".anki_vector"
->>
->> def fingerprint(pem):
->>     der = ssl.PEM_cert_to_DER_cert(pem.decode() if isinstance(pem, bytes) else pem)
->>     return hashlib.sha256(der).hexdigest().upper()
->>
->> print("===== LOCAL CERTIFICATES =====")
->>
->> for name in [
->>     "Vector-H4U1-00604d98.cert",
->>     "Vector-P3W3-00604d98.cert"
->> ]:
->>     p = folder / name
->>     if p.exists():
->>         print(name)
->>         print("SHA256:", fingerprint(p.read_bytes()))
->>
->> print("\n===== ROBOT CERTIFICATE =====")
->>
->> try:
->>     remote = ssl.get_server_certificate(("192.168.1.104", 443))
->>     print("SHA256:", fingerprint(remote))
->>     print("Certificate retrieved successfully")
->> except Exception as e:
->>     print("ERROR:", repr(e))
->> '@ | python -
-===== LOCAL CERTIFICATES =====
-Vector-H4U1-00604d98.cert
-SHA256: 7FBC383AA3708398ABFD1E19FE3DAFBF5A5DB9832EE2EB5DFC40D0A60838A12A
-Vector-P3W3-00604d98.cert
-SHA256: F4E80E414D1D5C96E7104DA8135CF48F345C66B0ADA67A6C65DFBE795AF29B8B
-
-===== ROBOT CERTIFICATE =====
-SHA256: 7FBC383AA3708398ABFD1E19FE3DAFBF5A5DB9832EE2EB5DFC40D0A60838A12A
-Certificate retrieved successfully
-(vector_hand_env) PS C:\Users\Aymen\Desktop> $p = "$env:USERPROFILE\.anki_vector\sdk_config.ini"
-(vector_hand_env) PS C:\Users\Aymen\Desktop> $c = Get-Content $p -Raw
-(vector_hand_env) PS C:\Users\Aymen\Desktop> $c = $c -replace 'Vector-P3W3-00604d98\.cert','Vector-H4U1-00604d98.cert'
-(vector_hand_env) PS C:\Users\Aymen\Desktop> $c = $c -replace 'name\s*=\s*Vector-P3W3','name = Vector-H4U1'
-(vector_hand_env) PS C:\Users\Aymen\Desktop> Set-Content $p $c -Encoding ASCII
-(vector_hand_env) PS C:\Users\Aymen\Desktop> Get-Content "$env:USERPROFILE\.anki_vector\sdk_config.ini"
-[00604d98]
-cert   = C:\Users\Aymen/.anki_vector/Vector-H4U1-00604d98.cert
-ip     = 192.168.1.104
-name = Vector-H4U1
-guid   = 54ZpUZHeGEFhIRvmtQ3fHQ==
-remote = 8.8.8.8
-
-
-(vector_hand_env) PS C:\Users\Aymen\Desktop> python -c "import anki_vector; r=anki_vector.Robot(); r.connect(); print('VECTOR CONNECTED'); r.disconnect()"
-08:11:51.015               robot.Robot WARNING  No serial number or name provided. Automatically selecting 00604d98
-08:11:51.018     connection.Connection    INFO  Connecting to 192.168.1.104:443 for Vector-H4U1 using C:\Users\Aymen/.anki_vector/Vector-H4U1-00604d98.cert
+(vector_hand_env) PS C:\Users\Aymen\Desktop> $env:GRPC_VERBOSITY="DEBUG"
+(vector_hand_env) PS C:\Users\Aymen\Desktop> $env:GRPC_TRACE="connectivity_state,handshaker"
+(vector_hand_env) PS C:\Users\Aymen\Desktop> python -c "import logging, anki_vector; logging.basicConfig(level=logging.DEBUG); r=anki_vector.Robot(ip='192.168.1.104', cache_animation_lists=False); r.connect(timeout=30); print('VECTOR CONNECTED'); r.disconnect()"
+08:26:15.317               robot.Robot WARNING  No serial number or name provided. Automatically selecting 00604d98
+WARNING:robot.Robot:No serial number or name provided. Automatically selecting 00604d98
+DEBUG:asyncio:Using proactor: IocpProactor
+08:26:15.320     connection.Connection    INFO  Connecting to 192.168.1.104:443 for Vector-H4U1 using C:\Users\Aymen/.anki_vector/Vector-H4U1-00604d98.cert
+INFO:connection.Connection:Connecting to 192.168.1.104:443 for Vector-H4U1 using C:\Users\Aymen/.anki_vector/Vector-H4U1-00604d98.cert
+W1108 08:26:15.324266   19000 log.cc:110] Log level DEBUG is not suitable for production. Prefer WARNING or ERROR. However if you see this message in a debug environment or test environment it is safe to ignore this message.
+I1108 08:26:15.324576   19000 trace.cc:91] gRPC Tracers: connectivity_state, handshaker
+I1108 08:26:15.326892   15844 connectivity_state.cc:172] ConnectivityStateTracker client_channel[00000197841F9F90]: get current state: IDLE
+I1108 08:26:15.327023    4284 connectivity_state.cc:172] ConnectivityStateTracker client_channel[00000197841F9F90]: get current state: IDLE
+I1108 08:26:15.327091    4284 connectivity_state.cc:150] ConnectivityStateTracker client_channel[00000197841F9F90]: IDLE -> CONNECTING (started resolving, OK)
+I1108 08:26:15.327211    4284 connectivity_state.cc:116] ConnectivityStateTracker client_channel[00000197841F9F90]: add watcher 0000019784239B10
+I1108 08:26:15.327253    4284 connectivity_state.cc:122] ConnectivityStateTracker client_channel[00000197841F9F90]: notifying watcher 0000019784239B10: IDLE -> CONNECTING
+I1108 08:26:15.327348    4284 connectivity_state.cc:172] ConnectivityStateTracker client_channel[00000197841F9F90]: get current state: CONNECTING
+I1108 08:26:15.327357   15844 connectivity_state.cc:172] ConnectivityStateTracker client_channel[00000197841F9F90]: get current state: CONNECTING
+I1108 08:26:15.327689    4284 connectivity_state.cc:138] ConnectivityStateTracker client_channel[00000197841F9F90]: remove watcher 0000019784239B10
+I1108 08:26:15.327743    4284 connectivity_state.cc:116] ConnectivityStateTracker client_channel[00000197841F9F90]: add watcher 000001978423A9B0
+I1108 08:26:15.327792    4284 handshaker.cc:80] handshake_manager 0000019784003420: adding handshaker tcp_connect [00000197EBB18FD0] at index 0
+I1108 08:26:15.327829    4284 handshaker.cc:80] handshake_manager 0000019784003420: adding handshaker http_connect_client [0000019784243E20] at index 1
+I1108 08:26:15.327868    4284 handshaker.cc:80] handshake_manager 0000019784003420: adding handshaker endpoint_info [0000019784200830] at index 2
+I1108 08:26:15.328109    4284 handshaker.cc:80] handshake_manager 0000019784003420: adding handshaker security [00000197840D5DB0] at index 3
+I1108 08:26:15.328176    4284 handshaker.cc:150] CallNextHandshakerLocked: error=OK shutdown=false index=0, args={endpoint=(nil), args={grpc.client_channel_factory=0x7ffeb8814890, grpc.default_authority=Vector-H4U1, grpc.experimental.event_engine=0x19784200970, grpc.http2_scheme=https, grpc.internal.channel_credentials=0x197eb46fae0, grpc.internal.client_channel_call_destination=0x7ffeb88004d8, grpc.internal.no_subchannel.channelz_containing_base_node=0x197ebab4ac0, grpc.internal.security_connector=0x197842384c0, grpc.internal.stats_plugin_group=0x19784200b10, grpc.internal.subchannel_pool=0x197842347a0, grpc.internal.tcp_handshaker_bind_endpoint_to_pollset=1, grpc.internal.tcp_handshaker_resolved_address=ipv4:192.168.1.104:443, grpc.internal.use_v3_stack=0, grpc.primary_user_agent=grpc-python/1.80.1, grpc.resource_quota=0x197eb4d63b0, grpc.server_uri=dns:///192.168.1.104:443, grpc.ssl_target_name_override=Vector-H4U1}, read_buffer.Length()=0, exit_early=0}
+I1108 08:26:15.328242    4284 channel_trace.h:396] handshake manager 0x19784003420:  calling handshaker tcp_connect at index 0
+I1108 08:26:15.328558    4284 connectivity_state.cc:172] ConnectivityStateTracker client_channel[00000197841F9F90]: get current state: CONNECTING
+I1108 08:26:15.395743   18708 handshaker.cc:150] CallNextHandshakerLocked: error=OK shutdown=false index=1, args={endpoint=0x197ea7e7560, args={grpc.client_channel_factory=0x7ffeb8814890, grpc.default_authority=Vector-H4U1, grpc.experimental.event_engine=0x19784200970, grpc.http2_scheme=https, grpc.internal.channel_credentials=0x197eb46fae0, grpc.internal.client_channel_call_destination=0x7ffeb88004d8, grpc.internal.no_subchannel.channelz_containing_base_node=0x197ebab4ac0, grpc.internal.security_connector=0x197842384c0, grpc.internal.stats_plugin_group=0x19784200b10, grpc.internal.subchannel_pool=0x197842347a0, grpc.internal.use_v3_stack=0, grpc.primary_user_agent=grpc-python/1.80.1, grpc.resource_quota=0x197eb4d63b0, grpc.server_uri=dns:///192.168.1.104:443, grpc.ssl_target_name_override=Vector-H4U1}, read_buffer.Length()=0, exit_early=0}
+I1108 08:26:15.395877   18708 channel_trace.h:396] handshake manager 0x19784003420:  calling handshaker http_connect_client at index 1
+I1108 08:26:15.395922   18708 handshaker.cc:150] CallNextHandshakerLocked: error=OK shutdown=false index=2, args={endpoint=0x197ea7e7560, args={grpc.client_channel_factory=0x7ffeb8814890, grpc.default_authority=Vector-H4U1, grpc.experimental.event_engine=0x19784200970, grpc.http2_scheme=https, grpc.internal.channel_credentials=0x197eb46fae0, grpc.internal.client_channel_call_destination=0x7ffeb88004d8, grpc.internal.no_subchannel.channelz_containing_base_node=0x197ebab4ac0, grpc.internal.security_connector=0x197842384c0, grpc.internal.stats_plugin_group=0x19784200b10, grpc.internal.subchannel_pool=0x197842347a0, grpc.internal.use_v3_stack=0, grpc.primary_user_agent=grpc-python/1.80.1, grpc.resource_quota=0x197eb4d63b0, grpc.server_uri=dns:///192.168.1.104:443, grpc.ssl_target_name_override=Vector-H4U1}, read_buffer.Length()=0, exit_early=0}
+I1108 08:26:15.395977   18708 channel_trace.h:396] handshake manager 0x19784003420:  calling handshaker endpoint_info at index 2
+I1108 08:26:15.396033   18708 handshaker.cc:150] CallNextHandshakerLocked: error=OK shutdown=false index=3, args={endpoint=0x197ea7e7560, args={grpc.client_channel_factory=0x7ffeb8814890, grpc.default_authority=Vector-H4U1, grpc.experimental.event_engine=0x19784200970, grpc.http2_scheme=https, grpc.internal.channel_credentials=0x197eb46fae0, grpc.internal.client_channel_call_destination=0x7ffeb88004d8, grpc.internal.endpoint_local_address=ipv4:192.168.1.119:49697, grpc.internal.endpoint_peer_address=ipv4:192.168.1.104:443, grpc.internal.no_subchannel.channelz_containing_base_node=0x197ebab4ac0, grpc.internal.security_connector=0x197842384c0, grpc.internal.stats_plugin_group=0x19784200b10, grpc.internal.subchannel_pool=0x197842347a0, grpc.internal.use_v3_stack=0, grpc.primary_user_agent=grpc-python/1.80.1, grpc.resource_quota=0x197eb4d63b0, grpc.server_uri=dns:///192.168.1.104:443, grpc.ssl_target_name_override=Vector-H4U1}, read_buffer.Length()=0, exit_early=0}
+I1108 08:26:15.396090   18708 channel_trace.h:396] handshake manager 0x19784003420:  calling handshaker security at index 3
+I1108 08:26:15.537553    4276 connectivity_state.cc:138] ConnectivityStateTracker client_channel[00000197841F9F90]: remove watcher 000001978423A9B0
+I1108 08:26:15.537697    4276 connectivity_state.cc:116] ConnectivityStateTracker client_channel[00000197841F9F90]: add watcher 0000019784239CF0
+I1108 08:26:15.662177   18708 handshaker.cc:150] CallNextHandshakerLocked: error=OK shutdown=false index=4, args={endpoint=0x197ea7e7560, args={grpc.auth_context=0x197eb426fb0, grpc.client_channel_factory=0x7ffeb8814890, grpc.default_authority=Vector-H4U1, grpc.experimental.event_engine=0x19784200970, grpc.http2_scheme=https, grpc.internal.channel_credentials=0x197eb46fae0, grpc.internal.channelz_security=0x197841fe4f0, grpc.internal.client_channel_call_destination=0x7ffeb88004d8, grpc.internal.endpoint_local_address=ipv4:192.168.1.119:49697, grpc.internal.endpoint_peer_address=ipv4:192.168.1.104:443, grpc.internal.no_subchannel.channelz_containing_base_node=0x197ebab4ac0, grpc.internal.security_connector=0x197842384c0, grpc.internal.stats_plugin_group=0x19784200b10, grpc.internal.subchannel_pool=0x197842347a0, grpc.internal.use_v3_stack=0, grpc.primary_user_agent=grpc-python/1.80.1, grpc.resource_quota=0x197eb4d63b0, grpc.server_uri=dns:///192.168.1.104:443, grpc.ssl_target_name_override=Vector-H4U1}, read_buffer.Length()=0, exit_early=0}
+I1108 08:26:15.673541    4284 connectivity_state.cc:116] ConnectivityStateTracker client_transport[000001978425AE48]: add watcher 00000197841F5D20
+I1108 08:26:15.673557    1880 connectivity_state.cc:172] ConnectivityStateTracker client_channel[00000197841F9F90]: get current state: CONNECTING
+I1108 08:26:15.673714    1880 connectivity_state.cc:150] ConnectivityStateTracker client_channel[00000197841F9F90]: CONNECTING -> READY (helper, OK)
+I1108 08:26:15.673754    1880 connectivity_state.cc:158] ConnectivityStateTracker client_channel[00000197841F9F90]: notifying watcher 0000019784239CF0: CONNECTING -> READY
+I1108 08:26:15.673810    8220 connectivity_state.cc:138] ConnectivityStateTracker client_channel[00000197841F9F90]: remove watcher 0000019784239CF0
+I1108 08:26:15.673856   15844 connectivity_state.cc:172] ConnectivityStateTracker client_channel[00000197841F9F90]: get current state: READY
+I1108 08:26:15.674214   18748 connectivity_state.cc:116] ConnectivityStateTracker client_channel[00000197841F9F90]: add watcher 000001978423A170
+I1108 08:26:15.675075   19000 connectivity_state.cc:172] ConnectivityStateTracker client_channel[00000197841F9F90]: get current state: READY
+I1108 08:26:15.729952   19000 connectivity_state.cc:172] ConnectivityStateTracker client_channel[00000197841F9F90]: get current state: READY
+I1108 08:26:15.731203   19000 connectivity_state.cc:172] ConnectivityStateTracker client_channel[00000197841F9F90]: get current state: READY
+08:26:15.814     connection.Connection    INFO  BehaviorControl control_granted_response { }
+INFO:connection.Connection:BehaviorControl control_granted_response { }
+DEBUG:asyncio:Using proactor: IocpProactor
+I1108 08:26:15.816221   19000 connectivity_state.cc:172] ConnectivityStateTracker client_channel[00000197841F9F90]: get current state: READY
+I1108 08:26:15.816968   19000 connectivity_state.cc:172] ConnectivityStateTracker client_channel[00000197841F9F90]: get current state: READY
+I1108 08:26:15.879192    8220 connectivity_state.cc:138] ConnectivityStateTracker client_channel[00000197841F9F90]: remove watcher 000001978423A170
+I1108 08:26:15.916345   19000 connectivity_state.cc:172] ConnectivityStateTracker client_channel[00000197841F9F90]: get current state: READY
+VECTOR CONNECTED
+I1108 08:26:16.051847   19000 connectivity_state.cc:172] ConnectivityStateTracker client_channel[00000197841F9F90]: get current state: READY
+I1108 08:26:16.102225   19000 connectivity_state.cc:172] ConnectivityStateTracker client_channel[00000197841F9F90]: get current state: READY
+I1108 08:26:16.152371   19000 connectivity_state.cc:172] ConnectivityStateTracker client_channel[00000197841F9F90]: get current state: READY
 Traceback (most recent call last):
   File "<string>", line 1, in <module>
-  File "C:\Users\Aymen\Desktop\vector_hand_env\lib\site-packages\anki_vector\robot.py", line 641, in connect
-    self.conn.connect(timeout=timeout)
-  File "C:\Users\Aymen\Desktop\vector_hand_env\lib\site-packages\anki_vector\connection.py", line 471, in connect
-    raise VectorNotFoundException()
-anki_vector.exceptions.VectorNotFoundException: Unable to establish a connection to Vector.
-
-Make sure you're on the same network, and Vector is connected to the internet.
-
-
-
-(vector_hand_env) PS C:\Users\Aymen\Desktop> @'
->> import ssl
->> import socket
->> import configparser
->> from pathlib import Path
->>
->> folder = Path.home() / ".anki_vector"
->> config = configparser.ConfigParser()
->> config.read(folder / "sdk_config.ini")
->>
->> print("===== SDK CONFIG =====")
->> for section in config.sections():
->>     print("Section:", section)
->>     for key in ["name", "ip", "cert", "remote"]:
->>         print(key, "=", config.get(section, key, fallback="MISSING"))
->>     guid = config.get(section, "guid", fallback="")
->>     print("GUID present:", bool(guid))
->>     print("GUID length:", len(guid))
->>
->> print("\n===== TLS / HTTP2 TEST =====")
->> ctx = ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT)
->> ctx.load_verify_locations(
->>     cafile=str(folder / "Vector-H4U1-00604d98.cert")
->> )
->> ctx.check_hostname = True
->> ctx.set_alpn_protocols(["h2"])
->>
->> try:
->>     with socket.create_connection(("192.168.1.104", 443), timeout=8) as sock:
->>         with ctx.wrap_socket(sock, server_hostname="Vector-H4U1") as s:
->>             print("TLS:", s.version())
->>             print("Cipher:", s.cipher())
->>             print("ALPN:", s.selected_alpn_protocol())
->>             print("TLS VERIFIED: YES")
->> except Exception as e:
->>     print("TLS ERROR:", repr(e))
->> '@ | python -
-===== SDK CONFIG =====
-Section: 00604d98
-name = Vector-H4U1
-ip = 192.168.1.104
-cert = C:\Users\Aymen/.anki_vector/Vector-H4U1-00604d98.cert
-remote = 8.8.8.8
-GUID present: True
-GUID length: 24
-
-===== TLS / HTTP2 TEST =====
-TLS: TLSv1.3
-Cipher: ('TLS_CHACHA20_POLY1305_SHA256', 'TLSv1.3', 256)
-ALPN: h2
-TLS VERIFIED: YES
-(vector_hand_env) PS C:\Users\Aymen\Desktop> @'
->> import inspect
->> import anki_vector.connection as c
->>
->> print("===== CONNECTION SOURCE =====")
->> src = inspect.getsource(c.Connection._connect)
->> print(src)
->>
->> print("\n===== CHANNEL CREATION =====")
->> for name, obj in inspect.getmembers(c.Connection):
->>     if callable(obj) and any(x in name.lower() for x in ["channel", "credential", "connect"]):
->>         try:
->>             print("\n---", name, "---")
->>             print(inspect.getsource(obj))
->>         except Exception:
->>             pass
->> '@ | python -
-===== CONNECTION SOURCE =====
-    def _connect(self, timeout: float) -> None:
-        """The function that runs on the connection thread. This will connect to Vector,
-        and establish the BehaviorControl stream.
-        """
-        try:
-            if threading.main_thread() is threading.current_thread():
-                raise VectorAsyncException("\n\nConnection._connect must be run outside of the main thread.")
-            self._loop = asyncio.new_event_loop()
-            asyncio.set_event_loop(self._loop)
-            self._done_signal = asyncio.Event()
-            if not self._behavior_control_level:
-                self._control_events = _ControlEventManager(self._loop)
-            else:
-                self._control_events = _ControlEventManager(self._loop, priority=self._behavior_control_level)
-            trusted_certs = None
-            with open(self.cert_file, 'rb') as cert:
-                trusted_certs = cert.read()
-
-            # Pin the robot certificate for opening the channel
-            channel_credentials = aiogrpc.ssl_channel_credentials(root_certificates=trusted_certs)
-            # Add authorization header for all the calls
-            call_credentials = aiogrpc.access_token_call_credentials(self._guid)
-
-            credentials = aiogrpc.composite_channel_credentials(channel_credentials, call_credentials)
-
-            self._logger.info(f"Connecting to {self.host} for {self.name} using {self.cert_file}")
-            self._channel = aiogrpc.secure_channel(self.host, credentials,
-                                                   options=(("grpc.ssl_target_name_override", self.name,),))
-
-            # Verify the connection to Vector is able to be established (client-side)
-            try:
-                # Explicitly grab _channel._channel to test the underlying grpc channel directly
-                grpc.channel_ready_future(self._channel._channel).result(timeout=timeout)  # pylint: disable=protected-access
-            except grpc.FutureTimeoutError as e:
-                raise VectorNotFoundException() from e
-
-            self._interface = client.ExternalInterfaceStub(self._channel)
-
-            # Verify Vector and the SDK have compatible protocol versions
-            version = protocol.ProtocolVersionRequest(client_version=protocol.PROTOCOL_VERSION_CURRENT, min_host_version=protocol.PROTOCOL_VERSION_MINIMUM)
-            protocol_version = self._loop.run_until_complete(self._interface.ProtocolVersion(version))
-            if protocol_version.result != protocol.ProtocolVersionResponse.SUCCESS or protocol.PROTOCOL_VERSION_MINIMUM > protocol_version.host_version:  # pylint: disable=no-member
-                raise VectorInvalidVersionException(protocol_version)
-
-            self._control_stream_task = self._loop.create_task(self._open_connections())
-
-            # Initialze SDK
-            sdk_module_version = __version__
-            python_version = platform.python_version()
-            python_implementation = platform.python_implementation()
-            os_version = platform.platform()
-            cpu_version = platform.machine()
-            initialize = protocol.SDKInitializationRequest(sdk_module_version=sdk_module_version,
-                                                           python_version=python_version,
-                                                           python_implementation=python_implementation,
-                                                           os_version=os_version,
-                                                           cpu_version=cpu_version)
-            self._loop.run_until_complete(self._interface.SDKInitialization(initialize))
-
-            if self._behavior_control_level:
-                self._loop.run_until_complete(self._request_control(behavior_control_level=self._behavior_control_level, timeout=timeout))
-        except Exception as e:  # pylint: disable=broad-except
-            # Propagate the errors to the calling thread
-            setattr(self._ready_signal, "exception", e)
-            self._loop.close()
-            return
-        finally:
-            self._ready_signal.set()
-
-        try:
-            async def wait_until_done():
-                return await self._done_signal.wait()
-            self._loop.run_until_complete(wait_until_done())
-        finally:
-            self._loop.close()
-
-
-===== CHANNEL CREATION =====
-
---- _connect ---
-    def _connect(self, timeout: float) -> None:
-        """The function that runs on the connection thread. This will connect to Vector,
-        and establish the BehaviorControl stream.
-        """
-        try:
-            if threading.main_thread() is threading.current_thread():
-                raise VectorAsyncException("\n\nConnection._connect must be run outside of the main thread.")
-            self._loop = asyncio.new_event_loop()
-            asyncio.set_event_loop(self._loop)
-            self._done_signal = asyncio.Event()
-            if not self._behavior_control_level:
-                self._control_events = _ControlEventManager(self._loop)
-            else:
-                self._control_events = _ControlEventManager(self._loop, priority=self._behavior_control_level)
-            trusted_certs = None
-            with open(self.cert_file, 'rb') as cert:
-                trusted_certs = cert.read()
-
-            # Pin the robot certificate for opening the channel
-            channel_credentials = aiogrpc.ssl_channel_credentials(root_certificates=trusted_certs)
-            # Add authorization header for all the calls
-            call_credentials = aiogrpc.access_token_call_credentials(self._guid)
-
-            credentials = aiogrpc.composite_channel_credentials(channel_credentials, call_credentials)
-
-            self._logger.info(f"Connecting to {self.host} for {self.name} using {self.cert_file}")
-            self._channel = aiogrpc.secure_channel(self.host, credentials,
-                                                   options=(("grpc.ssl_target_name_override", self.name,),))
-
-            # Verify the connection to Vector is able to be established (client-side)
-            try:
-                # Explicitly grab _channel._channel to test the underlying grpc channel directly
-                grpc.channel_ready_future(self._channel._channel).result(timeout=timeout)  # pylint: disable=protected-access
-            except grpc.FutureTimeoutError as e:
-                raise VectorNotFoundException() from e
-
-            self._interface = client.ExternalInterfaceStub(self._channel)
-
-            # Verify Vector and the SDK have compatible protocol versions
-            version = protocol.ProtocolVersionRequest(client_version=protocol.PROTOCOL_VERSION_CURRENT, min_host_version=protocol.PROTOCOL_VERSION_MINIMUM)
-            protocol_version = self._loop.run_until_complete(self._interface.ProtocolVersion(version))
-            if protocol_version.result != protocol.ProtocolVersionResponse.SUCCESS or protocol.PROTOCOL_VERSION_MINIMUM > protocol_version.host_version:  # pylint: disable=no-member
-                raise VectorInvalidVersionException(protocol_version)
-
-            self._control_stream_task = self._loop.create_task(self._open_connections())
-
-            # Initialze SDK
-            sdk_module_version = __version__
-            python_version = platform.python_version()
-            python_implementation = platform.python_implementation()
-            os_version = platform.platform()
-            cpu_version = platform.machine()
-            initialize = protocol.SDKInitializationRequest(sdk_module_version=sdk_module_version,
-                                                           python_version=python_version,
-                                                           python_implementation=python_implementation,
-                                                           os_version=os_version,
-                                                           cpu_version=cpu_version)
-            self._loop.run_until_complete(self._interface.SDKInitialization(initialize))
-
-            if self._behavior_control_level:
-                self._loop.run_until_complete(self._request_control(behavior_control_level=self._behavior_control_level, timeout=timeout))
-        except Exception as e:  # pylint: disable=broad-except
-            # Propagate the errors to the calling thread
-            setattr(self._ready_signal, "exception", e)
-            self._loop.close()
-            return
-        finally:
-            self._ready_signal.set()
-
-        try:
-            async def wait_until_done():
-                return await self._done_signal.wait()
-            self._loop.run_until_complete(wait_until_done())
-        finally:
-            self._loop.close()
-
-
---- _open_connections ---
-    async def _open_connections(self):
-        """Starts the BehaviorControl stream, and handles the messages coming back from the robot."""
-        try:
-            async for response in self._interface.BehaviorControl(self._request_handler()):
-                response_type = response.WhichOneof("response_type")
-                if response_type == 'control_granted_response':
-                    self._logger.info(f"BehaviorControl {MessageToString(response, as_one_line=True)}")
-                    self._control_events.update(True)
-                elif response_type == 'control_lost_event':
-                    self._cancel_active()
-                    self._logger.info(f"BehaviorControl {MessageToString(response, as_one_line=True)}")
-                    self._control_events.update(False)
-        except futures.CancelledError:
-            self._logger.debug('Behavior handler task was cancelled. This is expected during disconnection.')
-
-
---- connect ---
-    def connect(self, timeout: float = 10.0) -> None:
-        """Connect to Vector. This will start the connection thread which handles all messages
-        between Vector and Python.
-
-        .. code-block:: python
-
-            import anki_vector
-
-            # Connect to your Vector
-            conn = anki_vector.connection.Connection("Vector-XXXX", "XX.XX.XX.XX:443", "/path/to/file.cert", "<guid>")
-            conn.connect()
-            # Run your commands
-            async def play_animation():
-                # Run your commands
-                anim = anki_vector.messaging.protocol.Animation(name="anim_pounce_success_02")
-                anim_request = anki_vector.messaging.protocol.PlayAnimationRequest(animation=anim)
-                return await conn.grpc_interface.PlayAnimation(anim_request) # This needs to be run in an asyncio loop
-            conn.run_coroutine(play_animation()).result()
-            # Close the connection
-            conn.close()
-
-        :param timeout: The time allotted to attempt a connection, in seconds.
-        """
-        if self._thread:
-            raise VectorAsyncException("\n\nRepeated connections made to open Connection.")
-        self._ready_signal.clear()
-        self._thread = threading.Thread(target=self._connect, args=(timeout,), daemon=True, name="gRPC Connection Handler Thread")
-        self._thread.start()
-        ready = self._ready_signal.wait(timeout=2 * timeout)
-        if not ready:
-            raise VectorNotFoundException()
-        if hasattr(self._ready_signal, "exception"):
-            e = getattr(self._ready_signal, "exception")
-            delattr(self._ready_signal, "exception")
-            raise e
-
+  File "C:\Users\Aymen\Desktop\vector_hand_env\lib\site-packages\anki_vector\robot.py", line 739, in disconnect
+    self.conn.close()
+  File "C:\Users\Aymen\Desktop\vector_hand_env\lib\site-packages\anki_vector\connection.py", line 616, in close
+    self.run_coroutine(self._control_stream_task).result()
+  File "C:\Users\Aymen\AppData\Local\Programs\Python\Python39\lib\concurrent\futures\_base.py", line 444, in result
+    raise CancelledError()
+concurrent.futures._base.CancelledError
 (vector_hand_env) PS C:\Users\Aymen\Desktop>
