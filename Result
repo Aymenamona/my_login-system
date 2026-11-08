@@ -1,1 +1,305 @@
 
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+PS C:\WINDOWS\system32> Get-ChildItem "$env:LOCALAPPDATA\CrashDumps" -Filter "*Vector*" -ErrorAction SilentlyContinue
+
+
+    Directory: C:\Users\Aymen\AppData\Local\CrashDumps
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----         11/8/2026   9:12 AM       38360520 VectorExplorer.exe.12424.dmp
+-a----         11/8/2026   9:06 AM       38389138 VectorExplorer.exe.16276.dmp
+-a----         11/8/2026   9:10 AM       38438389 VectorExplorer.exe.17652.dmp
+-a----         11/8/2026   9:08 AM       38452382 VectorExplorer.exe.18972.dmp
+-a----         11/8/2026   9:10 AM       38587042 VectorExplorer.exe.18980.dmp
+-a----         11/8/2026   9:02 AM       38351786 VectorExplorer.exe.4304.dmp
+-a----         11/8/2026   9:09 AM       38603706 VectorExplorer.exe.9648.dmp
+
+
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> Get-WinEvent -FilterHashtable @{
+>>     LogName='Application'
+>>     StartTime=(Get-Date).AddHours(-2)
+>> } | Where-Object {
+>>     $_.LevelDisplayName -eq 'Error' -and
+>>     ($_.Message -match 'Vector|Explorer|\.NET Runtime')
+>> } | Select-Object -First 10 TimeCreated, ProviderName, Message |
+>> Format-List
+
+
+TimeCreated  : 11/8/2026 9:12:43 AM
+ProviderName : Application Error
+Message      : Faulting application name: VectorExplorer.exe, version: 1.0.7.0, time stamp: 0x8bc41381
+               Faulting module name: KERNELBASE.dll, version: 10.0.26100.9711, time stamp: 0x4505e14c
+               Exception code: 0xe0434352
+               Fault offset: 0x0016bae4
+               Faulting process id: 0x3088
+               Faulting application start time: 0x1DD6F613C8B1AC3
+               Faulting application path: C:\Program Files (x86)\Weekend Robot\Vector Explorer\VectorExplorer.exe
+               Faulting module path: C:\WINDOWS\System32\KERNELBASE.dll
+               Report Id: a63072fe-54eb-42f2-9a8a-882040e21566
+               Faulting package full name:
+               Faulting package-relative application ID:
+
+TimeCreated  : 11/8/2026 9:12:43 AM
+ProviderName : .NET Runtime
+Message      : Application: VectorExplorer.exe
+               Framework Version: v4.0.30319
+               Description: The process was terminated due to an unhandled exception.
+               Exception Info: Grpc.Core.RpcException
+                  at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(System.Threading.Tasks.Task)
+                  at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(System.Threadi
+               ng.Tasks.Task)
+                  at Anki.Vector.Client+<RunCommand>d__11`1[[System.__Canon, mscorlib, Version=4.0.0.0,
+               Culture=neutral, PublicKeyToken=b77a5c561934e089]].MoveNext()
+
+               Exception Info: Anki.Vector.Exceptions.VectorTimeoutException
+                  at Anki.Vector.Client+<RunCommand>d__11`1[[System.__Canon, mscorlib, Version=4.0.0.0,
+               Culture=neutral, PublicKeyToken=b77a5c561934e089]].MoveNext()
+                  at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(System.Threading.Tasks.Task)
+                  at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(System.Threadi
+               ng.Tasks.Task)
+                  at Anki.Vector.Robot+<RunMethod>d__156`1[[System.__Canon, mscorlib, Version=4.0.0.0,
+               Culture=neutral, PublicKeyToken=b77a5c561934e089]].MoveNext()
+                  at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(System.Threading.Tasks.Task)
+                  at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(System.Threadi
+               ng.Tasks.Task)
+                  at Anki.Vector.AnimationComponent+<GetAnimations>d__8.MoveNext()
+                  at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(System.Threading.Tasks.Task)
+                  at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(System.Threadi
+               ng.Tasks.Task)
+                  at VectorCommand.ViewModels.AnimationViewModel+<Robot_Connected>d__39.MoveNext()
+                  at System.Runtime.CompilerServices.AsyncMethodBuilderCore+<>c.<ThrowAsync>b__6_1(System.Object)
+                  at System.Threading.QueueUserWorkItemCallback.WaitCallback_Context(System.Object)
+                  at System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext,
+               System.Threading.ContextCallback, System.Object, Boolean)
+                  at System.Threading.ExecutionContext.Run(System.Threading.ExecutionContext,
+               System.Threading.ContextCallback, System.Object, Boolean)
+                  at System.Threading.QueueUserWorkItemCallback.System.Threading.IThreadPoolWorkItem.ExecuteWorkItem()
+                  at System.Threading.ThreadPoolWorkQueue.Dispatch()
+                  at System.Threading._ThreadPoolWaitCallback.PerformWaitCallback()
+
+
+
+TimeCreated  : 11/8/2026 9:10:37 AM
+ProviderName : Application Error
+Message      : Faulting application name: VectorExplorer.exe, version: 1.0.7.0, time stamp: 0x8bc41381
+               Faulting module name: KERNELBASE.dll, version: 10.0.26100.9711, time stamp: 0x4505e14c
+               Exception code: 0xe0434352
+               Fault offset: 0x0016bae4
+               Faulting process id: 0x4A24
+               Faulting application start time: 0x1DD6F60FEEF5293
+               Faulting application path: C:\Program Files (x86)\Weekend Robot\Vector Explorer\VectorExplorer.exe
+               Faulting module path: C:\WINDOWS\System32\KERNELBASE.dll
+               Report Id: efa51fb7-fbe8-4f9b-a734-38df4a48fa35
+               Faulting package full name:
+               Faulting package-relative application ID:
+
+TimeCreated  : 11/8/2026 9:10:37 AM
+ProviderName : .NET Runtime
+Message      : Application: VectorExplorer.exe
+               Framework Version: v4.0.30319
+               Description: The process was terminated due to an unhandled exception.
+               Exception Info: Grpc.Core.RpcException
+                  at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(System.Threading.Tasks.Task)
+                  at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(System.Threadi
+               ng.Tasks.Task)
+                  at Anki.Vector.Client+<RunCommand>d__11`1[[System.__Canon, mscorlib, Version=4.0.0.0,
+               Culture=neutral, PublicKeyToken=b77a5c561934e089]].MoveNext()
+
+               Exception Info: Anki.Vector.Exceptions.VectorTimeoutException
+                  at Anki.Vector.Client+<RunCommand>d__11`1[[System.__Canon, mscorlib, Version=4.0.0.0,
+               Culture=neutral, PublicKeyToken=b77a5c561934e089]].MoveNext()
+                  at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(System.Threading.Tasks.Task)
+                  at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(System.Threadi
+               ng.Tasks.Task)
+                  at Anki.Vector.Robot+<RunMethod>d__156`1[[System.__Canon, mscorlib, Version=4.0.0.0,
+               Culture=neutral, PublicKeyToken=b77a5c561934e089]].MoveNext()
+                  at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(System.Threading.Tasks.Task)
+                  at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(System.Threadi
+               ng.Tasks.Task)
+                  at Anki.Vector.AnimationComponent+<GetAnimations>d__8.MoveNext()
+                  at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(System.Threading.Tasks.Task)
+                  at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(System.Threadi
+               ng.Tasks.Task)
+                  at VectorCommand.ViewModels.AnimationViewModel+<Robot_Connected>d__39.MoveNext()
+                  at System.Runtime.CompilerServices.AsyncMethodBuilderCore+<>c.<ThrowAsync>b__6_1(System.Object)
+                  at System.Threading.QueueUserWorkItemCallback.WaitCallback_Context(System.Object)
+                  at System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext,
+               System.Threading.ContextCallback, System.Object, Boolean)
+                  at System.Threading.ExecutionContext.Run(System.Threading.ExecutionContext,
+               System.Threading.ContextCallback, System.Object, Boolean)
+                  at System.Threading.QueueUserWorkItemCallback.System.Threading.IThreadPoolWorkItem.ExecuteWorkItem()
+                  at System.Threading.ThreadPoolWorkQueue.Dispatch()
+                  at System.Threading._ThreadPoolWaitCallback.PerformWaitCallback()
+
+
+
+TimeCreated  : 11/8/2026 9:09:57 AM
+ProviderName : Application Error
+Message      : Faulting application name: VectorExplorer.exe, version: 1.0.7.0, time stamp: 0x8bc41381
+               Faulting module name: KERNELBASE.dll, version: 10.0.26100.9711, time stamp: 0x4505e14c
+               Exception code: 0xe0434352
+               Fault offset: 0x0016bae4
+               Faulting process id: 0x44F4
+               Faulting application start time: 0x1DD6F60DBC3B91D
+               Faulting application path: C:\Program Files (x86)\Weekend Robot\Vector Explorer\VectorExplorer.exe
+               Faulting module path: C:\WINDOWS\System32\KERNELBASE.dll
+               Report Id: 4e7c21c6-3620-404d-8bd0-d90ce7c0b502
+               Faulting package full name:
+               Faulting package-relative application ID:
+
+TimeCreated  : 11/8/2026 9:09:57 AM
+ProviderName : .NET Runtime
+Message      : Application: VectorExplorer.exe
+               Framework Version: v4.0.30319
+               Description: The process was terminated due to an unhandled exception.
+               Exception Info: Grpc.Core.RpcException
+                  at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(System.Threading.Tasks.Task)
+                  at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(System.Threadi
+               ng.Tasks.Task)
+                  at Anki.Vector.Client+<RunCommand>d__11`1[[System.__Canon, mscorlib, Version=4.0.0.0,
+               Culture=neutral, PublicKeyToken=b77a5c561934e089]].MoveNext()
+
+               Exception Info: Anki.Vector.Exceptions.VectorTimeoutException
+                  at Anki.Vector.Client+<RunCommand>d__11`1[[System.__Canon, mscorlib, Version=4.0.0.0,
+               Culture=neutral, PublicKeyToken=b77a5c561934e089]].MoveNext()
+                  at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(System.Threading.Tasks.Task)
+                  at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(System.Threadi
+               ng.Tasks.Task)
+                  at Anki.Vector.Robot+<RunMethod>d__156`1[[System.__Canon, mscorlib, Version=4.0.0.0,
+               Culture=neutral, PublicKeyToken=b77a5c561934e089]].MoveNext()
+                  at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(System.Threading.Tasks.Task)
+                  at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(System.Threadi
+               ng.Tasks.Task)
+                  at Anki.Vector.AnimationComponent+<GetAnimations>d__8.MoveNext()
+                  at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(System.Threading.Tasks.Task)
+                  at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(System.Threadi
+               ng.Tasks.Task)
+                  at VectorCommand.ViewModels.AnimationViewModel+<Robot_Connected>d__39.MoveNext()
+                  at System.Runtime.CompilerServices.AsyncMethodBuilderCore+<>c.<ThrowAsync>b__6_1(System.Object)
+                  at System.Threading.QueueUserWorkItemCallback.WaitCallback_Context(System.Object)
+                  at System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext,
+               System.Threading.ContextCallback, System.Object, Boolean)
+                  at System.Threading.ExecutionContext.Run(System.Threading.ExecutionContext,
+               System.Threading.ContextCallback, System.Object, Boolean)
+                  at System.Threading.QueueUserWorkItemCallback.System.Threading.IThreadPoolWorkItem.ExecuteWorkItem()
+                  at System.Threading.ThreadPoolWorkQueue.Dispatch()
+                  at System.Threading._ThreadPoolWaitCallback.PerformWaitCallback()
+
+
+
+TimeCreated  : 11/8/2026 9:09:21 AM
+ProviderName : Application Error
+Message      : Faulting application name: VectorExplorer.exe, version: 1.0.7.0, time stamp: 0x8bc41381
+               Faulting module name: KERNELBASE.dll, version: 10.0.26100.9711, time stamp: 0x4505e14c
+               Exception code: 0xe0434352
+               Fault offset: 0x0016bae4
+               Faulting process id: 0x25B0
+               Faulting application start time: 0x1DD6F60D196E4DE
+               Faulting application path: C:\Program Files (x86)\Weekend Robot\Vector Explorer\VectorExplorer.exe
+               Faulting module path: C:\WINDOWS\System32\KERNELBASE.dll
+               Report Id: e4791097-c417-4b22-88c5-395e177cf739
+               Faulting package full name:
+               Faulting package-relative application ID:
+
+TimeCreated  : 11/8/2026 9:09:21 AM
+ProviderName : .NET Runtime
+Message      : Application: VectorExplorer.exe
+               Framework Version: v4.0.30319
+               Description: The process was terminated due to an unhandled exception.
+               Exception Info: Grpc.Core.RpcException
+                  at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(System.Threading.Tasks.Task)
+                  at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(System.Threadi
+               ng.Tasks.Task)
+                  at Anki.Vector.Client+<RunCommand>d__11`1[[System.__Canon, mscorlib, Version=4.0.0.0,
+               Culture=neutral, PublicKeyToken=b77a5c561934e089]].MoveNext()
+
+               Exception Info: Anki.Vector.Exceptions.VectorTimeoutException
+                  at Anki.Vector.Client+<RunCommand>d__11`1[[System.__Canon, mscorlib, Version=4.0.0.0,
+               Culture=neutral, PublicKeyToken=b77a5c561934e089]].MoveNext()
+                  at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(System.Threading.Tasks.Task)
+                  at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(System.Threadi
+               ng.Tasks.Task)
+                  at Anki.Vector.Robot+<RunMethod>d__156`1[[System.__Canon, mscorlib, Version=4.0.0.0,
+               Culture=neutral, PublicKeyToken=b77a5c561934e089]].MoveNext()
+                  at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(System.Threading.Tasks.Task)
+                  at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(System.Threadi
+               ng.Tasks.Task)
+                  at Anki.Vector.AnimationComponent+<GetAnimations>d__8.MoveNext()
+                  at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(System.Threading.Tasks.Task)
+                  at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(System.Threadi
+               ng.Tasks.Task)
+                  at VectorCommand.ViewModels.AnimationViewModel+<Robot_Connected>d__39.MoveNext()
+                  at System.Runtime.CompilerServices.AsyncMethodBuilderCore+<>c.<ThrowAsync>b__6_1(System.Object)
+                  at System.Threading.QueueUserWorkItemCallback.WaitCallback_Context(System.Object)
+                  at System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext,
+               System.Threading.ContextCallback, System.Object, Boolean)
+                  at System.Threading.ExecutionContext.Run(System.Threading.ExecutionContext,
+               System.Threading.ContextCallback, System.Object, Boolean)
+                  at System.Threading.QueueUserWorkItemCallback.System.Threading.IThreadPoolWorkItem.ExecuteWorkItem()
+                  at System.Threading.ThreadPoolWorkQueue.Dispatch()
+                  at System.Threading._ThreadPoolWaitCallback.PerformWaitCallback()
+
+
+
+TimeCreated  : 11/8/2026 9:08:55 AM
+ProviderName : Application Error
+Message      : Faulting application name: VectorExplorer.exe, version: 1.0.7.0, time stamp: 0x8bc41381
+               Faulting module name: KERNELBASE.dll, version: 10.0.26100.9711, time stamp: 0x4505e14c
+               Exception code: 0xe0434352
+               Fault offset: 0x0016bae4
+               Faulting process id: 0x4A1C
+               Faulting application start time: 0x1DD6F60B4FE4888
+               Faulting application path: C:\Program Files (x86)\Weekend Robot\Vector Explorer\VectorExplorer.exe
+               Faulting module path: C:\WINDOWS\System32\KERNELBASE.dll
+               Report Id: f2639186-86f3-42dd-b030-529287ec113c
+               Faulting package full name:
+               Faulting package-relative application ID:
+
+TimeCreated  : 11/8/2026 9:08:55 AM
+ProviderName : .NET Runtime
+Message      : Application: VectorExplorer.exe
+               Framework Version: v4.0.30319
+               Description: The process was terminated due to an unhandled exception.
+               Exception Info: Grpc.Core.RpcException
+                  at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(System.Threading.Tasks.Task)
+                  at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(System.Threadi
+               ng.Tasks.Task)
+                  at Anki.Vector.Client+<RunCommand>d__11`1[[System.__Canon, mscorlib, Version=4.0.0.0,
+               Culture=neutral, PublicKeyToken=b77a5c561934e089]].MoveNext()
+
+               Exception Info: Anki.Vector.Exceptions.VectorTimeoutException
+                  at Anki.Vector.Client+<RunCommand>d__11`1[[System.__Canon, mscorlib, Version=4.0.0.0,
+               Culture=neutral, PublicKeyToken=b77a5c561934e089]].MoveNext()
+                  at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(System.Threading.Tasks.Task)
+                  at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(System.Threadi
+               ng.Tasks.Task)
+                  at Anki.Vector.Robot+<RunMethod>d__156`1[[System.__Canon, mscorlib, Version=4.0.0.0,
+               Culture=neutral, PublicKeyToken=b77a5c561934e089]].MoveNext()
+                  at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(System.Threading.Tasks.Task)
+                  at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(System.Threadi
+               ng.Tasks.Task)
+                  at Anki.Vector.AnimationComponent+<GetAnimations>d__8.MoveNext()
+                  at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(System.Threading.Tasks.Task)
+                  at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(System.Threadi
+               ng.Tasks.Task)
+                  at VectorCommand.ViewModels.AnimationViewModel+<Robot_Connected>d__39.MoveNext()
+                  at System.Runtime.CompilerServices.AsyncMethodBuilderCore+<>c.<ThrowAsync>b__6_1(System.Object)
+                  at System.Threading.QueueUserWorkItemCallback.WaitCallback_Context(System.Object)
+                  at System.Threading.ExecutionContext.RunInternal(System.Threading.ExecutionContext,
+               System.Threading.ContextCallback, System.Object, Boolean)
+                  at System.Threading.ExecutionContext.Run(System.Threading.ExecutionContext,
+               System.Threading.ContextCallback, System.Object, Boolean)
+                  at System.Threading.QueueUserWorkItemCallback.System.Threading.IThreadPoolWorkItem.ExecuteWorkItem()
+                  at System.Threading.ThreadPoolWorkQueue.Dispatch()
+                  at System.Threading._ThreadPoolWaitCallback.PerformWaitCallback()
+
+
+
+
+
+PS C:\WINDOWS\system32>
