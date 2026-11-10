@@ -1,27 +1,3 @@
-PS C:\WINDOWS\System32> $archive = "$env:TEMP\open-interpreter.tar.gz"
-PS C:\WINDOWS\System32> $install = "C:\OpenInterpreter"
-PS C:\WINDOWS\System32>
-PS C:\WINDOWS\System32> New-Item -ItemType Directory -Force -Path $install | Out-Null
-PS C:\WINDOWS\System32>
-PS C:\WINDOWS\System32> tar -xzf $archive -C $install
-PS C:\WINDOWS\System32>
-PS C:\WINDOWS\System32> Write-Host "`nتم فك الضغط في: $install" -ForegroundColor Green
-
-تم فك الضغط في: C:\OpenInterpreter
-PS C:\WINDOWS\System32>
-PS C:\WINDOWS\System32> Get-ChildItem "$install\bin"
-
-
-    Directory: C:\OpenInterpreter\bin
-
-
-Mode                 LastWriteTime         Length Name
-----                 -------------         ------ ----
--a----         11/9/2026   3:00 AM       72366592 codex-code-mode-host.exe
--a----         11/9/2026   3:00 AM      339838976 i.exe
--a----         11/9/2026   3:00 AM      339838976 interpreter.exe
-
-
 PS C:\WINDOWS\System32> & "C:\OpenInterpreter\bin\interpreter.exe" --help
 Open Interpreter
 
@@ -70,12 +46,10 @@ Arguments:
 
 Options:
   -c, --config <key=value>
-          Override a value that would otherwise be loaded from the user config. Use a dotted path (`foo.bar.baz`) to
-          override nested values. The `value` portion is parsed as TOML. If it fails to parse as TOML, the raw string is
-          used as a literal.
+          Override a value that would otherwise be loaded from the user config. Use a dotted path (`foo.bar.baz`) to override nested values. The `value` portion is parsed as TOML. If it
+          fails to parse as TOML, the raw string is used as a literal.
 
-          Examples: - `-c model="o3"` - `-c 'sandbox_permissions=["disk-full-read-access"]'` - `-c
-          shell_environment_policy.inherit=all`
+          Examples: - `-c model="o3"` - `-c 'sandbox_permissions=["disk-full-read-access"]'` - `-c shell_environment_policy.inherit=all`
 
       --enable <FEATURE>
           Enable a feature (repeatable). Equivalent to `-c features.<name>=true`
@@ -111,8 +85,7 @@ Options:
           Use open-source provider
 
       --local-provider <OSS_PROVIDER>
-          Specify which local provider to use (lmstudio or ollama). If not specified with --oss, will use config default
-          or show selection
+          Specify which local provider to use (lmstudio or ollama). If not specified with --oss, will use config default or show selection
 
   -p, --profile <CONFIG_PROFILE_V2>
           Layer a named profile config on top of the base user config
@@ -126,12 +99,10 @@ Options:
           Route approval requests through automatic review using the workspace-write sandbox
 
       --dangerously-bypass-approvals-and-sandbox
-          Skip all confirmation prompts and execute commands without sandboxing. EXTREMELY DANGEROUS. Intended solely
-          for running in environments that are externally sandboxed
+          Skip all confirmation prompts and execute commands without sandboxing. EXTREMELY DANGEROUS. Intended solely for running in environments that are externally sandboxed
 
       --dangerously-bypass-hook-trust
-          Run enabled hooks without requiring persisted hook trust for this invocation. DANGEROUS. Intended only for
-          automation that already vets hook sources
+          Run enabled hooks without requiring persisted hook trust for this invocation. DANGEROUS. Intended only for automation that already vets hook sources
 
   -C, --cd <DIR>
           Tell the agent to use the specified directory as its working root
@@ -150,8 +121,7 @@ Options:
           - never:      Never ask for user approval Execution failures are immediately returned to the model
 
       --search
-          Enable live web search. When enabled, the native Responses `web_search` tool is available to the model (no
-          per‑call approval)
+          Enable live web search. When enabled, the native Responses `web_search` tool is available to the model (no per‑call approval)
 
       --no-alt-screen
           Disable alternate screen mode
