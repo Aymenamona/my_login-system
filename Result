@@ -1,666 +1,307 @@
-PS C:\WINDOWS\System32> $release = (Get-Content "$env:TEMP\oi-releases.json" -Raw | ConvertFrom-Json) |
->> Where-Object { $_.tag_name -eq "rust-v0.0.60" } |
->> Select-Object -First 1
+PS C:\WINDOWS\System32> $archive = "$env:TEMP\open-interpreter.tar.gz"
+PS C:\WINDOWS\System32> $install = "C:\OpenInterpreter"
 PS C:\WINDOWS\System32>
-PS C:\WINDOWS\System32> $release.assets | ForEach-Object {
->>     Write-Host "`nNAME:" $_.name
->>     Write-Host "SIZE:" $_.size
->>     Write-Host "URL:" $_.browser_download_url
->> }
-
-NAME: bwrap-aarch64-unknown-linux-musl.sigstore
-SIZE: 9013
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/bwrap-aarch64-unknown-linux-musl.sigstore
-
-NAME: bwrap-aarch64-unknown-linux-musl.tar.gz
-SIZE: 254929
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/bwrap-aarch64-unknown-linux-musl.tar.gz
-
-NAME: bwrap-aarch64-unknown-linux-musl.zst
-SIZE: 231254
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/bwrap-aarch64-unknown-linux-musl.zst
-
-NAME: bwrap-x86_64-unknown-linux-musl.sigstore
-SIZE: 9021
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/bwrap-x86_64-unknown-linux-musl.sigstore
-
-NAME: bwrap-x86_64-unknown-linux-musl.tar.gz
-SIZE: 261611
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/bwrap-x86_64-unknown-linux-musl.tar.gz
-
-NAME: bwrap-x86_64-unknown-linux-musl.zst
-SIZE: 237743
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/bwrap-x86_64-unknown-linux-musl.zst
-
-NAME: codex-aarch64-apple-darwin.dmg
-SIZE: 172234121
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-aarch64-apple-darwin.dmg
-
-NAME: codex-aarch64-apple-darwin.tar.gz
-SIZE: 98820396
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-aarch64-apple-darwin.tar.gz
-
-NAME: codex-aarch64-apple-darwin.zst
-SIZE: 70763151
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-aarch64-apple-darwin.zst
-
-NAME: codex-aarch64-pc-windows-msvc.exe
-SIZE: 286077440
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-aarch64-pc-windows-msvc.exe
-
-NAME: codex-aarch64-pc-windows-msvc.exe.tar.gz
-SIZE: 102557867
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-aarch64-pc-windows-msvc.exe.tar.gz
-
-NAME: codex-aarch64-pc-windows-msvc.exe.zip
-SIZE: 149944732
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-aarch64-pc-windows-msvc.exe.zip
-
-NAME: codex-aarch64-pc-windows-msvc.exe.zst
-SIZE: 75928878
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-aarch64-pc-windows-msvc.exe.zst
-
-NAME: codex-aarch64-unknown-linux-musl.sigstore
-SIZE: 9021
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-aarch64-unknown-linux-musl.sigstore
-
-NAME: codex-aarch64-unknown-linux-musl.tar.gz
-SIZE: 104072227
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-aarch64-unknown-linux-musl.tar.gz
-
-NAME: codex-aarch64-unknown-linux-musl.zst
-SIZE: 75014159
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-aarch64-unknown-linux-musl.zst
-
-NAME: codex-app-server-aarch64-apple-darwin.tar.gz
-SIZE: 75605107
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-app-server-aarch64-apple-darwin.tar.gz
-
-NAME: codex-app-server-aarch64-apple-darwin.zst
-SIZE: 53338709
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-app-server-aarch64-apple-darwin.zst
-
-NAME: codex-app-server-aarch64-pc-windows-msvc.exe
-SIZE: 218390528
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-app-server-aarch64-pc-windows-msvc.exe
-
-NAME: codex-app-server-aarch64-pc-windows-msvc.exe.tar.gz
-SIZE: 78563898
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-app-server-aarch64-pc-windows-msvc.exe.tar.gz
-
-NAME: codex-app-server-aarch64-pc-windows-msvc.exe.zip
-SIZE: 76506272
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-app-server-aarch64-pc-windows-msvc.exe.zip
-
-NAME: codex-app-server-aarch64-pc-windows-msvc.exe.zst
-SIZE: 57533573
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-app-server-aarch64-pc-windows-msvc.exe.zst
-
-NAME: codex-app-server-aarch64-unknown-linux-musl.sigstore
-SIZE: 9021
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-app-server-aarch64-unknown-linux-musl.sigstore
-
-NAME: codex-app-server-aarch64-unknown-linux-musl.tar.gz
-SIZE: 80298203
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-app-server-aarch64-unknown-linux-musl.tar.gz
-
-NAME: codex-app-server-aarch64-unknown-linux-musl.zst
-SIZE: 57356041
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-app-server-aarch64-unknown-linux-musl.zst
-
-NAME: codex-app-server-package-aarch64-apple-darwin.tar.gz
-SIZE: 100232832
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-app-server-package-aarch64-apple-darwin.tar.gz
-
-NAME: codex-app-server-package-aarch64-apple-darwin.tar.zst
-SIZE: 71810576
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-app-server-package-aarch64-apple-darwin.tar.zst
-
-NAME: codex-app-server-package-aarch64-pc-windows-msvc.tar.gz
-SIZE: 114683537
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-app-server-package-aarch64-pc-windows-msvc.tar.gz
-
-NAME: codex-app-server-package-aarch64-pc-windows-msvc.tar.zst
-SIZE: 85054690
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-app-server-package-aarch64-pc-windows-msvc.tar.zst
-
-NAME: codex-app-server-package-aarch64-unknown-linux-musl.tar.gz
-SIZE: 107525177
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-app-server-package-aarch64-unknown-linux-musl.tar.gz
-
-NAME: codex-app-server-package-aarch64-unknown-linux-musl.tar.zst
-SIZE: 78282235
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-app-server-package-aarch64-unknown-linux-musl.tar.zst
-
-NAME: codex-app-server-package-x86_64-apple-darwin.tar.gz
-SIZE: 106536349
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-app-server-package-x86_64-apple-darwin.tar.gz
-
-NAME: codex-app-server-package-x86_64-apple-darwin.tar.zst
-SIZE: 76498512
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-app-server-package-x86_64-apple-darwin.tar.zst
-
-NAME: codex-app-server-package-x86_64-pc-windows-msvc.tar.gz
-SIZE: 123878851
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-app-server-package-x86_64-pc-windows-msvc.tar.gz
-
-NAME: codex-app-server-package-x86_64-pc-windows-msvc.tar.zst
-SIZE: 92100311
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-app-server-package-x86_64-pc-windows-msvc.tar.zst
-
-NAME: codex-app-server-package-x86_64-unknown-linux-musl.tar.gz
-SIZE: 115111960
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-app-server-package-x86_64-unknown-linux-musl.tar.gz
-
-NAME: codex-app-server-package-x86_64-unknown-linux-musl.tar.zst
-SIZE: 82747793
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-app-server-package-x86_64-unknown-linux-musl.tar.zst
-
-NAME: codex-app-server-x86_64-apple-darwin.tar.gz
-SIZE: 80555273
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-app-server-x86_64-apple-darwin.tar.gz
-
-NAME: codex-app-server-x86_64-apple-darwin.zst
-SIZE: 56978527
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-app-server-x86_64-apple-darwin.zst
-
-NAME: codex-app-server-x86_64-pc-windows-msvc.exe
-SIZE: 259004928
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-app-server-x86_64-pc-windows-msvc.exe
-
-NAME: codex-app-server-x86_64-pc-windows-msvc.exe.tar.gz
-SIZE: 85794088
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-app-server-x86_64-pc-windows-msvc.exe.tar.gz
-
-NAME: codex-app-server-x86_64-pc-windows-msvc.exe.zip
-SIZE: 83008199
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-app-server-x86_64-pc-windows-msvc.exe.zip
-
-NAME: codex-app-server-x86_64-pc-windows-msvc.exe.zst
-SIZE: 62730481
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-app-server-x86_64-pc-windows-msvc.exe.zst
-
-NAME: codex-app-server-x86_64-unknown-linux-musl.sigstore
-SIZE: 9021
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-app-server-x86_64-unknown-linux-musl.sigstore
-
-NAME: codex-app-server-x86_64-unknown-linux-musl.tar.gz
-SIZE: 86195736
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-app-server-x86_64-unknown-linux-musl.tar.gz
-
-NAME: codex-app-server-x86_64-unknown-linux-musl.zst
-SIZE: 60651228
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-app-server-x86_64-unknown-linux-musl.zst
-
-NAME: codex-code-mode-host-aarch64-apple-darwin.tar.gz
-SIZE: 22606526
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-code-mode-host-aarch64-apple-darwin.tar.gz
-
-NAME: codex-code-mode-host-aarch64-apple-darwin.zst
-SIZE: 16830856
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-code-mode-host-aarch64-apple-darwin.zst
-
-NAME: codex-code-mode-host-aarch64-pc-windows-msvc.exe
-SIZE: 67656704
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-code-mode-host-aarch64-pc-windows-msvc.exe
-
-NAME: codex-code-mode-host-aarch64-pc-windows-msvc.exe.tar.gz
-SIZE: 26606139
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-code-mode-host-aarch64-pc-windows-msvc.exe.tar.gz
-
-NAME: codex-code-mode-host-aarch64-pc-windows-msvc.exe.zip
-SIZE: 25824844
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-code-mode-host-aarch64-pc-windows-msvc.exe.zip
-
-NAME: codex-code-mode-host-aarch64-pc-windows-msvc.exe.zst
-SIZE: 20425155
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-code-mode-host-aarch64-pc-windows-msvc.exe.zst
-
-NAME: codex-code-mode-host-aarch64-unknown-linux-musl.sigstore
-SIZE: 9021
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-code-mode-host-aarch64-unknown-linux-musl.sigstore
-
-NAME: codex-code-mode-host-aarch64-unknown-linux-musl.tar.gz
-SIZE: 24881625
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-code-mode-host-aarch64-unknown-linux-musl.tar.gz
-
-NAME: codex-code-mode-host-aarch64-unknown-linux-musl.zst
-SIZE: 18988126
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-code-mode-host-aarch64-unknown-linux-musl.zst
-
-NAME: codex-code-mode-host-x86_64-apple-darwin.tar.gz
-SIZE: 23814001
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-code-mode-host-x86_64-apple-darwin.tar.gz
-
-NAME: codex-code-mode-host-x86_64-apple-darwin.zst
-SIZE: 17746997
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-code-mode-host-x86_64-apple-darwin.zst
-
-NAME: codex-code-mode-host-x86_64-pc-windows-msvc.exe
-SIZE: 72366592
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-code-mode-host-x86_64-pc-windows-msvc.exe
-
-NAME: codex-code-mode-host-x86_64-pc-windows-msvc.exe.tar.gz
-SIZE: 27906177
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-code-mode-host-x86_64-pc-windows-msvc.exe.tar.gz
-
-NAME: codex-code-mode-host-x86_64-pc-windows-msvc.exe.zip
-SIZE: 27106446
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-code-mode-host-x86_64-pc-windows-msvc.exe.zip
-
-NAME: codex-code-mode-host-x86_64-pc-windows-msvc.exe.zst
-SIZE: 21582237
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-code-mode-host-x86_64-pc-windows-msvc.exe.zst
-
-NAME: codex-code-mode-host-x86_64-unknown-linux-musl.sigstore
-SIZE: 9021
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-code-mode-host-x86_64-unknown-linux-musl.sigstore
-
-NAME: codex-code-mode-host-x86_64-unknown-linux-musl.tar.gz
-SIZE: 26221437
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-code-mode-host-x86_64-unknown-linux-musl.tar.gz
-
-NAME: codex-code-mode-host-x86_64-unknown-linux-musl.zst
-SIZE: 19814386
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-code-mode-host-x86_64-unknown-linux-musl.zst
-
-NAME: codex-command-runner-aarch64-pc-windows-msvc.exe
-SIZE: 7258624
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-command-runner-aarch64-pc-windows-msvc.exe
-
-NAME: codex-command-runner-aarch64-pc-windows-msvc.exe.tar.gz
-SIZE: 2702886
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-command-runner-aarch64-pc-windows-msvc.exe.tar.gz
-
-NAME: codex-command-runner-aarch64-pc-windows-msvc.exe.zip
-SIZE: 2622472
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-command-runner-aarch64-pc-windows-msvc.exe.zip
-
-NAME: codex-command-runner-aarch64-pc-windows-msvc.exe.zst
-SIZE: 2081116
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-command-runner-aarch64-pc-windows-msvc.exe.zst
-
-NAME: codex-command-runner-x86_64-pc-windows-msvc.exe
-SIZE: 8111616
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-command-runner-x86_64-pc-windows-msvc.exe
-
-NAME: codex-command-runner-x86_64-pc-windows-msvc.exe.tar.gz
-SIZE: 2940070
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-command-runner-x86_64-pc-windows-msvc.exe.tar.gz
-
-NAME: codex-command-runner-x86_64-pc-windows-msvc.exe.zip
-SIZE: 2847977
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-command-runner-x86_64-pc-windows-msvc.exe.zip
-
-NAME: codex-command-runner-x86_64-pc-windows-msvc.exe.zst
-SIZE: 2272961
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-command-runner-x86_64-pc-windows-msvc.exe.zst
-
-NAME: codex-package-aarch64-apple-darwin.tar.gz
-SIZE: 131457525
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-package-aarch64-apple-darwin.tar.gz
-
-NAME: codex-package-aarch64-apple-darwin.tar.zst
-SIZE: 95536472
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-package-aarch64-apple-darwin.tar.zst
-
-NAME: codex-package-aarch64-pc-windows-msvc.tar.gz
-SIZE: 145714895
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-package-aarch64-pc-windows-msvc.tar.gz
-
-NAME: codex-package-aarch64-pc-windows-msvc.tar.zst
-SIZE: 108890655
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-package-aarch64-pc-windows-msvc.tar.zst
-
-NAME: codex-package-aarch64-unknown-linux-musl.tar.gz
-SIZE: 140890386
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-package-aarch64-unknown-linux-musl.tar.gz
-
-NAME: codex-package-aarch64-unknown-linux-musl.tar.gz.sigstore
-SIZE: 9021
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-package-aarch64-unknown-linux-musl.tar.gz.sigstore
-
-NAME: codex-package-aarch64-unknown-linux-musl.tar.zst
-SIZE: 103280400
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-package-aarch64-unknown-linux-musl.tar.zst
-
-NAME: codex-package-aarch64-unknown-linux-musl.tar.zst.sigstore
-SIZE: 9021
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-package-aarch64-unknown-linux-musl.tar.zst.sigstore
-
-NAME: codex-package-x86_64-apple-darwin.tar.gz
-SIZE: 139955533
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-package-x86_64-apple-darwin.tar.gz
-
-NAME: codex-package-x86_64-apple-darwin.tar.zst
-SIZE: 101769009
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-package-x86_64-apple-darwin.tar.zst
-
-NAME: codex-package-x86_64-pc-windows-msvc.tar.gz
-SIZE: 157983885
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-package-x86_64-pc-windows-msvc.tar.gz
-
-NAME: codex-package-x86_64-pc-windows-msvc.tar.zst
-SIZE: 118134882
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-package-x86_64-pc-windows-msvc.tar.zst
-
-NAME: codex-package-x86_64-unknown-linux-musl.tar.gz
-SIZE: 150407317
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-package-x86_64-unknown-linux-musl.tar.gz
-
-NAME: codex-package-x86_64-unknown-linux-musl.tar.gz.sigstore
-SIZE: 9033
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-package-x86_64-unknown-linux-musl.tar.gz.sigstore
-
-NAME: codex-package-x86_64-unknown-linux-musl.tar.zst
-SIZE: 109315971
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-package-x86_64-unknown-linux-musl.tar.zst
-
-NAME: codex-package-x86_64-unknown-linux-musl.tar.zst.sigstore
-SIZE: 9021
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-package-x86_64-unknown-linux-musl.tar.zst.sigstore
-
-NAME: codex-package_SHA256SUMS
-SIZE: 2121
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-package_SHA256SUMS
-
-NAME: codex-responses-api-proxy-aarch64-apple-darwin.tar.gz
-SIZE: 2465746
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-responses-api-proxy-aarch64-apple-darwin.tar.gz
-
-NAME: codex-responses-api-proxy-aarch64-apple-darwin.zst
-SIZE: 1984574
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-responses-api-proxy-aarch64-apple-darwin.zst
-
-NAME: codex-responses-api-proxy-aarch64-pc-windows-msvc.exe
-SIZE: 5427712
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-responses-api-proxy-aarch64-pc-windows-msvc.exe
-
-NAME: codex-responses-api-proxy-aarch64-pc-windows-msvc.exe.tar.gz
-SIZE: 2411751
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-responses-api-proxy-aarch64-pc-windows-msvc.exe.tar.gz
-
-NAME: codex-responses-api-proxy-aarch64-pc-windows-msvc.exe.zip
-SIZE: 2349516
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-responses-api-proxy-aarch64-pc-windows-msvc.exe.zip
-
-NAME: codex-responses-api-proxy-aarch64-pc-windows-msvc.exe.zst
-SIZE: 1974257
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-responses-api-proxy-aarch64-pc-windows-msvc.exe.zst
-
-NAME: codex-responses-api-proxy-aarch64-unknown-linux-musl.sigstore
-SIZE: 9021
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-responses-api-proxy-aarch64-unknown-linux-musl.sigstore
-
-NAME: codex-responses-api-proxy-aarch64-unknown-linux-musl.tar.gz
-SIZE: 5129521
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-responses-api-proxy-aarch64-unknown-linux-musl.tar.gz
-
-NAME: codex-responses-api-proxy-aarch64-unknown-linux-musl.zst
-SIZE: 4363590
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-responses-api-proxy-aarch64-unknown-linux-musl.zst
-
-NAME: codex-responses-api-proxy-x86_64-apple-darwin.tar.gz
-SIZE: 2593443
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-responses-api-proxy-x86_64-apple-darwin.tar.gz
-
-NAME: codex-responses-api-proxy-x86_64-apple-darwin.zst
-SIZE: 2084443
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-responses-api-proxy-x86_64-apple-darwin.zst
-
-NAME: codex-responses-api-proxy-x86_64-pc-windows-msvc.exe
-SIZE: 6121472
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-responses-api-proxy-x86_64-pc-windows-msvc.exe
-
-NAME: codex-responses-api-proxy-x86_64-pc-windows-msvc.exe.tar.gz
-SIZE: 2561880
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-responses-api-proxy-x86_64-pc-windows-msvc.exe.tar.gz
-
-NAME: codex-responses-api-proxy-x86_64-pc-windows-msvc.exe.zip
-SIZE: 2486590
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-responses-api-proxy-x86_64-pc-windows-msvc.exe.zip
-
-NAME: codex-responses-api-proxy-x86_64-pc-windows-msvc.exe.zst
-SIZE: 2097600
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-responses-api-proxy-x86_64-pc-windows-msvc.exe.zst
-
-NAME: codex-responses-api-proxy-x86_64-unknown-linux-musl.sigstore
-SIZE: 9021
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-responses-api-proxy-x86_64-unknown-linux-musl.sigstore
-
-NAME: codex-responses-api-proxy-x86_64-unknown-linux-musl.tar.gz
-SIZE: 5089120
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-responses-api-proxy-x86_64-unknown-linux-musl.tar.gz
-
-NAME: codex-responses-api-proxy-x86_64-unknown-linux-musl.zst
-SIZE: 4016835
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-responses-api-proxy-x86_64-unknown-linux-musl.zst
-
-NAME: codex-symbols-aarch64-apple-darwin-app-server.tar.gz
-SIZE: 263903793
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-symbols-aarch64-apple-darwin-app-server.tar.gz
-
-NAME: codex-symbols-aarch64-apple-darwin.tar.gz
-SIZE: 344591807
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-symbols-aarch64-apple-darwin.tar.gz
-
-NAME: codex-symbols-aarch64-pc-windows-msvc.tar.gz
-SIZE: 567310382
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-symbols-aarch64-pc-windows-msvc.tar.gz
-
-NAME: codex-symbols-aarch64-unknown-linux-musl-app-server.tar.gz
-SIZE: 207795290
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-symbols-aarch64-unknown-linux-musl-app-server.tar.gz
-
-NAME: codex-symbols-aarch64-unknown-linux-musl.tar.gz
-SIZE: 269463921
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-symbols-aarch64-unknown-linux-musl.tar.gz
-
-NAME: codex-symbols-x86_64-apple-darwin-app-server.tar.gz
-SIZE: 268802152
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-symbols-x86_64-apple-darwin-app-server.tar.gz
-
-NAME: codex-symbols-x86_64-apple-darwin.tar.gz
-SIZE: 350793962
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-symbols-x86_64-apple-darwin.tar.gz
-
-NAME: codex-symbols-x86_64-pc-windows-msvc.tar.gz
-SIZE: 581397242
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-symbols-x86_64-pc-windows-msvc.tar.gz
-
-NAME: codex-symbols-x86_64-unknown-linux-musl-app-server.tar.gz
-SIZE: 200212417
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-symbols-x86_64-unknown-linux-musl-app-server.tar.gz
-
-NAME: codex-symbols-x86_64-unknown-linux-musl.tar.gz
-SIZE: 259734612
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-symbols-x86_64-unknown-linux-musl.tar.gz
-
-NAME: codex-windows-sandbox-service-aarch64-pc-windows-msvc.exe
-SIZE: 45859840
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-windows-sandbox-service-aarch64-pc-windows-msvc.exe
-
-NAME: codex-windows-sandbox-service-aarch64-pc-windows-msvc.exe.tar.gz
-SIZE: 16068644
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-windows-sandbox-service-aarch64-pc-windows-msvc.exe.tar.gz
-
-NAME: codex-windows-sandbox-service-aarch64-pc-windows-msvc.exe.zip
-SIZE: 15663212
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-windows-sandbox-service-aarch64-pc-windows-msvc.exe.zip
-
-NAME: codex-windows-sandbox-service-aarch64-pc-windows-msvc.exe.zst
-SIZE: 11662059
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-windows-sandbox-service-aarch64-pc-windows-msvc.exe.zst
-
-NAME: codex-windows-sandbox-service-x86_64-pc-windows-msvc.exe
-SIZE: 54856704
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-windows-sandbox-service-x86_64-pc-windows-msvc.exe
-
-NAME: codex-windows-sandbox-service-x86_64-pc-windows-msvc.exe.tar.gz
-SIZE: 17647967
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-windows-sandbox-service-x86_64-pc-windows-msvc.exe.tar.gz
-
-NAME: codex-windows-sandbox-service-x86_64-pc-windows-msvc.exe.zip
-SIZE: 17148864
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-windows-sandbox-service-x86_64-pc-windows-msvc.exe.zip
-
-NAME: codex-windows-sandbox-service-x86_64-pc-windows-msvc.exe.zst
-SIZE: 12774057
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-windows-sandbox-service-x86_64-pc-windows-msvc.exe.zst
-
-NAME: codex-windows-sandbox-setup-aarch64-pc-windows-msvc.exe
-SIZE: 13826048
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-windows-sandbox-setup-aarch64-pc-windows-msvc.exe
-
-NAME: codex-windows-sandbox-setup-aarch64-pc-windows-msvc.exe.tar.gz
-SIZE: 5419916
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-windows-sandbox-setup-aarch64-pc-windows-msvc.exe.tar.gz
-
-NAME: codex-windows-sandbox-setup-aarch64-pc-windows-msvc.exe.zip
-SIZE: 5269324
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-windows-sandbox-setup-aarch64-pc-windows-msvc.exe.zip
-
-NAME: codex-windows-sandbox-setup-aarch64-pc-windows-msvc.exe.zst
-SIZE: 4141762
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-windows-sandbox-setup-aarch64-pc-windows-msvc.exe.zst
-
-NAME: codex-windows-sandbox-setup-x86_64-pc-windows-msvc.exe
-SIZE: 15538176
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-windows-sandbox-setup-x86_64-pc-windows-msvc.exe
-
-NAME: codex-windows-sandbox-setup-x86_64-pc-windows-msvc.exe.tar.gz
-SIZE: 5816805
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-windows-sandbox-setup-x86_64-pc-windows-msvc.exe.tar.gz
-
-NAME: codex-windows-sandbox-setup-x86_64-pc-windows-msvc.exe.zip
-SIZE: 5639855
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-windows-sandbox-setup-x86_64-pc-windows-msvc.exe.zip
-
-NAME: codex-windows-sandbox-setup-x86_64-pc-windows-msvc.exe.zst
-SIZE: 4447566
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-windows-sandbox-setup-x86_64-pc-windows-msvc.exe.zst
-
-NAME: codex-x86_64-apple-darwin.dmg
-SIZE: 184535538
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-x86_64-apple-darwin.dmg
-
-NAME: codex-x86_64-apple-darwin.tar.gz
-SIZE: 105569323
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-x86_64-apple-darwin.tar.gz
-
-NAME: codex-x86_64-apple-darwin.zst
-SIZE: 75619219
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-x86_64-apple-darwin.zst
-
-NAME: codex-x86_64-pc-windows-msvc.exe
-SIZE: 339838976
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-x86_64-pc-windows-msvc.exe
-
-NAME: codex-x86_64-pc-windows-msvc.exe.tar.gz
-SIZE: 112174394
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-x86_64-pc-windows-msvc.exe.tar.gz
-
-NAME: codex-x86_64-pc-windows-msvc.exe.zip
-SIZE: 161930113
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-x86_64-pc-windows-msvc.exe.zip
-
-NAME: codex-x86_64-pc-windows-msvc.exe.zst
-SIZE: 82463053
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-x86_64-pc-windows-msvc.exe.zst
-
-NAME: codex-x86_64-unknown-linux-musl.sigstore
-SIZE: 9021
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-x86_64-unknown-linux-musl.sigstore
-
-NAME: codex-x86_64-unknown-linux-musl.tar.gz
-SIZE: 111792426
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-x86_64-unknown-linux-musl.tar.gz
-
-NAME: codex-x86_64-unknown-linux-musl.zst
-SIZE: 79752433
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-x86_64-unknown-linux-musl.zst
-
-NAME: config-schema.json
-SIZE: 221771
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/config-schema.json
-
-NAME: install.ps1
-SIZE: 44432
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/install.ps1
-
-NAME: install.sh
-SIZE: 33425
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/install.sh
-
-NAME: open-interpreter-package-aarch64-apple-darwin.tar.gz
-SIZE: 222264133
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/open-interpreter-package-aarch64-apple-darwin.tar.gz
-
-NAME: open-interpreter-package-aarch64-apple-darwin.tar.zst
-SIZE: 159977238
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/open-interpreter-package-aarch64-apple-darwin.tar.zst
-
-NAME: open-interpreter-package-aarch64-pc-windows-msvc.tar.gz
-SIZE: 240993782
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/open-interpreter-package-aarch64-pc-windows-msvc.tar.gz
-
-NAME: open-interpreter-package-aarch64-pc-windows-msvc.tar.zst
-SIZE: 179407693
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/open-interpreter-package-aarch64-pc-windows-msvc.tar.zst
-
-NAME: open-interpreter-package-aarch64-unknown-linux-musl.tar.gz
-SIZE: 235271036
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/open-interpreter-package-aarch64-unknown-linux-musl.tar.gz
-
-NAME: open-interpreter-package-aarch64-unknown-linux-musl.tar.zst
-SIZE: 170959825
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/open-interpreter-package-aarch64-unknown-linux-musl.tar.zst
-
-NAME: open-interpreter-package-x86_64-apple-darwin.tar.gz
-SIZE: 237125231
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/open-interpreter-package-x86_64-apple-darwin.tar.gz
-
-NAME: open-interpreter-package-x86_64-apple-darwin.tar.zst
-SIZE: 170761944
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/open-interpreter-package-x86_64-apple-darwin.tar.zst
-
-NAME: open-interpreter-package-x86_64-pc-windows-msvc.tar.gz
-SIZE: 262033116
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/open-interpreter-package-x86_64-pc-windows-msvc.tar.gz
-
-NAME: open-interpreter-package-x86_64-pc-windows-msvc.tar.zst
-SIZE: 194334069
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/open-interpreter-package-x86_64-pc-windows-msvc.tar.zst
-
-NAME: open-interpreter-package-x86_64-unknown-linux-musl.tar.gz
-SIZE: 252279820
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/open-interpreter-package-x86_64-unknown-linux-musl.tar.gz
-
-NAME: open-interpreter-package-x86_64-unknown-linux-musl.tar.zst
-SIZE: 181665624
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/open-interpreter-package-x86_64-unknown-linux-musl.tar.zst
-
-NAME: openai_codex_cli_bin-0.0.60-py3-none-macosx_10_9_x86_64.whl
-SIZE: 131552758
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/openai_codex_cli_bin-0.0.60-py3-none-macosx_10_9_x86_64.whl
-
-NAME: openai_codex_cli_bin-0.0.60-py3-none-macosx_11_0_arm64.whl
-SIZE: 123449512
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/openai_codex_cli_bin-0.0.60-py3-none-macosx_11_0_arm64.whl
-
-NAME: openai_codex_cli_bin-0.0.60-py3-none-manylinux_2_17_aarch64.whl
-SIZE: 131277969
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/openai_codex_cli_bin-0.0.60-py3-none-manylinux_2_17_aarch64.whl
-
-NAME: openai_codex_cli_bin-0.0.60-py3-none-manylinux_2_17_x86_64.whl
-SIZE: 140668631
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/openai_codex_cli_bin-0.0.60-py3-none-manylinux_2_17_x86_64.whl
-
-NAME: openai_codex_cli_bin-0.0.60-py3-none-win_amd64.whl
-SIZE: 150197548
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/openai_codex_cli_bin-0.0.60-py3-none-win_amd64.whl
-
-NAME: openai_codex_cli_bin-0.0.60-py3-none-win_arm64.whl
-SIZE: 138632202
-URL: https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/openai_codex_cli_bin-0.0.60-py3-none-win_arm64.whl
-PS C:\WINDOWS\System3
+PS C:\WINDOWS\System32> New-Item -ItemType Directory -Force -Path $install | Out-Null
+PS C:\WINDOWS\System32>
+PS C:\WINDOWS\System32> tar -xzf $archive -C $install
+PS C:\WINDOWS\System32>
+PS C:\WINDOWS\System32> Write-Host "`nتم فك الضغط في: $install" -ForegroundColor Green
+
+تم فك الضغط في: C:\OpenInterpreter
+PS C:\WINDOWS\System32>
+PS C:\WINDOWS\System32> Get-ChildItem "$install\bin"
+
+
+    Directory: C:\OpenInterpreter\bin
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----         11/9/2026   3:00 AM       72366592 codex-code-mode-host.exe
+-a----         11/9/2026   3:00 AM      339838976 i.exe
+-a----         11/9/2026   3:00 AM      339838976 interpreter.exe
+
+
+PS C:\WINDOWS\System32> & "C:\OpenInterpreter\bin\interpreter.exe" --help
+Open Interpreter
+
+If no subcommand is specified, options will be forwarded to the interactive CLI.
+
+Examples:
+  interpreter completion bash > interpreter.bash
+  interpreter --chat-completions
+
+Usage: interpreter [OPTIONS] [PROMPT]
+       interpreter [OPTIONS] <COMMAND> [ARGS]
+
+Commands:
+  agents          Browse all agent sessions on the shared local app-server daemon
+  exec            Run the agent non-interactively [alias: e]
+  review          Run a code review non-interactively
+  login           Manage login
+  logout          Remove stored authentication credentials
+  mcp             Manage external MCP servers
+  plugin          Manage plugins
+  mcp-server      Start the agent as an MCP server (stdio)
+  acp             [experimental] Run as an Agent Client Protocol (ACP) agent over stdio
+  app-server      [experimental] Run the app server or related tooling
+  remote-control  [experimental] Manage the app-server daemon with remote control enabled
+  app             Launch the Desktop app (opens the app installer if missing)
+  completion      Generate shell completion scripts for interpreter.
+  update          Update to the latest version
+  doctor          Diagnose the local installation, config, auth, and runtime health
+  sandbox         Run commands within the agent-provided sandbox
+  debug           Debugging tools
+  apply           Apply the latest diff produced by the agent as a `git apply` to your local working tree [alias: a]
+  resume          Resume a previous interactive session (picker by default; use --last to continue the most recent)
+  queue           Queue a message for an existing session
+  archive         Archive a saved session by id or session name
+  delete          Permanently delete a saved session by id or session name
+  unarchive       Unarchive a saved session by id or session name
+  fork            Fork a previous interactive session (picker by default; use --last to fork the most recent)
+  cloud           [EXPERIMENTAL] Browse remote tasks and apply changes locally
+  exec-server     [EXPERIMENTAL] Run the standalone exec-server service
+  features        Inspect feature flags
+  help            Print this message or the help of the given subcommand(s)
+
+Arguments:
+  [PROMPT]
+          Optional user prompt to start the session
+
+Options:
+  -c, --config <key=value>
+          Override a value that would otherwise be loaded from the user config. Use a dotted path (`foo.bar.baz`) to
+          override nested values. The `value` portion is parsed as TOML. If it fails to parse as TOML, the raw string is
+          used as a literal.
+
+          Examples: - `-c model="o3"` - `-c 'sandbox_permissions=["disk-full-read-access"]'` - `-c
+          shell_environment_policy.inherit=all`
+
+      --enable <FEATURE>
+          Enable a feature (repeatable). Equivalent to `-c features.<name>=true`
+
+      --disable <FEATURE>
+          Disable a feature (repeatable). Equivalent to `-c features.<name>=false`
+
+      --remote <ADDR>
+          Connect the TUI to a remote app server endpoint.
+
+          Accepted forms: `ws://host:port`, `wss://host:port`, `unix://`, or `unix://PATH`.
+
+      --remote-auth-token-env <ENV_VAR>
+          Name of the environment variable containing the bearer token to send to a remote app server websocket
+
+      --strict-config
+          Error out when config.toml contains fields that this version does not recognize
+
+  -i, --image <FILE>...
+          Optional image(s) to attach to the initial prompt
+
+  -m, --model <MODEL>
+          Model the agent should use
+
+      --chat-completions
+          Use the selected provider's OpenAI-compatible Chat Completions API instead of the Responses API.
+
+          Examples:
+            interpreter --chat-completions
+            interpreter exec --chat-completions "summarize this repository"
+
+      --oss
+          Use open-source provider
+
+      --local-provider <OSS_PROVIDER>
+          Specify which local provider to use (lmstudio or ollama). If not specified with --oss, will use config default
+          or show selection
+
+  -p, --profile <CONFIG_PROFILE_V2>
+          Layer a named profile config on top of the base user config
+
+  -s, --sandbox <SANDBOX_MODE>
+          Select the sandbox policy to use when executing model-generated shell commands
+
+          [possible values: read-only, workspace-write, danger-full-access]
+
+      --approve-for-me
+          Route approval requests through automatic review using the workspace-write sandbox
+
+      --dangerously-bypass-approvals-and-sandbox
+          Skip all confirmation prompts and execute commands without sandboxing. EXTREMELY DANGEROUS. Intended solely
+          for running in environments that are externally sandboxed
+
+      --dangerously-bypass-hook-trust
+          Run enabled hooks without requiring persisted hook trust for this invocation. DANGEROUS. Intended only for
+          automation that already vets hook sources
+
+  -C, --cd <DIR>
+          Tell the agent to use the specified directory as its working root
+
+      --worktree
+          Run the session in a new managed Git worktree
+
+      --add-dir <DIR>
+          Additional directories that should be writable alongside the primary workspace
+
+  -a, --ask-for-approval <APPROVAL_POLICY>
+          Configure when the model requires human approval before executing a command
+
+          Possible values:
+          - on-request: The model decides when to ask the user for approval
+          - never:      Never ask for user approval Execution failures are immediately returned to the model
+
+      --search
+          Enable live web search. When enabled, the native Responses `web_search` tool is available to the model (no
+          per‑call approval)
+
+      --no-alt-screen
+          Disable alternate screen mode
+
+          Runs the TUI in inline mode, preserving terminal scrollback history.
+
+      --no-daemon
+          Run without the shared background server, even if it is already running
+
+  -h, --help
+          Print help (see a summary with '-h')
+
+  -V, --version
+          Print version
+PS C:\WINDOWS\System32> & "C:\OpenInterpreter\bin\i.exe" --help
+Open Interpreter
+
+If no subcommand is specified, options will be forwarded to the interactive CLI.
+
+Examples:
+  interpreter completion bash > interpreter.bash
+  interpreter --chat-completions
+
+Usage: interpreter [OPTIONS] [PROMPT]
+       interpreter [OPTIONS] <COMMAND> [ARGS]
+
+Commands:
+  agents          Browse all agent sessions on the shared local app-server daemon
+  exec            Run the agent non-interactively [alias: e]
+  review          Run a code review non-interactively
+  login           Manage login
+  logout          Remove stored authentication credentials
+  mcp             Manage external MCP servers
+  plugin          Manage plugins
+  mcp-server      Start the agent as an MCP server (stdio)
+  acp             [experimental] Run as an Agent Client Protocol (ACP) agent over stdio
+  app-server      [experimental] Run the app server or related tooling
+  remote-control  [experimental] Manage the app-server daemon with remote control enabled
+  app             Launch the Desktop app (opens the app installer if missing)
+  completion      Generate shell completion scripts for interpreter.
+  update          Update to the latest version
+  doctor          Diagnose the local installation, config, auth, and runtime health
+  sandbox         Run commands within the agent-provided sandbox
+  debug           Debugging tools
+  apply           Apply the latest diff produced by the agent as a `git apply` to your local working tree [alias: a]
+  resume          Resume a previous interactive session (picker by default; use --last to continue the most recent)
+  queue           Queue a message for an existing session
+  archive         Archive a saved session by id or session name
+  delete          Permanently delete a saved session by id or session name
+  unarchive       Unarchive a saved session by id or session name
+  fork            Fork a previous interactive session (picker by default; use --last to fork the most recent)
+  cloud           [EXPERIMENTAL] Browse remote tasks and apply changes locally
+  exec-server     [EXPERIMENTAL] Run the standalone exec-server service
+  features        Inspect feature flags
+  help            Print this message or the help of the given subcommand(s)
+
+Arguments:
+  [PROMPT]
+          Optional user prompt to start the session
+
+Options:
+  -c, --config <key=value>
+          Override a value that would otherwise be loaded from the user config. Use a dotted path (`foo.bar.baz`) to override nested values. The `value` portion is parsed as TOML. If it
+          fails to parse as TOML, the raw string is used as a literal.
+
+          Examples: - `-c model="o3"` - `-c 'sandbox_permissions=["disk-full-read-access"]'` - `-c shell_environment_policy.inherit=all`
+
+      --enable <FEATURE>
+          Enable a feature (repeatable). Equivalent to `-c features.<name>=true`
+
+      --disable <FEATURE>
+          Disable a feature (repeatable). Equivalent to `-c features.<name>=false`
+
+      --remote <ADDR>
+          Connect the TUI to a remote app server endpoint.
+
+          Accepted forms: `ws://host:port`, `wss://host:port`, `unix://`, or `unix://PATH`.
+
+      --remote-auth-token-env <ENV_VAR>
+          Name of the environment variable containing the bearer token to send to a remote app server websocket
+
+      --strict-config
+          Error out when config.toml contains fields that this version does not recognize
+
+  -i, --image <FILE>...
+          Optional image(s) to attach to the initial prompt
+
+  -m, --model <MODEL>
+          Model the agent should use
+
+      --chat-completions
+          Use the selected provider's OpenAI-compatible Chat Completions API instead of the Responses API.
+
+          Examples:
+            interpreter --chat-completions
+            interpreter exec --chat-completions "summarize this repository"
+
+      --oss
+          Use open-source provider
+
+      --local-provider <OSS_PROVIDER>
+          Specify which local provider to use (lmstudio or ollama). If not specified with --oss, will use config default or show selection
+
+  -p, --profile <CONFIG_PROFILE_V2>
+          Layer a named profile config on top of the base user config
+
+  -s, --sandbox <SANDBOX_MODE>
+          Select the sandbox policy to use when executing model-generated shell commands
+
+          [possible values: read-only, workspace-write, danger-full-access]
+
+      --approve-for-me
+          Route approval requests through automatic review using the workspace-write sandbox
+
+      --dangerously-bypass-approvals-and-sandbox
+          Skip all confirmation prompts and execute commands without sandboxing. EXTREMELY DANGEROUS. Intended solely for running in environments that are externally sandboxed
+
+      --dangerously-bypass-hook-trust
+          Run enabled hooks without requiring persisted hook trust for this invocation. DANGEROUS. Intended only for automation that already vets hook sources
+
+  -C, --cd <DIR>
+          Tell the agent to use the specified directory as its working root
+
+      --worktree
+          Run the session in a new managed Git worktree
+
+      --add-dir <DIR>
+          Additional directories that should be writable alongside the primary workspace
+
+  -a, --ask-for-approval <APPROVAL_POLICY>
+          Configure when the model requires human approval before executing a command
+
+          Possible values:
+          - on-request: The model decides when to ask the user for approval
+          - never:      Never ask for user approval Execution failures are immediately returned to the model
+
+      --search
+          Enable live web search. When enabled, the native Responses `web_search` tool is available to the model (no per‑call approval)
+
+      --no-alt-screen
+          Disable alternate screen mode
+
+          Runs the TUI in inline mode, preserving terminal scrollback history.
+
+      --no-daemon
+          Run without the shared background server, even if it is already running
+
+  -h, --help
+          Print help (see a summary with '-h')
+
+  -V, --version
+          Print version
+PS C:\WINDOWS\System32>
