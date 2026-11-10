@@ -1,6 +1,3 @@
-Windows PowerShell
-Copyright (C) Microsoft Corporation. All rights reserved.
-
 PS C:\Users\Aymen> ollama show qwen2.5vl:7b
   Model
     architecture        qwen25vl
@@ -255,4 +252,6 @@ LICENSE """
    See the License for the specific language governing permissions and
    limitations under the License."""
 
+PS C:\Users\Aymen> & "C:\OpenInterpreter\bin\interpreter.exe" --version
+interpreter 0.0.60
 PS C:\Users\Aymen>
