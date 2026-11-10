@@ -1,832 +1,591 @@
-PS C:\WINDOWS\System32> $releases = Get-Content "$env:TEMP\oi-releases.json" -Raw | ConvertFrom-Json
-PS C:\WINDOWS\System32>
-PS C:\WINDOWS\System32> $release = $releases |
+PS C:\WINDOWS\System32> $release = (Get-Content "$env:TEMP\oi-releases.json" -Raw | ConvertFrom-Json) |
 >>     Where-Object { $_.tag_name -eq "rust-v0.0.60" } |
 >>     Select-Object -First 1
 PS C:\WINDOWS\System32>
-PS C:\WINDOWS\System32> $release.assets |
->>     Select-Object name, size, browser_download_url |
->>     Format-List
-
-
-name                 : bwrap-aarch64-unknown-linux-musl.sigstore
-size                 : 9013
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/bwrap-aarch64-
-                       unknown-linux-musl.sigstore
-
-name                 : bwrap-aarch64-unknown-linux-musl.tar.gz
-size                 : 254929
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/bwrap-aarch64-
-                       unknown-linux-musl.tar.gz
-
-name                 : bwrap-aarch64-unknown-linux-musl.zst
-size                 : 231254
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/bwrap-aarch64-
-                       unknown-linux-musl.zst
-
-name                 : bwrap-x86_64-unknown-linux-musl.sigstore
-size                 : 9021
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/bwrap-x86_64-u
-                       nknown-linux-musl.sigstore
-
-name                 : bwrap-x86_64-unknown-linux-musl.tar.gz
-size                 : 261611
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/bwrap-x86_64-u
-                       nknown-linux-musl.tar.gz
-
-name                 : bwrap-x86_64-unknown-linux-musl.zst
-size                 : 237743
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/bwrap-x86_64-u
-                       nknown-linux-musl.zst
-
-name                 : codex-aarch64-apple-darwin.dmg
-size                 : 172234121
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-aarch64-
-                       apple-darwin.dmg
-
-name                 : codex-aarch64-apple-darwin.tar.gz
-size                 : 98820396
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-aarch64-
-                       apple-darwin.tar.gz
-
-name                 : codex-aarch64-apple-darwin.zst
-size                 : 70763151
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-aarch64-
-                       apple-darwin.zst
-
-name                 : codex-aarch64-pc-windows-msvc.exe
-size                 : 286077440
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-aarch64-
-                       pc-windows-msvc.exe
-
-name                 : codex-aarch64-pc-windows-msvc.exe.tar.gz
-size                 : 102557867
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-aarch64-
-                       pc-windows-msvc.exe.tar.gz
-
-name                 : codex-aarch64-pc-windows-msvc.exe.zip
-size                 : 149944732
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-aarch64-
-                       pc-windows-msvc.exe.zip
-
-name                 : codex-aarch64-pc-windows-msvc.exe.zst
-size                 : 75928878
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-aarch64-
-                       pc-windows-msvc.exe.zst
-
-name                 : codex-aarch64-unknown-linux-musl.sigstore
-size                 : 9021
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-aarch64-
-                       unknown-linux-musl.sigstore
-
-name                 : codex-aarch64-unknown-linux-musl.tar.gz
-size                 : 104072227
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-aarch64-
-                       unknown-linux-musl.tar.gz
-
-name                 : codex-aarch64-unknown-linux-musl.zst
-size                 : 75014159
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-aarch64-
-                       unknown-linux-musl.zst
-
-name                 : codex-app-server-aarch64-apple-darwin.tar.gz
-size                 : 75605107
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-app-serv
-                       er-aarch64-apple-darwin.tar.gz
-
-name                 : codex-app-server-aarch64-apple-darwin.zst
-size                 : 53338709
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-app-serv
-                       er-aarch64-apple-darwin.zst
-
-name                 : codex-app-server-aarch64-pc-windows-msvc.exe
-size                 : 218390528
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-app-serv
-                       er-aarch64-pc-windows-msvc.exe
-
-name                 : codex-app-server-aarch64-pc-windows-msvc.exe.tar.gz
-size                 : 78563898
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-app-serv
-                       er-aarch64-pc-windows-msvc.exe.tar.gz
-
-name                 : codex-app-server-aarch64-pc-windows-msvc.exe.zip
-size                 : 76506272
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-app-serv
-                       er-aarch64-pc-windows-msvc.exe.zip
-
-name                 : codex-app-server-aarch64-pc-windows-msvc.exe.zst
-size                 : 57533573
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-app-serv
-                       er-aarch64-pc-windows-msvc.exe.zst
-
-name                 : codex-app-server-aarch64-unknown-linux-musl.sigstore
-size                 : 9021
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-app-serv
-                       er-aarch64-unknown-linux-musl.sigstore
-
-name                 : codex-app-server-aarch64-unknown-linux-musl.tar.gz
-size                 : 80298203
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-app-serv
-                       er-aarch64-unknown-linux-musl.tar.gz
-
-name                 : codex-app-server-aarch64-unknown-linux-musl.zst
-size                 : 57356041
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-app-serv
-                       er-aarch64-unknown-linux-musl.zst
-
-name                 : codex-app-server-package-aarch64-apple-darwin.tar.gz
-size                 : 100232832
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-app-serv
-                       er-package-aarch64-apple-darwin.tar.gz
-
-name                 : codex-app-server-package-aarch64-apple-darwin.tar.zst
-size                 : 71810576
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-app-serv
-                       er-package-aarch64-apple-darwin.tar.zst
-
-name                 : codex-app-server-package-aarch64-pc-windows-msvc.tar.gz
-size                 : 114683537
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-app-serv
-                       er-package-aarch64-pc-windows-msvc.tar.gz
-
-name                 : codex-app-server-package-aarch64-pc-windows-msvc.tar.zst
-size                 : 85054690
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-app-serv
-                       er-package-aarch64-pc-windows-msvc.tar.zst
-
-name                 : codex-app-server-package-aarch64-unknown-linux-musl.tar.gz
-size                 : 107525177
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-app-serv
-                       er-package-aarch64-unknown-linux-musl.tar.gz
-
-name                 : codex-app-server-package-aarch64-unknown-linux-musl.tar.zst
-size                 : 78282235
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-app-serv
-                       er-package-aarch64-unknown-linux-musl.tar.zst
-
-name                 : codex-app-server-package-x86_64-apple-darwin.tar.gz
-size                 : 106536349
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-app-serv
-                       er-package-x86_64-apple-darwin.tar.gz
-
-name                 : codex-app-server-package-x86_64-apple-darwin.tar.zst
-size                 : 76498512
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-app-serv
-                       er-package-x86_64-apple-darwin.tar.zst
-
-name                 : codex-app-server-package-x86_64-pc-windows-msvc.tar.gz
-size                 : 123878851
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-app-serv
-                       er-package-x86_64-pc-windows-msvc.tar.gz
-
-name                 : codex-app-server-package-x86_64-pc-windows-msvc.tar.zst
-size                 : 92100311
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-app-serv
-                       er-package-x86_64-pc-windows-msvc.tar.zst
-
-name                 : codex-app-server-package-x86_64-unknown-linux-musl.tar.gz
-size                 : 115111960
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-app-serv
-                       er-package-x86_64-unknown-linux-musl.tar.gz
-
-name                 : codex-app-server-package-x86_64-unknown-linux-musl.tar.zst
-size                 : 82747793
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-app-serv
-                       er-package-x86_64-unknown-linux-musl.tar.zst
-
-name                 : codex-app-server-x86_64-apple-darwin.tar.gz
-size                 : 80555273
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-app-serv
-                       er-x86_64-apple-darwin.tar.gz
-
-name                 : codex-app-server-x86_64-apple-darwin.zst
-size                 : 56978527
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-app-serv
-                       er-x86_64-apple-darwin.zst
-
-name                 : codex-app-server-x86_64-pc-windows-msvc.exe
-size                 : 259004928
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-app-serv
-                       er-x86_64-pc-windows-msvc.exe
-
-name                 : codex-app-server-x86_64-pc-windows-msvc.exe.tar.gz
-size                 : 85794088
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-app-serv
-                       er-x86_64-pc-windows-msvc.exe.tar.gz
-
-name                 : codex-app-server-x86_64-pc-windows-msvc.exe.zip
-size                 : 83008199
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-app-serv
-                       er-x86_64-pc-windows-msvc.exe.zip
-
-name                 : codex-app-server-x86_64-pc-windows-msvc.exe.zst
-size                 : 62730481
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-app-serv
-                       er-x86_64-pc-windows-msvc.exe.zst
-
-name                 : codex-app-server-x86_64-unknown-linux-musl.sigstore
-size                 : 9021
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-app-serv
-                       er-x86_64-unknown-linux-musl.sigstore
-
-name                 : codex-app-server-x86_64-unknown-linux-musl.tar.gz
-size                 : 86195736
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-app-serv
-                       er-x86_64-unknown-linux-musl.tar.gz
-
-name                 : codex-app-server-x86_64-unknown-linux-musl.zst
-size                 : 60651228
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-app-serv
-                       er-x86_64-unknown-linux-musl.zst
-
-name                 : codex-code-mode-host-aarch64-apple-darwin.tar.gz
-size                 : 22606526
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-code-mod
-                       e-host-aarch64-apple-darwin.tar.gz
-
-name                 : codex-code-mode-host-aarch64-apple-darwin.zst
-size                 : 16830856
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-code-mod
-                       e-host-aarch64-apple-darwin.zst
-
-name                 : codex-code-mode-host-aarch64-pc-windows-msvc.exe
-size                 : 67656704
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-code-mod
-                       e-host-aarch64-pc-windows-msvc.exe
-
-name                 : codex-code-mode-host-aarch64-pc-windows-msvc.exe.tar.gz
-size                 : 26606139
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-code-mod
-                       e-host-aarch64-pc-windows-msvc.exe.tar.gz
-
-name                 : codex-code-mode-host-aarch64-pc-windows-msvc.exe.zip
-size                 : 25824844
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-code-mod
-                       e-host-aarch64-pc-windows-msvc.exe.zip
-
-name                 : codex-code-mode-host-aarch64-pc-windows-msvc.exe.zst
-size                 : 20425155
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-code-mod
-                       e-host-aarch64-pc-windows-msvc.exe.zst
-
-name                 : codex-code-mode-host-aarch64-unknown-linux-musl.sigstore
-size                 : 9021
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-code-mod
-                       e-host-aarch64-unknown-linux-musl.sigstore
-
-name                 : codex-code-mode-host-aarch64-unknown-linux-musl.tar.gz
-size                 : 24881625
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-code-mod
-                       e-host-aarch64-unknown-linux-musl.tar.gz
-
-name                 : codex-code-mode-host-aarch64-unknown-linux-musl.zst
-size                 : 18988126
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-code-mod
-                       e-host-aarch64-unknown-linux-musl.zst
-
-name                 : codex-code-mode-host-x86_64-apple-darwin.tar.gz
-size                 : 23814001
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-code-mod
-                       e-host-x86_64-apple-darwin.tar.gz
-
-name                 : codex-code-mode-host-x86_64-apple-darwin.zst
-size                 : 17746997
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-code-mod
-                       e-host-x86_64-apple-darwin.zst
-
-name                 : codex-code-mode-host-x86_64-pc-windows-msvc.exe
-size                 : 72366592
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-code-mod
-                       e-host-x86_64-pc-windows-msvc.exe
-
-name                 : codex-code-mode-host-x86_64-pc-windows-msvc.exe.tar.gz
-size                 : 27906177
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-code-mod
-                       e-host-x86_64-pc-windows-msvc.exe.tar.gz
-
-name                 : codex-code-mode-host-x86_64-pc-windows-msvc.exe.zip
-size                 : 27106446
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-code-mod
-                       e-host-x86_64-pc-windows-msvc.exe.zip
-
-name                 : codex-code-mode-host-x86_64-pc-windows-msvc.exe.zst
-size                 : 21582237
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-code-mod
-                       e-host-x86_64-pc-windows-msvc.exe.zst
-
-name                 : codex-code-mode-host-x86_64-unknown-linux-musl.sigstore
-size                 : 9021
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-code-mod
-                       e-host-x86_64-unknown-linux-musl.sigstore
-
-name                 : codex-code-mode-host-x86_64-unknown-linux-musl.tar.gz
-size                 : 26221437
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-code-mod
-                       e-host-x86_64-unknown-linux-musl.tar.gz
-
-name                 : codex-code-mode-host-x86_64-unknown-linux-musl.zst
-size                 : 19814386
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-code-mod
-                       e-host-x86_64-unknown-linux-musl.zst
-
-name                 : codex-command-runner-aarch64-pc-windows-msvc.exe
-size                 : 7258624
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-command-
-                       runner-aarch64-pc-windows-msvc.exe
-
-name                 : codex-command-runner-aarch64-pc-windows-msvc.exe.tar.gz
-size                 : 2702886
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-command-
-                       runner-aarch64-pc-windows-msvc.exe.tar.gz
-
-name                 : codex-command-runner-aarch64-pc-windows-msvc.exe.zip
-size                 : 2622472
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-command-
-                       runner-aarch64-pc-windows-msvc.exe.zip
-
-name                 : codex-command-runner-aarch64-pc-windows-msvc.exe.zst
-size                 : 2081116
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-command-
-                       runner-aarch64-pc-windows-msvc.exe.zst
-
-name                 : codex-command-runner-x86_64-pc-windows-msvc.exe
-size                 : 8111616
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-command-
-                       runner-x86_64-pc-windows-msvc.exe
-
-name                 : codex-command-runner-x86_64-pc-windows-msvc.exe.tar.gz
-size                 : 2940070
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-command-
-                       runner-x86_64-pc-windows-msvc.exe.tar.gz
-
-name                 : codex-command-runner-x86_64-pc-windows-msvc.exe.zip
-size                 : 2847977
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-command-
-                       runner-x86_64-pc-windows-msvc.exe.zip
-
-name                 : codex-command-runner-x86_64-pc-windows-msvc.exe.zst
-size                 : 2272961
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-command-
-                       runner-x86_64-pc-windows-msvc.exe.zst
-
-name                 : codex-package-aarch64-apple-darwin.tar.gz
-size                 : 131457525
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-package-
-                       aarch64-apple-darwin.tar.gz
-
-name                 : codex-package-aarch64-apple-darwin.tar.zst
-size                 : 95536472
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-package-
-                       aarch64-apple-darwin.tar.zst
-
-name                 : codex-package-aarch64-pc-windows-msvc.tar.gz
-size                 : 145714895
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-package-
-                       aarch64-pc-windows-msvc.tar.gz
-
-name                 : codex-package-aarch64-pc-windows-msvc.tar.zst
-size                 : 108890655
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-package-
-                       aarch64-pc-windows-msvc.tar.zst
-
-name                 : codex-package-aarch64-unknown-linux-musl.tar.gz
-size                 : 140890386
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-package-
-                       aarch64-unknown-linux-musl.tar.gz
-
-name                 : codex-package-aarch64-unknown-linux-musl.tar.gz.sigstore
-size                 : 9021
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-package-
-                       aarch64-unknown-linux-musl.tar.gz.sigstore
-
-name                 : codex-package-aarch64-unknown-linux-musl.tar.zst
-size                 : 103280400
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-package-
-                       aarch64-unknown-linux-musl.tar.zst
-
-name                 : codex-package-aarch64-unknown-linux-musl.tar.zst.sigstore
-size                 : 9021
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-package-
-                       aarch64-unknown-linux-musl.tar.zst.sigstore
-
-name                 : codex-package-x86_64-apple-darwin.tar.gz
-size                 : 139955533
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-package-
-                       x86_64-apple-darwin.tar.gz
-
-name                 : codex-package-x86_64-apple-darwin.tar.zst
-size                 : 101769009
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-package-
-                       x86_64-apple-darwin.tar.zst
-
-name                 : codex-package-x86_64-pc-windows-msvc.tar.gz
-size                 : 157983885
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-package-
-                       x86_64-pc-windows-msvc.tar.gz
-
-name                 : codex-package-x86_64-pc-windows-msvc.tar.zst
-size                 : 118134882
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-package-
-                       x86_64-pc-windows-msvc.tar.zst
-
-name                 : codex-package-x86_64-unknown-linux-musl.tar.gz
-size                 : 150407317
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-package-
-                       x86_64-unknown-linux-musl.tar.gz
-
-name                 : codex-package-x86_64-unknown-linux-musl.tar.gz.sigstore
-size                 : 9033
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-package-
-                       x86_64-unknown-linux-musl.tar.gz.sigstore
-
-name                 : codex-package-x86_64-unknown-linux-musl.tar.zst
-size                 : 109315971
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-package-
-                       x86_64-unknown-linux-musl.tar.zst
-
-name                 : codex-package-x86_64-unknown-linux-musl.tar.zst.sigstore
-size                 : 9021
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-package-
-                       x86_64-unknown-linux-musl.tar.zst.sigstore
-
-name                 : codex-package_SHA256SUMS
-size                 : 2121
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-package_
-                       SHA256SUMS
-
-name                 : codex-responses-api-proxy-aarch64-apple-darwin.tar.gz
-size                 : 2465746
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-response
-                       s-api-proxy-aarch64-apple-darwin.tar.gz
-
-name                 : codex-responses-api-proxy-aarch64-apple-darwin.zst
-size                 : 1984574
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-response
-                       s-api-proxy-aarch64-apple-darwin.zst
-
-name                 : codex-responses-api-proxy-aarch64-pc-windows-msvc.exe
-size                 : 5427712
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-response
-                       s-api-proxy-aarch64-pc-windows-msvc.exe
-
-name                 : codex-responses-api-proxy-aarch64-pc-windows-msvc.exe.tar.gz
-size                 : 2411751
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-response
-                       s-api-proxy-aarch64-pc-windows-msvc.exe.tar.gz
-
-name                 : codex-responses-api-proxy-aarch64-pc-windows-msvc.exe.zip
-size                 : 2349516
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-response
-                       s-api-proxy-aarch64-pc-windows-msvc.exe.zip
-
-name                 : codex-responses-api-proxy-aarch64-pc-windows-msvc.exe.zst
-size                 : 1974257
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-response
-                       s-api-proxy-aarch64-pc-windows-msvc.exe.zst
-
-name                 : codex-responses-api-proxy-aarch64-unknown-linux-musl.sigstore
-size                 : 9021
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-response
-                       s-api-proxy-aarch64-unknown-linux-musl.sigstore
-
-name                 : codex-responses-api-proxy-aarch64-unknown-linux-musl.tar.gz
-size                 : 5129521
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-response
-                       s-api-proxy-aarch64-unknown-linux-musl.tar.gz
-
-name                 : codex-responses-api-proxy-aarch64-unknown-linux-musl.zst
-size                 : 4363590
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-response
-                       s-api-proxy-aarch64-unknown-linux-musl.zst
-
-name                 : codex-responses-api-proxy-x86_64-apple-darwin.tar.gz
-size                 : 2593443
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-response
-                       s-api-proxy-x86_64-apple-darwin.tar.gz
-
-name                 : codex-responses-api-proxy-x86_64-apple-darwin.zst
-size                 : 2084443
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-response
-                       s-api-proxy-x86_64-apple-darwin.zst
-
-name                 : codex-responses-api-proxy-x86_64-pc-windows-msvc.exe
-size                 : 6121472
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-response
-                       s-api-proxy-x86_64-pc-windows-msvc.exe
-
-name                 : codex-responses-api-proxy-x86_64-pc-windows-msvc.exe.tar.gz
-size                 : 2561880
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-response
-                       s-api-proxy-x86_64-pc-windows-msvc.exe.tar.gz
-
-name                 : codex-responses-api-proxy-x86_64-pc-windows-msvc.exe.zip
-size                 : 2486590
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-response
-                       s-api-proxy-x86_64-pc-windows-msvc.exe.zip
-
-name                 : codex-responses-api-proxy-x86_64-pc-windows-msvc.exe.zst
-size                 : 2097600
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-response
-                       s-api-proxy-x86_64-pc-windows-msvc.exe.zst
-
-name                 : codex-responses-api-proxy-x86_64-unknown-linux-musl.sigstore
-size                 : 9021
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-response
-                       s-api-proxy-x86_64-unknown-linux-musl.sigstore
-
-name                 : codex-responses-api-proxy-x86_64-unknown-linux-musl.tar.gz
-size                 : 5089120
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-response
-                       s-api-proxy-x86_64-unknown-linux-musl.tar.gz
-
-name                 : codex-responses-api-proxy-x86_64-unknown-linux-musl.zst
-size                 : 4016835
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-response
-                       s-api-proxy-x86_64-unknown-linux-musl.zst
-
-name                 : codex-symbols-aarch64-apple-darwin-app-server.tar.gz
-size                 : 263903793
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-symbols-
-                       aarch64-apple-darwin-app-server.tar.gz
-
-name                 : codex-symbols-aarch64-apple-darwin.tar.gz
-size                 : 344591807
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-symbols-
-                       aarch64-apple-darwin.tar.gz
-
-name                 : codex-symbols-aarch64-pc-windows-msvc.tar.gz
-size                 : 567310382
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-symbols-
-                       aarch64-pc-windows-msvc.tar.gz
-
-name                 : codex-symbols-aarch64-unknown-linux-musl-app-server.tar.gz
-size                 : 207795290
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-symbols-
-                       aarch64-unknown-linux-musl-app-server.tar.gz
-
-name                 : codex-symbols-aarch64-unknown-linux-musl.tar.gz
-size                 : 269463921
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-symbols-
-                       aarch64-unknown-linux-musl.tar.gz
-
-name                 : codex-symbols-x86_64-apple-darwin-app-server.tar.gz
-size                 : 268802152
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-symbols-
-                       x86_64-apple-darwin-app-server.tar.gz
-
-name                 : codex-symbols-x86_64-apple-darwin.tar.gz
-size                 : 350793962
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-symbols-
-                       x86_64-apple-darwin.tar.gz
-
-name                 : codex-symbols-x86_64-pc-windows-msvc.tar.gz
-size                 : 581397242
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-symbols-
-                       x86_64-pc-windows-msvc.tar.gz
-
-name                 : codex-symbols-x86_64-unknown-linux-musl-app-server.tar.gz
-size                 : 200212417
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-symbols-
-                       x86_64-unknown-linux-musl-app-server.tar.gz
-
-name                 : codex-symbols-x86_64-unknown-linux-musl.tar.gz
-size                 : 259734612
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-symbols-
-                       x86_64-unknown-linux-musl.tar.gz
-
-name                 : codex-windows-sandbox-service-aarch64-pc-windows-msvc.exe
-size                 : 45859840
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-windows-
-                       sandbox-service-aarch64-pc-windows-msvc.exe
-
-name                 : codex-windows-sandbox-service-aarch64-pc-windows-msvc.exe.tar.gz
-size                 : 16068644
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-windows-
-                       sandbox-service-aarch64-pc-windows-msvc.exe.tar.gz
-
-name                 : codex-windows-sandbox-service-aarch64-pc-windows-msvc.exe.zip
-size                 : 15663212
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-windows-
-                       sandbox-service-aarch64-pc-windows-msvc.exe.zip
-
-name                 : codex-windows-sandbox-service-aarch64-pc-windows-msvc.exe.zst
-size                 : 11662059
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-windows-
-                       sandbox-service-aarch64-pc-windows-msvc.exe.zst
-
-name                 : codex-windows-sandbox-service-x86_64-pc-windows-msvc.exe
-size                 : 54856704
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-windows-
-                       sandbox-service-x86_64-pc-windows-msvc.exe
-
-name                 : codex-windows-sandbox-service-x86_64-pc-windows-msvc.exe.tar.gz
-size                 : 17647967
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-windows-
-                       sandbox-service-x86_64-pc-windows-msvc.exe.tar.gz
-
-name                 : codex-windows-sandbox-service-x86_64-pc-windows-msvc.exe.zip
-size                 : 17148864
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-windows-
-                       sandbox-service-x86_64-pc-windows-msvc.exe.zip
-
-name                 : codex-windows-sandbox-service-x86_64-pc-windows-msvc.exe.zst
-size                 : 12774057
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-windows-
-                       sandbox-service-x86_64-pc-windows-msvc.exe.zst
-
-name                 : codex-windows-sandbox-setup-aarch64-pc-windows-msvc.exe
-size                 : 13826048
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-windows-
-                       sandbox-setup-aarch64-pc-windows-msvc.exe
-
-name                 : codex-windows-sandbox-setup-aarch64-pc-windows-msvc.exe.tar.gz
-size                 : 5419916
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-windows-
-                       sandbox-setup-aarch64-pc-windows-msvc.exe.tar.gz
-
-name                 : codex-windows-sandbox-setup-aarch64-pc-windows-msvc.exe.zip
-size                 : 5269324
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-windows-
-                       sandbox-setup-aarch64-pc-windows-msvc.exe.zip
-
-name                 : codex-windows-sandbox-setup-aarch64-pc-windows-msvc.exe.zst
-size                 : 4141762
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-windows-
-                       sandbox-setup-aarch64-pc-windows-msvc.exe.zst
-
-name                 : codex-windows-sandbox-setup-x86_64-pc-windows-msvc.exe
-size                 : 15538176
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-windows-
-                       sandbox-setup-x86_64-pc-windows-msvc.exe
-
-name                 : codex-windows-sandbox-setup-x86_64-pc-windows-msvc.exe.tar.gz
-size                 : 5816805
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-windows-
-                       sandbox-setup-x86_64-pc-windows-msvc.exe.tar.gz
-
-name                 : codex-windows-sandbox-setup-x86_64-pc-windows-msvc.exe.zip
-size                 : 5639855
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-windows-
-                       sandbox-setup-x86_64-pc-windows-msvc.exe.zip
-
-name                 : codex-windows-sandbox-setup-x86_64-pc-windows-msvc.exe.zst
-size                 : 4447566
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-windows-
-                       sandbox-setup-x86_64-pc-windows-msvc.exe.zst
-
-name                 : codex-x86_64-apple-darwin.dmg
-size                 : 184535538
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-x86_64-a
-                       pple-darwin.dmg
-
-name                 : codex-x86_64-apple-darwin.tar.gz
-size                 : 105569323
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-x86_64-a
-                       pple-darwin.tar.gz
-
-name                 : codex-x86_64-apple-darwin.zst
-size                 : 75619219
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-x86_64-a
-                       pple-darwin.zst
-
-name                 : codex-x86_64-pc-windows-msvc.exe
-size                 : 339838976
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-x86_64-p
-                       c-windows-msvc.exe
-
-name                 : codex-x86_64-pc-windows-msvc.exe.tar.gz
-size                 : 112174394
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-x86_64-p
-                       c-windows-msvc.exe.tar.gz
-
-name                 : codex-x86_64-pc-windows-msvc.exe.zip
-size                 : 161930113
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-x86_64-p
-                       c-windows-msvc.exe.zip
-
-name                 : codex-x86_64-pc-windows-msvc.exe.zst
-size                 : 82463053
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-x86_64-p
-                       c-windows-msvc.exe.zst
-
-name                 : codex-x86_64-unknown-linux-musl.sigstore
-size                 : 9021
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-x86_64-u
-                       nknown-linux-musl.sigstore
-
-name                 : codex-x86_64-unknown-linux-musl.tar.gz
-size                 : 111792426
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-x86_64-u
-                       nknown-linux-musl.tar.gz
-
-name                 : codex-x86_64-unknown-linux-musl.zst
-size                 : 79752433
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/codex-x86_64-u
-                       nknown-linux-musl.zst
-
-name                 : config-schema.json
-size                 : 221771
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/config-schema.
-                       json
-
-name                 : install.ps1
-size                 : 44432
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/install.ps1
-
-name                 : install.sh
-size                 : 33425
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/install.sh
-
-name                 : open-interpreter-package-aarch64-apple-darwin.tar.gz
-size                 : 222264133
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/open-interpret
-                       er-package-aarch64-apple-darwin.tar.gz
-
-name                 : open-interpreter-package-aarch64-apple-darwin.tar.zst
-size                 : 159977238
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/open-interpret
-                       er-package-aarch64-apple-darwin.tar.zst
-
-name                 : open-interpreter-package-aarch64-pc-windows-msvc.tar.gz
-size                 : 240993782
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/open-interpret
-                       er-package-aarch64-pc-windows-msvc.tar.gz
-
-name                 : open-interpreter-package-aarch64-pc-windows-msvc.tar.zst
-size                 : 179407693
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/open-interpret
-                       er-package-aarch64-pc-windows-msvc.tar.zst
-
-name                 : open-interpreter-package-aarch64-unknown-linux-musl.tar.gz
-size                 : 235271036
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/open-interpret
-                       er-package-aarch64-unknown-linux-musl.tar.gz
-
-name                 : open-interpreter-package-aarch64-unknown-linux-musl.tar.zst
-size                 : 170959825
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/open-interpret
-                       er-package-aarch64-unknown-linux-musl.tar.zst
-
-name                 : open-interpreter-package-x86_64-apple-darwin.tar.gz
-size                 : 237125231
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/open-interpret
-                       er-package-x86_64-apple-darwin.tar.gz
-
-name                 : open-interpreter-package-x86_64-apple-darwin.tar.zst
-size                 : 170761944
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/open-interpret
-                       er-package-x86_64-apple-darwin.tar.zst
-
-name                 : open-interpreter-package-x86_64-pc-windows-msvc.tar.gz
-size                 : 262033116
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/open-interpret
-                       er-package-x86_64-pc-windows-msvc.tar.gz
-
-name                 : open-interpreter-package-x86_64-pc-windows-msvc.tar.zst
-size                 : 194334069
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/open-interpret
-                       er-package-x86_64-pc-windows-msvc.tar.zst
-
-name                 : open-interpreter-package-x86_64-unknown-linux-musl.tar.gz
-size                 : 252279820
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/open-interpret
-                       er-package-x86_64-unknown-linux-musl.tar.gz
-
-name                 : open-interpreter-package-x86_64-unknown-linux-musl.tar.zst
-size                 : 181665624
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/open-interpret
-                       er-package-x86_64-unknown-linux-musl.tar.zst
-
-name                 : openai_codex_cli_bin-0.0.60-py3-none-macosx_10_9_x86_64.whl
-size                 : 131552758
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/openai_codex_c
-                       li_bin-0.0.60-py3-none-macosx_10_9_x86_64.whl
-
-name                 : openai_codex_cli_bin-0.0.60-py3-none-macosx_11_0_arm64.whl
-size                 : 123449512
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/openai_codex_c
-                       li_bin-0.0.60-py3-none-macosx_11_0_arm64.whl
-
-name                 : openai_codex_cli_bin-0.0.60-py3-none-manylinux_2_17_aarch64.whl
-size                 : 131277969
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/openai_codex_c
-                       li_bin-0.0.60-py3-none-manylinux_2_17_aarch64.whl
-
-name                 : openai_codex_cli_bin-0.0.60-py3-none-manylinux_2_17_x86_64.whl
-size                 : 140668631
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/openai_codex_c
-                       li_bin-0.0.60-py3-none-manylinux_2_17_x86_64.whl
-
-name                 : openai_codex_cli_bin-0.0.60-py3-none-win_amd64.whl
-size                 : 150197548
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/openai_codex_c
-                       li_bin-0.0.60-py3-none-win_amd64.whl
-
-name                 : openai_codex_cli_bin-0.0.60-py3-none-win_arm64.whl
-size                 : 138632202
-browser_download_url : https://github.com/openinterpreter/openinterpreter/releases/download/rust-v0.0.60/openai_codex_c
-                       li_bin-0.0.60-py3-none-win_arm64.whl
-
+PS C:\WINDOWS\System32> $release.assets | Format-Table name, size, browser_download_url -Wrap
+
+name                                                                  size browser_download_url
+----                                                                  ---- --------------------
+bwrap-aarch64-unknown-linux-musl.sigstore                             9013 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/bwrap-
+                                                                           aarch64-unknown-linux-musl.sigstore
+bwrap-aarch64-unknown-linux-musl.tar.gz                             254929 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/bwrap-
+                                                                           aarch64-unknown-linux-musl.tar.gz
+bwrap-aarch64-unknown-linux-musl.zst                                231254 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/bwrap-
+                                                                           aarch64-unknown-linux-musl.zst
+bwrap-x86_64-unknown-linux-musl.sigstore                              9021 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/bwrap-
+                                                                           x86_64-unknown-linux-musl.sigstore
+bwrap-x86_64-unknown-linux-musl.tar.gz                              261611 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/bwrap-
+                                                                           x86_64-unknown-linux-musl.tar.gz
+bwrap-x86_64-unknown-linux-musl.zst                                 237743 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/bwrap-
+                                                                           x86_64-unknown-linux-musl.zst
+codex-aarch64-apple-darwin.dmg                                   172234121 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           aarch64-apple-darwin.dmg
+codex-aarch64-apple-darwin.tar.gz                                 98820396 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           aarch64-apple-darwin.tar.gz
+codex-aarch64-apple-darwin.zst                                    70763151 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           aarch64-apple-darwin.zst
+codex-aarch64-pc-windows-msvc.exe                                286077440 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           aarch64-pc-windows-msvc.exe
+codex-aarch64-pc-windows-msvc.exe.tar.gz                         102557867 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           aarch64-pc-windows-msvc.exe.tar.gz
+codex-aarch64-pc-windows-msvc.exe.zip                            149944732 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           aarch64-pc-windows-msvc.exe.zip
+codex-aarch64-pc-windows-msvc.exe.zst                             75928878 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           aarch64-pc-windows-msvc.exe.zst
+codex-aarch64-unknown-linux-musl.sigstore                             9021 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           aarch64-unknown-linux-musl.sigstore
+codex-aarch64-unknown-linux-musl.tar.gz                          104072227 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           aarch64-unknown-linux-musl.tar.gz
+codex-aarch64-unknown-linux-musl.zst                              75014159 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           aarch64-unknown-linux-musl.zst
+codex-app-server-aarch64-apple-darwin.tar.gz                      75605107 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           app-server-aarch64-apple-darwin.tar.gz
+codex-app-server-aarch64-apple-darwin.zst                         53338709 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           app-server-aarch64-apple-darwin.zst
+codex-app-server-aarch64-pc-windows-msvc.exe                     218390528 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           app-server-aarch64-pc-windows-msvc.exe
+codex-app-server-aarch64-pc-windows-msvc.exe.tar.gz               78563898 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           app-server-aarch64-pc-windows-msvc.exe.tar.g
+                                                                           z
+codex-app-server-aarch64-pc-windows-msvc.exe.zip                  76506272 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           app-server-aarch64-pc-windows-msvc.exe.zip
+codex-app-server-aarch64-pc-windows-msvc.exe.zst                  57533573 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           app-server-aarch64-pc-windows-msvc.exe.zst
+codex-app-server-aarch64-unknown-linux-musl.sigstore                  9021 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           app-server-aarch64-unknown-linux-musl.sigsto
+                                                                           re
+codex-app-server-aarch64-unknown-linux-musl.tar.gz                80298203 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           app-server-aarch64-unknown-linux-musl.tar.gz
+codex-app-server-aarch64-unknown-linux-musl.zst                   57356041 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           app-server-aarch64-unknown-linux-musl.zst
+codex-app-server-package-aarch64-apple-darwin.tar.gz             100232832 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           app-server-package-aarch64-apple-darwin.tar.
+                                                                           gz
+codex-app-server-package-aarch64-apple-darwin.tar.zst             71810576 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           app-server-package-aarch64-apple-darwin.tar.
+                                                                           zst
+codex-app-server-package-aarch64-pc-windows-msvc.tar.gz          114683537 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           app-server-package-aarch64-pc-windows-msvc.t
+                                                                           ar.gz
+codex-app-server-package-aarch64-pc-windows-msvc.tar.zst          85054690 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           app-server-package-aarch64-pc-windows-msvc.t
+                                                                           ar.zst
+codex-app-server-package-aarch64-unknown-linux-musl.tar.gz       107525177 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           app-server-package-aarch64-unknown-linux-mus
+                                                                           l.tar.gz
+codex-app-server-package-aarch64-unknown-linux-musl.tar.zst       78282235 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           app-server-package-aarch64-unknown-linux-mus
+                                                                           l.tar.zst
+codex-app-server-package-x86_64-apple-darwin.tar.gz              106536349 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           app-server-package-x86_64-apple-darwin.tar.g
+                                                                           z
+codex-app-server-package-x86_64-apple-darwin.tar.zst              76498512 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           app-server-package-x86_64-apple-darwin.tar.z
+                                                                           st
+codex-app-server-package-x86_64-pc-windows-msvc.tar.gz           123878851 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           app-server-package-x86_64-pc-windows-msvc.ta
+                                                                           r.gz
+codex-app-server-package-x86_64-pc-windows-msvc.tar.zst           92100311 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           app-server-package-x86_64-pc-windows-msvc.ta
+                                                                           r.zst
+codex-app-server-package-x86_64-unknown-linux-musl.tar.gz        115111960 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           app-server-package-x86_64-unknown-linux-musl
+                                                                           .tar.gz
+codex-app-server-package-x86_64-unknown-linux-musl.tar.zst        82747793 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           app-server-package-x86_64-unknown-linux-musl
+                                                                           .tar.zst
+codex-app-server-x86_64-apple-darwin.tar.gz                       80555273 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           app-server-x86_64-apple-darwin.tar.gz
+codex-app-server-x86_64-apple-darwin.zst                          56978527 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           app-server-x86_64-apple-darwin.zst
+codex-app-server-x86_64-pc-windows-msvc.exe                      259004928 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           app-server-x86_64-pc-windows-msvc.exe
+codex-app-server-x86_64-pc-windows-msvc.exe.tar.gz                85794088 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           app-server-x86_64-pc-windows-msvc.exe.tar.gz
+codex-app-server-x86_64-pc-windows-msvc.exe.zip                   83008199 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           app-server-x86_64-pc-windows-msvc.exe.zip
+codex-app-server-x86_64-pc-windows-msvc.exe.zst                   62730481 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           app-server-x86_64-pc-windows-msvc.exe.zst
+codex-app-server-x86_64-unknown-linux-musl.sigstore                   9021 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           app-server-x86_64-unknown-linux-musl.sigstor
+                                                                           e
+codex-app-server-x86_64-unknown-linux-musl.tar.gz                 86195736 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           app-server-x86_64-unknown-linux-musl.tar.gz
+codex-app-server-x86_64-unknown-linux-musl.zst                    60651228 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           app-server-x86_64-unknown-linux-musl.zst
+codex-code-mode-host-aarch64-apple-darwin.tar.gz                  22606526 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           code-mode-host-aarch64-apple-darwin.tar.gz
+codex-code-mode-host-aarch64-apple-darwin.zst                     16830856 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           code-mode-host-aarch64-apple-darwin.zst
+codex-code-mode-host-aarch64-pc-windows-msvc.exe                  67656704 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           code-mode-host-aarch64-pc-windows-msvc.exe
+codex-code-mode-host-aarch64-pc-windows-msvc.exe.tar.gz           26606139 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           code-mode-host-aarch64-pc-windows-msvc.exe.t
+                                                                           ar.gz
+codex-code-mode-host-aarch64-pc-windows-msvc.exe.zip              25824844 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           code-mode-host-aarch64-pc-windows-msvc.exe.z
+                                                                           ip
+codex-code-mode-host-aarch64-pc-windows-msvc.exe.zst              20425155 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           code-mode-host-aarch64-pc-windows-msvc.exe.z
+                                                                           st
+codex-code-mode-host-aarch64-unknown-linux-musl.sigstore              9021 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           code-mode-host-aarch64-unknown-linux-musl.si
+                                                                           gstore
+codex-code-mode-host-aarch64-unknown-linux-musl.tar.gz            24881625 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           code-mode-host-aarch64-unknown-linux-musl.ta
+                                                                           r.gz
+codex-code-mode-host-aarch64-unknown-linux-musl.zst               18988126 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           code-mode-host-aarch64-unknown-linux-musl.zs
+                                                                           t
+codex-code-mode-host-x86_64-apple-darwin.tar.gz                   23814001 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           code-mode-host-x86_64-apple-darwin.tar.gz
+codex-code-mode-host-x86_64-apple-darwin.zst                      17746997 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           code-mode-host-x86_64-apple-darwin.zst
+codex-code-mode-host-x86_64-pc-windows-msvc.exe                   72366592 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           code-mode-host-x86_64-pc-windows-msvc.exe
+codex-code-mode-host-x86_64-pc-windows-msvc.exe.tar.gz            27906177 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           code-mode-host-x86_64-pc-windows-msvc.exe.ta
+                                                                           r.gz
+codex-code-mode-host-x86_64-pc-windows-msvc.exe.zip               27106446 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           code-mode-host-x86_64-pc-windows-msvc.exe.zi
+                                                                           p
+codex-code-mode-host-x86_64-pc-windows-msvc.exe.zst               21582237 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           code-mode-host-x86_64-pc-windows-msvc.exe.zs
+                                                                           t
+codex-code-mode-host-x86_64-unknown-linux-musl.sigstore               9021 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           code-mode-host-x86_64-unknown-linux-musl.sig
+                                                                           store
+codex-code-mode-host-x86_64-unknown-linux-musl.tar.gz             26221437 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           code-mode-host-x86_64-unknown-linux-musl.tar
+                                                                           .gz
+codex-code-mode-host-x86_64-unknown-linux-musl.zst                19814386 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           code-mode-host-x86_64-unknown-linux-musl.zst
+codex-command-runner-aarch64-pc-windows-msvc.exe                   7258624 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           command-runner-aarch64-pc-windows-msvc.exe
+codex-command-runner-aarch64-pc-windows-msvc.exe.tar.gz            2702886 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           command-runner-aarch64-pc-windows-msvc.exe.t
+                                                                           ar.gz
+codex-command-runner-aarch64-pc-windows-msvc.exe.zip               2622472 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           command-runner-aarch64-pc-windows-msvc.exe.z
+                                                                           ip
+codex-command-runner-aarch64-pc-windows-msvc.exe.zst               2081116 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           command-runner-aarch64-pc-windows-msvc.exe.z
+                                                                           st
+codex-command-runner-x86_64-pc-windows-msvc.exe                    8111616 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           command-runner-x86_64-pc-windows-msvc.exe
+codex-command-runner-x86_64-pc-windows-msvc.exe.tar.gz             2940070 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           command-runner-x86_64-pc-windows-msvc.exe.ta
+                                                                           r.gz
+codex-command-runner-x86_64-pc-windows-msvc.exe.zip                2847977 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           command-runner-x86_64-pc-windows-msvc.exe.zi
+                                                                           p
+codex-command-runner-x86_64-pc-windows-msvc.exe.zst                2272961 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           command-runner-x86_64-pc-windows-msvc.exe.zs
+                                                                           t
+codex-package-aarch64-apple-darwin.tar.gz                        131457525 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           package-aarch64-apple-darwin.tar.gz
+codex-package-aarch64-apple-darwin.tar.zst                        95536472 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           package-aarch64-apple-darwin.tar.zst
+codex-package-aarch64-pc-windows-msvc.tar.gz                     145714895 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           package-aarch64-pc-windows-msvc.tar.gz
+codex-package-aarch64-pc-windows-msvc.tar.zst                    108890655 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           package-aarch64-pc-windows-msvc.tar.zst
+codex-package-aarch64-unknown-linux-musl.tar.gz                  140890386 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           package-aarch64-unknown-linux-musl.tar.gz
+codex-package-aarch64-unknown-linux-musl.tar.gz.sigstore              9021 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           package-aarch64-unknown-linux-musl.tar.gz.si
+                                                                           gstore
+codex-package-aarch64-unknown-linux-musl.tar.zst                 103280400 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           package-aarch64-unknown-linux-musl.tar.zst
+codex-package-aarch64-unknown-linux-musl.tar.zst.sigstore             9021 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           package-aarch64-unknown-linux-musl.tar.zst.s
+                                                                           igstore
+codex-package-x86_64-apple-darwin.tar.gz                         139955533 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           package-x86_64-apple-darwin.tar.gz
+codex-package-x86_64-apple-darwin.tar.zst                        101769009 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           package-x86_64-apple-darwin.tar.zst
+codex-package-x86_64-pc-windows-msvc.tar.gz                      157983885 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           package-x86_64-pc-windows-msvc.tar.gz
+codex-package-x86_64-pc-windows-msvc.tar.zst                     118134882 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           package-x86_64-pc-windows-msvc.tar.zst
+codex-package-x86_64-unknown-linux-musl.tar.gz                   150407317 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           package-x86_64-unknown-linux-musl.tar.gz
+codex-package-x86_64-unknown-linux-musl.tar.gz.sigstore               9033 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           package-x86_64-unknown-linux-musl.tar.gz.sig
+                                                                           store
+codex-package-x86_64-unknown-linux-musl.tar.zst                  109315971 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           package-x86_64-unknown-linux-musl.tar.zst
+codex-package-x86_64-unknown-linux-musl.tar.zst.sigstore              9021 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           package-x86_64-unknown-linux-musl.tar.zst.si
+                                                                           gstore
+codex-package_SHA256SUMS                                              2121 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           package_SHA256SUMS
+codex-responses-api-proxy-aarch64-apple-darwin.tar.gz              2465746 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           responses-api-proxy-aarch64-apple-darwin.tar
+                                                                           .gz
+codex-responses-api-proxy-aarch64-apple-darwin.zst                 1984574 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           responses-api-proxy-aarch64-apple-darwin.zst
+codex-responses-api-proxy-aarch64-pc-windows-msvc.exe              5427712 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           responses-api-proxy-aarch64-pc-windows-msvc.
+                                                                           exe
+codex-responses-api-proxy-aarch64-pc-windows-msvc.exe.tar.gz       2411751 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           responses-api-proxy-aarch64-pc-windows-msvc.
+                                                                           exe.tar.gz
+codex-responses-api-proxy-aarch64-pc-windows-msvc.exe.zip          2349516 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           responses-api-proxy-aarch64-pc-windows-msvc.
+                                                                           exe.zip
+codex-responses-api-proxy-aarch64-pc-windows-msvc.exe.zst          1974257 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           responses-api-proxy-aarch64-pc-windows-msvc.
+                                                                           exe.zst
+codex-responses-api-proxy-aarch64-unknown-linux-musl.sigstore         9021 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           responses-api-proxy-aarch64-unknown-linux-mu
+                                                                           sl.sigstore
+codex-responses-api-proxy-aarch64-unknown-linux-musl.tar.gz        5129521 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           responses-api-proxy-aarch64-unknown-linux-mu
+                                                                           sl.tar.gz
+codex-responses-api-proxy-aarch64-unknown-linux-musl.zst           4363590 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           responses-api-proxy-aarch64-unknown-linux-mu
+                                                                           sl.zst
+codex-responses-api-proxy-x86_64-apple-darwin.tar.gz               2593443 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           responses-api-proxy-x86_64-apple-darwin.tar.
+                                                                           gz
+codex-responses-api-proxy-x86_64-apple-darwin.zst                  2084443 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           responses-api-proxy-x86_64-apple-darwin.zst
+codex-responses-api-proxy-x86_64-pc-windows-msvc.exe               6121472 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           responses-api-proxy-x86_64-pc-windows-msvc.e
+                                                                           xe
+codex-responses-api-proxy-x86_64-pc-windows-msvc.exe.tar.gz        2561880 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           responses-api-proxy-x86_64-pc-windows-msvc.e
+                                                                           xe.tar.gz
+codex-responses-api-proxy-x86_64-pc-windows-msvc.exe.zip           2486590 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           responses-api-proxy-x86_64-pc-windows-msvc.e
+                                                                           xe.zip
+codex-responses-api-proxy-x86_64-pc-windows-msvc.exe.zst           2097600 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           responses-api-proxy-x86_64-pc-windows-msvc.e
+                                                                           xe.zst
+codex-responses-api-proxy-x86_64-unknown-linux-musl.sigstore          9021 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           responses-api-proxy-x86_64-unknown-linux-mus
+                                                                           l.sigstore
+codex-responses-api-proxy-x86_64-unknown-linux-musl.tar.gz         5089120 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           responses-api-proxy-x86_64-unknown-linux-mus
+                                                                           l.tar.gz
+codex-responses-api-proxy-x86_64-unknown-linux-musl.zst            4016835 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           responses-api-proxy-x86_64-unknown-linux-mus
+                                                                           l.zst
+codex-symbols-aarch64-apple-darwin-app-server.tar.gz             263903793 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           symbols-aarch64-apple-darwin-app-server.tar.
+                                                                           gz
+codex-symbols-aarch64-apple-darwin.tar.gz                        344591807 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           symbols-aarch64-apple-darwin.tar.gz
+codex-symbols-aarch64-pc-windows-msvc.tar.gz                     567310382 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           symbols-aarch64-pc-windows-msvc.tar.gz
+codex-symbols-aarch64-unknown-linux-musl-app-server.tar.gz       207795290 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           symbols-aarch64-unknown-linux-musl-app-serve
+                                                                           r.tar.gz
+codex-symbols-aarch64-unknown-linux-musl.tar.gz                  269463921 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           symbols-aarch64-unknown-linux-musl.tar.gz
+codex-symbols-x86_64-apple-darwin-app-server.tar.gz              268802152 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           symbols-x86_64-apple-darwin-app-server.tar.g
+                                                                           z
+codex-symbols-x86_64-apple-darwin.tar.gz                         350793962 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           symbols-x86_64-apple-darwin.tar.gz
+codex-symbols-x86_64-pc-windows-msvc.tar.gz                      581397242 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           symbols-x86_64-pc-windows-msvc.tar.gz
+codex-symbols-x86_64-unknown-linux-musl-app-server.tar.gz        200212417 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           symbols-x86_64-unknown-linux-musl-app-server
+                                                                           .tar.gz
+codex-symbols-x86_64-unknown-linux-musl.tar.gz                   259734612 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           symbols-x86_64-unknown-linux-musl.tar.gz
+codex-windows-sandbox-service-aarch64-pc-windows-msvc.exe         45859840 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           windows-sandbox-service-aarch64-pc-windows-m
+                                                                           svc.exe
+codex-windows-sandbox-service-aarch64-pc-windows-msvc.exe.tar.gz  16068644 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           windows-sandbox-service-aarch64-pc-windows-m
+                                                                           svc.exe.tar.gz
+codex-windows-sandbox-service-aarch64-pc-windows-msvc.exe.zip     15663212 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           windows-sandbox-service-aarch64-pc-windows-m
+                                                                           svc.exe.zip
+codex-windows-sandbox-service-aarch64-pc-windows-msvc.exe.zst     11662059 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           windows-sandbox-service-aarch64-pc-windows-m
+                                                                           svc.exe.zst
+codex-windows-sandbox-service-x86_64-pc-windows-msvc.exe          54856704 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           windows-sandbox-service-x86_64-pc-windows-ms
+                                                                           vc.exe
+codex-windows-sandbox-service-x86_64-pc-windows-msvc.exe.tar.gz   17647967 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           windows-sandbox-service-x86_64-pc-windows-ms
+                                                                           vc.exe.tar.gz
+codex-windows-sandbox-service-x86_64-pc-windows-msvc.exe.zip      17148864 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           windows-sandbox-service-x86_64-pc-windows-ms
+                                                                           vc.exe.zip
+codex-windows-sandbox-service-x86_64-pc-windows-msvc.exe.zst      12774057 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           windows-sandbox-service-x86_64-pc-windows-ms
+                                                                           vc.exe.zst
+codex-windows-sandbox-setup-aarch64-pc-windows-msvc.exe           13826048 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           windows-sandbox-setup-aarch64-pc-windows-msv
+                                                                           c.exe
+codex-windows-sandbox-setup-aarch64-pc-windows-msvc.exe.tar.gz     5419916 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           windows-sandbox-setup-aarch64-pc-windows-msv
+                                                                           c.exe.tar.gz
+codex-windows-sandbox-setup-aarch64-pc-windows-msvc.exe.zip        5269324 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           windows-sandbox-setup-aarch64-pc-windows-msv
+                                                                           c.exe.zip
+codex-windows-sandbox-setup-aarch64-pc-windows-msvc.exe.zst        4141762 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           windows-sandbox-setup-aarch64-pc-windows-msv
+                                                                           c.exe.zst
+codex-windows-sandbox-setup-x86_64-pc-windows-msvc.exe            15538176 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           windows-sandbox-setup-x86_64-pc-windows-msvc
+                                                                           .exe
+codex-windows-sandbox-setup-x86_64-pc-windows-msvc.exe.tar.gz      5816805 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           windows-sandbox-setup-x86_64-pc-windows-msvc
+                                                                           .exe.tar.gz
+codex-windows-sandbox-setup-x86_64-pc-windows-msvc.exe.zip         5639855 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           windows-sandbox-setup-x86_64-pc-windows-msvc
+                                                                           .exe.zip
+codex-windows-sandbox-setup-x86_64-pc-windows-msvc.exe.zst         4447566 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           windows-sandbox-setup-x86_64-pc-windows-msvc
+                                                                           .exe.zst
+codex-x86_64-apple-darwin.dmg                                    184535538 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           x86_64-apple-darwin.dmg
+codex-x86_64-apple-darwin.tar.gz                                 105569323 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           x86_64-apple-darwin.tar.gz
+codex-x86_64-apple-darwin.zst                                     75619219 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           x86_64-apple-darwin.zst
+codex-x86_64-pc-windows-msvc.exe                                 339838976 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           x86_64-pc-windows-msvc.exe
+codex-x86_64-pc-windows-msvc.exe.tar.gz                          112174394 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           x86_64-pc-windows-msvc.exe.tar.gz
+codex-x86_64-pc-windows-msvc.exe.zip                             161930113 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           x86_64-pc-windows-msvc.exe.zip
+codex-x86_64-pc-windows-msvc.exe.zst                              82463053 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           x86_64-pc-windows-msvc.exe.zst
+codex-x86_64-unknown-linux-musl.sigstore                              9021 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           x86_64-unknown-linux-musl.sigstore
+codex-x86_64-unknown-linux-musl.tar.gz                           111792426 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           x86_64-unknown-linux-musl.tar.gz
+codex-x86_64-unknown-linux-musl.zst                               79752433 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/codex-
+                                                                           x86_64-unknown-linux-musl.zst
+config-schema.json                                                  221771 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/config
+                                                                           -schema.json
+install.ps1                                                          44432 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/instal
+                                                                           l.ps1
+install.sh                                                           33425 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/instal
+                                                                           l.sh
+open-interpreter-package-aarch64-apple-darwin.tar.gz             222264133 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/open-i
+                                                                           nterpreter-package-aarch64-apple-darwin.tar.
+                                                                           gz
+open-interpreter-package-aarch64-apple-darwin.tar.zst            159977238 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/open-i
+                                                                           nterpreter-package-aarch64-apple-darwin.tar.
+                                                                           zst
+open-interpreter-package-aarch64-pc-windows-msvc.tar.gz          240993782 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/open-i
+                                                                           nterpreter-package-aarch64-pc-windows-msvc.t
+                                                                           ar.gz
+open-interpreter-package-aarch64-pc-windows-msvc.tar.zst         179407693 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/open-i
+                                                                           nterpreter-package-aarch64-pc-windows-msvc.t
+                                                                           ar.zst
+open-interpreter-package-aarch64-unknown-linux-musl.tar.gz       235271036 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/open-i
+                                                                           nterpreter-package-aarch64-unknown-linux-mus
+                                                                           l.tar.gz
+open-interpreter-package-aarch64-unknown-linux-musl.tar.zst      170959825 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/open-i
+                                                                           nterpreter-package-aarch64-unknown-linux-mus
+                                                                           l.tar.zst
+open-interpreter-package-x86_64-apple-darwin.tar.gz              237125231 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/open-i
+                                                                           nterpreter-package-x86_64-apple-darwin.tar.g
+                                                                           z
+open-interpreter-package-x86_64-apple-darwin.tar.zst             170761944 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/open-i
+                                                                           nterpreter-package-x86_64-apple-darwin.tar.z
+                                                                           st
+open-interpreter-package-x86_64-pc-windows-msvc.tar.gz           262033116 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/open-i
+                                                                           nterpreter-package-x86_64-pc-windows-msvc.ta
+                                                                           r.gz
+open-interpreter-package-x86_64-pc-windows-msvc.tar.zst          194334069 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/open-i
+                                                                           nterpreter-package-x86_64-pc-windows-msvc.ta
+                                                                           r.zst
+open-interpreter-package-x86_64-unknown-linux-musl.tar.gz        252279820 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/open-i
+                                                                           nterpreter-package-x86_64-unknown-linux-musl
+                                                                           .tar.gz
+open-interpreter-package-x86_64-unknown-linux-musl.tar.zst       181665624 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/open-i
+                                                                           nterpreter-package-x86_64-unknown-linux-musl
+                                                                           .tar.zst
+openai_codex_cli_bin-0.0.60-py3-none-macosx_10_9_x86_64.whl      131552758 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/openai
+                                                                           _codex_cli_bin-0.0.60-py3-none-macosx_10_9_x
+                                                                           86_64.whl
+openai_codex_cli_bin-0.0.60-py3-none-macosx_11_0_arm64.whl       123449512 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/openai
+                                                                           _codex_cli_bin-0.0.60-py3-none-macosx_11_0_a
+                                                                           rm64.whl
+openai_codex_cli_bin-0.0.60-py3-none-manylinux_2_17_aarch64.whl  131277969 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/openai
+                                                                           _codex_cli_bin-0.0.60-py3-none-manylinux_2_1
+                                                                           7_aarch64.whl
+openai_codex_cli_bin-0.0.60-py3-none-manylinux_2_17_x86_64.whl   140668631 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/openai
+                                                                           _codex_cli_bin-0.0.60-py3-none-manylinux_2_1
+                                                                           7_x86_64.whl
+openai_codex_cli_bin-0.0.60-py3-none-win_amd64.whl               150197548 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/openai
+                                                                           _codex_cli_bin-0.0.60-py3-none-win_amd64.whl
+openai_codex_cli_bin-0.0.60-py3-none-win_arm64.whl               138632202 https://github.com/openinterpreter/openinter
+                                                                           preter/releases/download/rust-v0.0.60/openai
+                                                                           _codex_cli_bin-0.0.60-py3-none-win_arm64.whl
 
 
 PS C:\WINDOWS\System32>
